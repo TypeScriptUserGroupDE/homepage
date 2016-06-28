@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "module": "commonjs",
+    "noEmitOnError": false,
+    "noImplicitAny": false,
+    "removeComments": false,
+    "preserveConstEnums": true,
+    "sourceMap": true
+  },
+  "files": [
+    "./typings/index.d.ts",
+    "typings/main/ambient/node/node.d.ts",
+    "typings/main/ambient/node/browser.d.ts"
+  ]
+}

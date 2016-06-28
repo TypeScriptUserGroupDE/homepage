@@ -1,0 +1,21 @@
+<h1>Single</h1>
+
+<div class="col-md-4">
+    <img class="img-responsive" src="{{ user.avatar_url }}"/>
+</div>
+
+<div class="col-md-8">
+    <ul>
+        <li><h1>Name: {{user.name}}</h1></li>
+        <li><h4>Ort: {{user.city}}</h4></li>
+        <!--<li>{{user.zip}}</li>-->
+        <li>GitHub Profil: {{user.html_url}}</li>
+        <li>Webseite: {{user.website}}</li>
+        <li>Twitter: {{user.twitter}}</li>
+        <li><h4>Beschreibung</h4>
+            <p>{{user.description}}</p></li>
+        <!--<li>{{user.avatar_url}}</li>-->
+        <!--<li><a href="" class="btn btn-default">Image Upload</a></li>-->
+        <a href="" class="btn btn-default">Send Message</a>
+    </ul>
+</div>

@@ -1,0 +1,124 @@
+@import 'bootstrap';
+@import 'variables';
+
+@font-face {
+  font-family: "Lato";
+  src: url('../assets/fonts/lato/Lato-Regular.ttf');
+}
+
+body {
+  font-family: "Lato", sans-serif;
+
+  height: 100%;
+  background-color: #fff;
+}
+
+// because <a (click)="whatever()"></a> does not show pointer
+a {
+  cursor: pointer;
+}
+
+.page-wrapper {
+  //margin: 60px 0;
+}
+
+.banner {
+  padding: 20px 0;
+  font-size: 16px;
+  color: black;
+  text-align: center;
+  //background-color: $light-blue;
+  background-color: white;
+  //background-color: #152740;
+
+  h1 {
+    color: white;
+    margin-bottom: 30px;
+  }
+
+  .banner-content {
+    margin: 20px 0;
+  }
+
+  .banner-actions {
+    margin: 20px 0;
+  }
+
+}
+
+.btn {
+  border-radius: 0;
+  color: white;
+  //background-color: $yellow;
+  background-color: #ff6600;
+
+}
+
+.ng-invalid {
+  border-color: red;
+}
+
+.sebm-google-map-container {
+  height: 900px;
+}
+
+
+main {
+  //height: 65%;
+  background-color: $lighter-grey;
+}
+
+.subfooter {
+  padding: 30px 0;
+  background-color: $lighter-grey;
+}
+
+.footer {
+  color: white;
+  background-color: $blue;
+  padding: 30px 0;
+}
+
+.card {
+  //color: $light-blue;
+  display: block;
+  background-color: white;
+  box-shadow: 1px 1px 10px 2px $dark-grey;
+  border: 1px solid $blue;
+  margin-bottom: 30px;
+  //margin: 5px;
+  //overflow: hidden;
+
+  .card-content {
+    padding: 10px 10px;
+  }
+}
+
+.navbar {
+  margin-bottom: 0;
+}
+
+.navbar-default {
+  background-color: $blue;
+  color: white;
+
+  .navbar-brand {
+    color: white;
+
+    &:hover, &focus {
+      color: $yellow;
+    }
+  }
+
+  .navbar-nav {
+    > li {
+      > a {
+        color: white;
+
+        &:hover, &focus {
+          color: $yellow;
+        }
+      }
+    }
+  }
+}

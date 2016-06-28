@@ -1,0 +1,45 @@
+<div class="col-md-12">
+    <h2>Anmelden</h2>
+</div>
+
+<form [ngFormModel]="form" #userAddForm="ngForm" novalidate>
+    <div class="form-group">
+        <label for="login">Name</label>
+        <input type="text" class="form-control" [(ngModel)]="model.name" required>
+    </div>
+    <div class="form-group">
+        <label for="email">E-Mail (Wird nicht öffentlich angezeigt)</label>
+        <input type="email" class="form-control" [(ngModel)]="model.email" required ngControl="email">
+    </div>
+    <div class="form-group">
+        <label for="website">Website</label>
+        <input type="text" class="form-control" [(ngModel)]="model.website">
+    </div>
+    <div class="form-group">
+        <label for="html_url">GitHub URL</label>
+        <input type="text" class="form-control" [(ngModel)]="model.html_url" required>
+    </div>
+    <div class="form-group">
+        <label for="twitter">Twitter</label>
+        <input type="text" class="form-control" [(ngModel)]="model.twitter">
+    </div>
+    <div class="form-group">
+        <label for="description">Beschreibung</label>
+        <input type="text" class="form-control" [(ngModel)]="model.description">
+    </div>
+    <div class="form-group">
+        <label for="city">Stadt</label>
+        <input type="text" class="form-control" [(ngModel)]="model.city" required ngControl="required">
+    </div>
+    <div class="form-group">
+        <label for="zip">Postleitzahl</label>
+        <input type="number" class="form-control" [(ngModel)]="model.zip" required ngControl="zip">
+    </div>
+
+    <!--todo: how to save technology?-->
+    <div class="form-group">
+        <label for="tec">Technologie</label>
+        <input type="text" class="form-control" [(ngModel)]="model.tec">
+    </div>
+    <button type="submit" (click)="onSubmit()" class="btn btn-default" [disabled]="!userAddForm.form.valid">Speichern</button>
+</form>

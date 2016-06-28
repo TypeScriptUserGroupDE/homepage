@@ -1,0 +1,19 @@
+<div class="row">
+    <div class="col-md-12">
+        <h2>Entwicklerverzeichnis</h2>
+    </div>
+</div>
+<sebm-google-map
+        [latitude]="lat"
+        [longitude]="lng"
+        [zoom]="zoom"
+>
+    <sebm-google-map-circle
+            *ngFor="let marker of markers"
+            [latitude]="marker.lat"
+            [longitude]="marker.lng"
+            [radius]="25000"
+            [fillColor]="'red'"
+    >
+    </sebm-google-map-circle>
+</sebm-google-map>

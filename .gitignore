@@ -1,0 +1,5 @@
+.idea
+*.iml
+
+client/dist
+env_keys.sh
