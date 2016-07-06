@@ -4,11 +4,13 @@ import {RouteParams, Router} from '@angular/router-deprecated';
 import {AuthHttp} from 'angular2-jwt';
 import {User} from '../../components/User';
 import {AuthService} from '../../services/AuthService';
+import {LinkyPipe} from 'angular2-linky';
 
 @Component({
     selector: 'single',
     templateUrl: './routes/single/single.html',
-    providers: [AuthService]
+    providers: [AuthService],
+    pipes: [LinkyPipe]
 })
 
 export class SingleComponent implements OnInit {

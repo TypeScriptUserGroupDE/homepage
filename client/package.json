@@ -21,6 +21,8 @@
     "@angular/upgrade": "2.0.0-rc.3",
     "angular2-google-maps": "^0.12.0",
     "angular2-jwt": "^0.1.16",
+    "angular2-linky": "^1.0.8",
+    "autolinker": "^0.27.0",
     "bootstrap": "^3.3.6",
     "es6-shim": "^0.35.0",
     "gulp-concat": "^2.6.0",

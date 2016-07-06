@@ -13,7 +13,8 @@ import {User} from '../../components/User';
 })
 
 export class ListComponent implements OnInit {
-    users: User[];
+    users:User[];
+    text:string;
 
     constructor(private router:Router,
                 public http:Http,

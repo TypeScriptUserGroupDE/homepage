@@ -54,7 +54,6 @@ gulp.task('build:libs', function () {
         'node_modules/zone.js/dist/zone.js',
         'node_modules/reflect-metadata/Reflect.js',
         'node_modules/systemjs/dist/system.src.js',
-
         'system.config.js'
     ])
     // .pipe(sourcemaps.init())
@@ -79,6 +78,16 @@ gulp.task('copy:libs', function () {
         'node_modules/rxjs/**/*'
     ])
         .pipe(gulp.dest(config.build.vendor + 'rxjs'));
+
+    gulp.src([
+        'node_modules/angular2-linky/**/*'
+    ])
+        .pipe(gulp.dest(config.build.vendor + 'angular2-linky'));
+
+    gulp.src([
+        'node_modules/autolinker/**/*'
+    ])
+        .pipe(gulp.dest(config.build.vendor + 'autolinker'));
 
     return gulp.src([
         'node_modules/@angular/**/*'

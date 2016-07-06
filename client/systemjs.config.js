@@ -4,7 +4,9 @@ var map = {
     'rxjs':                             'lib/rxjs',
     '@angular':                         'lib/@angular',
     'angular2-jwt':                     'lib/angular2-jwt/angular2-jwt.js',
-    'angular2-google-maps':             'lib/angular2-google-maps'
+    'angular2-google-maps':             'lib/angular2-google-maps',
+    'angular2-linky':                   'lib/angular2-linky',
+    'autolinker':                       'lib/autolinker/dist'
 };
 
 // packages tells the System loader how to load when no filename and/or no extension
@@ -12,7 +14,9 @@ var packages = {
     'app':                              {main: 'main', defaultExtension: 'js'},
     'rxjs':                             {defaultExtension: 'js'},
     "angular2-jwt":                     {defaultExtension: 'js'},
-    'angular2-google-maps/core':        {defaultExtension: 'js', main: 'index.js'}
+    'angular2-google-maps/core':        {defaultExtension: 'js', main: 'index.js'},
+    'angular2-linky':                   {defaultExtension: 'js', main: 'index.js'},
+    'autolinker':                       {defaultExtension: 'js', main: 'Autolinker.min.js'}
 };
 
 var packageNames = [
