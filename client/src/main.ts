@@ -1,5 +1,4 @@
 ///<reference path="../typings/index.d.ts"/>
-
 import {bootstrap}    from '@angular/platform-browser-dynamic';
 import {provide} from "@angular/core";
 import {AppComponent} from './app.component';
@@ -29,7 +28,7 @@ bootstrap(AppComponent, [
     GOOGLE_MAPS_PROVIDERS,
     provide(LocationStrategy, {useClass: HashLocationStrategy}),
     provide(AuthHttp, {
-        useFactory: (http) => {
+        useFactory: (http:Http) => {
             return new AuthHttp(new AuthConfig({
                 headerName: 'x-access-token',
                 headerPrefix: '',

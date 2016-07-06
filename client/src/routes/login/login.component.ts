@@ -6,7 +6,7 @@ import {AppConfig} from './../../config/config';
 @Component({
     selector: 'login',
     templateUrl: './routes/login/login.html',
-    provides: []
+    providers: []
 })
 
 export class LoginComponent implements OnInit {

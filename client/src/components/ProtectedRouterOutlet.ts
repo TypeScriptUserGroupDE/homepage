@@ -1,6 +1,5 @@
 import {Directive, Attribute, ViewContainerRef, DynamicComponentLoader} from '@angular/core';
 import {Router, RouterOutlet, ComponentInstruction} from '@angular/router-deprecated';
-// import {ListComponent} from '../list/ListComponent';
 
 @Directive({
     selector: 'router-outlet'
@@ -17,16 +16,19 @@ export class ProtectedRouterOutlet extends RouterOutlet {
         // The Boolean following each route below
         // denotes whether the route requires authentication to view
         this.publicRoutes = {
-            'accessToken': true,
-            'single': false,
-            'list': false,
-            'user': true
+            'Callback': true,
+            'Single': true,
+            'UserAdd': false,
+            'UserMessage': false,
+            'Map': true,
+            'List': true,
+            'User': true
         };
     }
 
     activate(instruction: ComponentInstruction) {
-        let url = instruction.urlPath;
-        if (!this.publicRoutes[url] && !localStorage.getItem('token')) {
+        let route = instruction.routeName;
+        if (!this.publicRoutes[route] && !localStorage.getItem('token')) {
             this.parentRouter.navigateByUrl('/list');
         }
         return super.activate(instruction);

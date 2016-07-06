@@ -4,7 +4,7 @@ import {Http} from '@angular/http';
 import {Headers, RequestOptions} from '@angular/http';
 import {RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS, Router} from '@angular/router-deprecated';
 import {AuthHttp} from 'angular2-jwt';
-import {User} from '../user';
+import {User} from '../../../components/User';
 
 @Component({
     selector: 'user-add',
@@ -76,9 +76,4 @@ export class UserAddComponent implements OnInit {
             )
         ;
     }
-
-
-    // onClick() {
-    //     this.router.navigate(['Single']);
-    // }
 }

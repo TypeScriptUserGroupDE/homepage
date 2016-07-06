@@ -3,7 +3,7 @@
     "target": "ES5",
     "module": "commonjs",
     "noEmitOnError": false,
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "removeComments": false,
     "preserveConstEnums": true,
     "sourceMap": true

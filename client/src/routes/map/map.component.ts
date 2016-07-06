@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Http} from '@angular/http';
-import {RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS, Router} from '@angular/router-deprecated';
+import {ROUTER_DIRECTIVES, Router} from '@angular/router-deprecated';
 import {AuthHttp} from 'angular2-jwt';
 import {GOOGLE_MAPS_DIRECTIVES} from 'angular2-google-maps/core';
 
@@ -13,38 +13,34 @@ import {GOOGLE_MAPS_DIRECTIVES} from 'angular2-google-maps/core';
 
 export class MapComponent implements OnInit {
 
-    markers = [];
+    markers: Marker[];
 
     constructor(private router:Router,
                 public http:Http,
                 public authHttp:AuthHttp) {
-        console.log('MapCtrl');
     }
 
     ngOnInit() {
         this.http.get('/api/user/get/map')
             .map(res => res.json())
             .subscribe(
-                data => {
-                    this.markers = data;
-                    console.log(this.markers);
-                },
+                data => this.markers = data,
                 error => console.log(error)
-            );
+            )
+        ;
     }
 
-
-    //config map zoom level and inital center corrdinates
+    //config map zoom level and inital center map on coordinates
     zoom:number = 7;
     lat:number = 51.165691;
     lng:number = 10.451526;
 
-    onClick(id) {
+    onClick(id:string) {
         this.router.navigate(['Single', {userid: id}]);
     }
 }
 
-interface marker {
+interface Marker {
     lat:number;
     lng:number;
     label?:string;

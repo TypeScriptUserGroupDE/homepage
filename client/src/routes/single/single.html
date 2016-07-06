@@ -16,6 +16,6 @@
             <p>{{user.description}}</p></li>
         <!--<li>{{user.avatar_url}}</li>-->
         <!--<li><a href="" class="btn btn-default">Image Upload</a></li>-->
-        <a href="" class="btn btn-default">Send Message</a>
+        <button [disabled]="!isLoggedIn()" class="btn btn-default" (click)="sendMessage(user._id)">{{ sendMessageText }}</button>
     </ul>
 </div>

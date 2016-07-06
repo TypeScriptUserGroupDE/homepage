@@ -2,7 +2,8 @@ import express = require("express");
 import jwt = require("jsonwebtoken");
 import _ = require("lodash/index");
 import request = require("request-promise");
-import {model as User} from "./../models/User";
+import {model as UserModel} from "./../models/User";
+import {User} from "./../models/User";
 import {PublicUser} from "../common/interfaces/PublicUser";
 import Config from "../config/config";
 import RequestPromise = require("request-promise");
@@ -22,7 +23,7 @@ class AuthCtrl {
         }
 
         AuthCtrl.getToken(code)
-            .then(function (req) {
+            .then(function (req:any) {
 
                     if (req.access_token) {
                         var token = req.access_token;
@@ -33,7 +34,7 @@ class AuthCtrl {
                                 console.log('err');
                             })
                             .then(function (req) {
-                                User.findOneAndUpdate({'github_id': req.id}, {$set: {'github_token': token}}, {'new': true}, next);
+                                UserModel.findOneAndUpdate({'github_id': req.id}, {$set: {'github_token': token}}, {'new': true}, next);
 
                                 function next(err:any, user:User) {
 
@@ -125,7 +126,7 @@ class AuthCtrl {
         req.github_token = token;
         req.active = false;
 
-        var user = new User(req);
+        var user = new UserModel(req);
         user.save(done);
 
         var done = (err:any) => {

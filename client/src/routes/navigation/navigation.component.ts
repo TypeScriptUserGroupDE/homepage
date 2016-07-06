@@ -5,13 +5,13 @@ import {ROUTER_DIRECTIVES, Router} from '@angular/router-deprecated';
 import {AuthService} from '../../services/AuthService';
 
 @Component({
-    selector: 'header',
-    templateUrl: './routes/header/header.html',
+    selector: 'navigation',
+    templateUrl: './routes/navigation/navigation.html',
     directives: [ROUTER_DIRECTIVES],
     providers: [HTTP_PROVIDERS, AuthService]
 })
 
-export class HeaderComponent  extends AuthService implements OnInit {
+export class NavigationComponent extends AuthService implements OnInit {
 
     constructor(public http:Http,
                 public authHttp:AuthHttp,

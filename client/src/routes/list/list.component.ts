@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Http} from '@angular/http';
-import {RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS, Router} from '@angular/router-deprecated';
+import {ROUTER_DIRECTIVES, Router} from '@angular/router-deprecated';
 import {AuthHttp} from 'angular2-jwt';
 import {GOOGLE_MAPS_DIRECTIVES} from 'angular2-google-maps/core';
+import {User} from '../../components/User';
 
 @Component({
     selector: 'list',
@@ -12,13 +13,12 @@ import {GOOGLE_MAPS_DIRECTIVES} from 'angular2-google-maps/core';
 })
 
 export class ListComponent implements OnInit {
+    users: User[];
 
     constructor(private router:Router,
                 public http:Http,
                 public authHttp:AuthHttp) {
     }
-
-    users = [];
 
     ngOnInit() {
         this.http.get('/api/user/get/all')
@@ -29,7 +29,7 @@ export class ListComponent implements OnInit {
             );
     }
 
-    onClick(id) {
+    onClick(id:string) {
         this.router.navigate(['Single', {userid: id}]);
     }
 }

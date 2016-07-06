@@ -3,8 +3,15 @@ import jwt = require("jsonwebtoken");
 import _ = require("lodash/index");
 import {JwtRequest} from "./../common/interfaces/JwtRequest";
 import request = require("request-promise");
-import {model as User} from "./../models/User";
+import {model as UserModel} from "./../models/User";
+import {User} from "./../models/User";
+import Config from "../config/config";
 
+// todo: use IJwtRequest
+interface location {
+    lat: string,
+    lng: string
+}
 
 class UserCtrl {
 
@@ -17,11 +24,12 @@ class UserCtrl {
     protectedRoutes(app:express.Application, baseRoute:string) {
         app.put(baseRoute + "/update", this.updateUser);
         app.get(baseRoute + "/get/form", this.getUserForm);
+        app.post(baseRoute + "/send/mail", this.sendMessage);
     }
 
     getSingleUser(req:JwtRequest, res:express.Response) {
 
-        User.findOne({$and: [{"_id": req.body.id}, {"active": true}]})
+        UserModel.findOne({$and: [{"_id": req.body.id}, {"active": true}]})
             .exec(done);
 
         function done(err:any, result:User) {
@@ -43,7 +51,7 @@ class UserCtrl {
     // this allows an authenticated user to get his own data, if he still is active
     getUserForm(req:JwtRequest, res:express.Response) {
 
-        User.findOne()
+        UserModel.findOne()
             .where({"github_id": req.decoded.github_id})
             .exec(done);
 
@@ -61,7 +69,7 @@ class UserCtrl {
 
     getUsers(req:express.Request, res:express.Response) {
 
-        User
+        UserModel
             .find({"active": true})
             .exec(done);
 
@@ -78,9 +86,9 @@ class UserCtrl {
     }
 
     getUserCoordinates(req:express.Request, res:express.Response) {
-        var coordinates = [];
+        var coordinates:location[] = [];
 
-        User
+        UserModel
             .find({"active": true})
             .exec(done);
 
@@ -103,13 +111,55 @@ class UserCtrl {
         }
     }
 
+    sendMessage(req:JwtRequest, res:express.Response) {
+        console.log(req.body);
+        console.log(Config.mailgun_api_key);
+
+        UserModel
+            .findOne({"_id": req.body.id})
+            .exec(done);
+
+        function done(err:any, result:User):any {
+            if (err) {
+                console.log("err");
+                return
+            }
+            if (result) {
+                console.log(result);
+                let headers = {
+                    Authorization: 'Basic ' + new Buffer('api:' + Config.mailgun_api_key).toString("base64")
+                };
+
+                let payload = {
+                    from: Config.mailgun_sender_email,
+                    //todo: override to not spam anyone
+                    // to: 'strauss@w11k.de',
+                    to: result.email,
+                    subject: req.body.subject,
+                    text: req.body.message
+                };
+
+                request.post({
+                    url: 'https://api.mailgun.net/v3/' + Config.mailgun_domain + '/messages',
+                    headers: headers,
+                    formData: payload
+                })
+                    .then(function (data:any) {
+                        console.log(data);
+                    });
+            }
+
+        }
+    }
+
+
     updateUser(req:JwtRequest, res:express.Response) {
 
         UserCtrl.getCoordinates(req.body.city)
-            .then(function (result) {
+            .then(function (result:any) {
                 result = JSON.parse(result);
 
-                User.findOneAndUpdate({
+                UserModel.findOneAndUpdate({
                     "github_id": req.decoded.github_id
                 }, {
                     "name": req.body.name,
@@ -139,7 +189,8 @@ class UserCtrl {
         }
     }
 
-    static getCoordinates(location:string):any {
+    static
+    getCoordinates(location:string):any {
         return request.get('http://maps.googleapis.com/maps/api/geocode/json?address=' + encodeURIComponent(location))
     }
 
