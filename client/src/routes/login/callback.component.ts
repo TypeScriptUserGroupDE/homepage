@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Http, Headers, HTTP_PROVIDERS, Response, RequestOptions} from '@angular/http';
-import {RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS, Router, RouteParams} from '@angular/router-deprecated';
-import {Observable}     from 'rxjs/Observable';
+import {ROUTER_DIRECTIVES, Router, ActivatedRoute} from '@angular/router';
 
 @Component({
     selector: 'callback',
@@ -11,16 +10,23 @@ import {Observable}     from 'rxjs/Observable';
 })
 
 export class CallbackComponent implements OnInit {
+    code:string;
 
-    constructor(private routeParams:RouteParams,
+
+    constructor(private route:ActivatedRoute,
                 private http:Http,
                 private router:Router) {
     }
 
     ngOnInit() {
-        console.log(this.routeParams.get('code'));
-        let code = this.routeParams.get('code');
-        let body = JSON.stringify({code});
+        this.router
+            .routerState
+            .queryParams
+            .subscribe(
+                params => this.code = params['code']
+            );
+
+        let body = JSON.stringify({code: this.code});
 
         let headers = new Headers({'Content-Type': 'application/json'});
         let options = new RequestOptions({headers: headers});
@@ -35,9 +41,9 @@ export class CallbackComponent implements OnInit {
                     console.log(data);
                     localStorage.setItem('token', data.token);
                     if (data.user.active === false) {
-                        this.router.navigate(['UserAdd']);
+                        this.router.navigateByUrl('/user/add');
                     } else {
-                        this.router.navigate(['List']);
+                        this.router.navigateByUrl('/list');
                     }
                 },
                 error => console.log(error),

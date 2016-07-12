@@ -1,17 +1,27 @@
 import {Injectable} from '@angular/core';
 import {Http, Headers, HTTP_PROVIDERS, RequestOptions} from '@angular/http';
 import {AuthHttp, tokenNotExpired} from 'angular2-jwt';
-import {ROUTER_DIRECTIVES, Router} from '@angular/router-deprecated';
+import {Router, CanActivate} from '@angular/router';
 import {AppConfig} from './../config/config';
 
 @Injectable()
 
-export class AuthService {
+export class AuthService implements CanActivate {
 
     constructor(public http:Http,
                 public authHttp:AuthHttp,
                 public router:Router) {
-        
+
+    }
+
+    canActivate() {
+        if (this.isLoggedIn() === true) {
+            console.log(true);
+            return true;
+        } else {
+            console.log(false);
+            return false
+        }
     }
 
     isLoggedIn() {
@@ -24,7 +34,7 @@ export class AuthService {
 
     logout() {
         window.localStorage.removeItem('token');
-        this.router.navigate(['List']);
+        this.router.navigate(['/list']);
     }
 
     login() {

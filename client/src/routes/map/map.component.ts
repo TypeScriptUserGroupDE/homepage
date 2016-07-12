@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Http} from '@angular/http';
-import {ROUTER_DIRECTIVES, Router} from '@angular/router-deprecated';
+import {ROUTER_DIRECTIVES, Router} from '@angular/router';
 import {AuthHttp} from 'angular2-jwt';
 import {GOOGLE_MAPS_DIRECTIVES} from 'angular2-google-maps/core';
 

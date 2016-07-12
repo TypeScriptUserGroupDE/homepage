@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Http, HTTP_PROVIDERS} from '@angular/http';
 import {AuthHttp, tokenNotExpired} from 'angular2-jwt';
-import {ROUTER_DIRECTIVES, Router} from '@angular/router-deprecated';
+import {ROUTER_DIRECTIVES, Router} from '@angular/router';
 import {AuthService} from '../../services/AuthService';
 
 @Component({

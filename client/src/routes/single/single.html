@@ -12,10 +12,13 @@
         <li>GitHub Profil: {{user.html_url}}</li>
         <li>Webseite: {{user.website}}</li>
         <li>Twitter: {{user.twitter}}</li>
-        <li><h4>Beschreibung</h4>
-            <p innerHTML="{{user.description | linky}}"></p></li>
+        <li>
+            <h4>Beschreibung</h4>
+            <p class="description" innerHTML="{{user.description | linky}}"></p>
+        </li>
         <!--<li>{{user.avatar_url}}</li>-->
         <!--<li><a href="" class="btn btn-default">Image Upload</a></li>-->
         <button [disabled]="!isLoggedIn()" class="btn btn-default" (click)="sendMessage(user._id)">{{ sendMessageText }}</button>
     </ul>
 </div>
+<!--<pre>{{user | json }}</pre>-->

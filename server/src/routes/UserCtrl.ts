@@ -28,7 +28,7 @@ class UserCtrl {
     }
 
     getSingleUser(req:JwtRequest, res:express.Response) {
-
+        
         UserModel.findOne({$and: [{"_id": req.body.id}, {"active": true}]})
             .exec(done);
 
@@ -40,7 +40,8 @@ class UserCtrl {
 
             //don't give users email adress to client
             //todo: also for sensitive data
-            result.email = null;
+
+            delete result.email;
 
             res
                 .status(200)

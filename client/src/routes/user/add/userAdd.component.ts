@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {NgForm, Control, Validators, FormBuilder, ControlGroup}    from '@angular/common';
 import {Http} from '@angular/http';
 import {Headers, RequestOptions} from '@angular/http';
-import {RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS, Router} from '@angular/router-deprecated';
+import {ROUTER_DIRECTIVES, Router} from '@angular/router';
 import {AuthHttp} from 'angular2-jwt';
 import {User} from '../../../components/User';
 
@@ -69,7 +69,7 @@ export class UserAddComponent implements OnInit {
                 data => {
                     console.log("done");
                     console.log(data);
-                    this.router.navigate(['List']);
+                    this.router.navigate(['/list']);
                 },
                 error => console.log(error),
                 () => console.log('Login successful')

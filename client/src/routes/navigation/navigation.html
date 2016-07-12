@@ -15,7 +15,7 @@
                 <li class="active"><a href="/list">Entwicklerverzeichnis</a></li>
                 <li><a href="ueber">Über Uns</a></li>
                 <li><a href="kontakt">Kontakt</a></li>
-                <li><a *ngIf="isLoggedIn()" [routerLink]="['UserAdd']">Profil bearbeiten</a></li>
+                <li><a *ngIf="isLoggedIn()" [routerLink]="['/user/add']">Profil bearbeiten</a></li>
                 <li><a *ngIf="isLoggedIn()" (click)="logout()">Abmelden</a></li>
                 <li><a *ngIf="!isLoggedIn()" (click)="login()">Anmelden</a></li>
                 <!--<li class="dropdown">-->

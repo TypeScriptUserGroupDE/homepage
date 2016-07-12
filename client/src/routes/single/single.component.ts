@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Http, Headers, RequestOptions} from '@angular/http';
-import {RouteParams, Router} from '@angular/router-deprecated';
+import {Router, ActivatedRoute} from '@angular/router';
 import {AuthHttp} from 'angular2-jwt';
 import {User} from '../../components/User';
 import {AuthService} from '../../services/AuthService';
@@ -18,9 +18,9 @@ export class SingleComponent implements OnInit {
 
     constructor(public http:Http,
                 public authHttp:AuthHttp,
-                private routeParams:RouteParams,
                 private router:Router,
-                private authService:AuthService) {
+                private authService:AuthService,
+                private route:ActivatedRoute) {
     }
 
     user = new User();
@@ -36,8 +36,17 @@ export class SingleComponent implements OnInit {
         }
 
         this.body = {};
-        this.body.id = this.routeParams.get('userid');
 
+        this.route
+            .params
+            .subscribe(
+                params => {
+                    console.log(params);
+                    this.body.id = params['userid'];
+                }
+            );
+
+        console.log(this.body.id);
         let headers = new Headers({'Content-Type': 'application/json'});
         let options = new RequestOptions({headers: headers});
 
@@ -57,7 +66,7 @@ export class SingleComponent implements OnInit {
 
     sendMessage(id:string) {
         // if (this.authService.isLoggedIn()) {
-            this.router.navigate(['UserMessage', {userid: id}]);
+        this.router.navigate(['/user/message', id]);
         // } else {
         //     console.log('nope');
         // }

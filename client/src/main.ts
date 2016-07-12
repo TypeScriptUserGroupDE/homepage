@@ -2,11 +2,11 @@
 import {bootstrap}    from '@angular/platform-browser-dynamic';
 import {provide} from "@angular/core";
 import {AppComponent} from './app.component';
+import {APP_ROUTER_PROVIDERS} from './app.routes';
 import {enableProdMode} from '@angular/core';
 import {Http, HTTP_PROVIDERS} from '@angular/http';
 import {LocationStrategy, HashLocationStrategy} from "@angular/common";
 import {FORM_PROVIDERS} from '@angular/common';
-import {ROUTER_PROVIDERS} from "@angular/router-deprecated";
 import {AuthConfig, AuthHttp} from 'angular2-jwt';
 import {GOOGLE_MAPS_PROVIDERS} from 'angular2-google-maps/core';
 
@@ -23,10 +23,10 @@ enableProdMode();
 
 bootstrap(AppComponent, [
     FORM_PROVIDERS,
-    ROUTER_PROVIDERS,
+    APP_ROUTER_PROVIDERS,
     HTTP_PROVIDERS,
     GOOGLE_MAPS_PROVIDERS,
-    provide(LocationStrategy, {useClass: HashLocationStrategy}),
+    // provide(LocationStrategy, {useClass: HashLocationStrategy}),
     provide(AuthHttp, {
         useFactory: (http:Http) => {
             return new AuthHttp(new AuthConfig({
@@ -38,4 +38,5 @@ bootstrap(AppComponent, [
         },
         deps: [Http]
     })
-]);
+])
+    .catch(err => console.error(err));

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Http} from '@angular/http';
-import {ROUTER_DIRECTIVES, Router} from '@angular/router-deprecated';
+import {ROUTER_DIRECTIVES, Router} from '@angular/router';
 import {AuthHttp} from 'angular2-jwt';
 import {GOOGLE_MAPS_DIRECTIVES} from 'angular2-google-maps/core';
 import {User} from '../../components/User';
@@ -31,7 +31,7 @@ export class ListComponent implements OnInit {
     }
 
     onClick(id:string) {
-        this.router.navigate(['Single', {userid: id}]);
+        this.router.navigate(['/single', id]);
     }
 }
 
