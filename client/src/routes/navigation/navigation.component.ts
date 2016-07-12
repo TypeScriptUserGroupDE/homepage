@@ -11,15 +11,24 @@ import {AuthService} from '../../services/AuthService';
     providers: [HTTP_PROVIDERS, AuthService]
 })
 
-export class NavigationComponent extends AuthService implements OnInit {
+export class NavigationComponent {
 
     constructor(public http:Http,
                 public authHttp:AuthHttp,
                 public router:Router,
-                private authService:AuthService) {
+                public authService:AuthService) {
 
     }
 
-    ngOnInit() {
+    isLoggedIn() {
+        return this.authService.isLoggedIn();
     }
+
+    logout() {
+        this.authService.logout();
+    }
+
+    login() {
+        this.authService.login();
+    };
 }

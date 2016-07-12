@@ -17,6 +17,8 @@ class AuthCtrl {
     signIn(req:express.Request, res:express.Response) {
         var code:string = req.body.code || "";
 
+        console.log(req.body);
+
         if (code === "") {
             AuthCtrl.cancel(res);
             return;

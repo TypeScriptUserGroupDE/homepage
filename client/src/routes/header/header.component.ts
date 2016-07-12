@@ -11,7 +11,7 @@ import {AuthService} from '../../services/AuthService';
     providers: [HTTP_PROVIDERS, AuthService]
 })
 
-export class HeaderComponent  extends AuthService implements OnInit {
+export class HeaderComponent {
 
     constructor(public http:Http,
                 public authHttp:AuthHttp,
@@ -20,6 +20,11 @@ export class HeaderComponent  extends AuthService implements OnInit {
 
     }
 
-    ngOnInit() {
+    isLoggedIn() {
+        return this.authService.isLoggedIn();
     }
+
+    login() {
+        this.authService.login();
+    };
 }
