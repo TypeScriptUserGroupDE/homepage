@@ -8,7 +8,8 @@ import {GOOGLE_MAPS_DIRECTIVES} from 'angular2-google-maps/core';
     selector: 'map',
     templateUrl: './routes/map/map.html',
     directives: [ROUTER_DIRECTIVES, GOOGLE_MAPS_DIRECTIVES],
-    providers: []
+    providers: [],
+    precompile: [MapComponent]
 })
 
 export class MapComponent implements OnInit {

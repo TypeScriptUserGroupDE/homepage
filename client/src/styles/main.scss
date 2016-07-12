@@ -50,12 +50,20 @@ a {
   white-space: pre-wrap;
 }
 
+.head {
+  margin-bottom: 30px;
+}
+
 .btn {
   border-radius: 0;
   color: white;
   //background-color: $yellow;
   background-color: #ff6600;
+}
 
+.button-muted {
+  background-color: $light-grey;
+  color: black;
 }
 
 .ng-invalid {
@@ -109,7 +117,7 @@ main {
   .navbar-brand {
     color: white;
 
-    &:hover, &focus {
+    &:hover, &:focus {
       color: $yellow;
     }
   }
@@ -119,7 +127,7 @@ main {
       > a {
         color: white;
 
-        &:hover, &focus {
+        &:hover, &:focus {
           color: $yellow;
         }
       }

@@ -1,10 +1,13 @@
-<div class="row">
+<div class="row head">
     <div class="col-md-12">
         <h2>Entwicklerverzeichnis</h2>
-        <a [routerLink]="['/map']">Karte</a>
+        <div class="btn-group" role="group" aria-label="...">
+            <button type="button" class="btn button-muted" [routerLink]="['/list']">Liste</button>
+            <button type="button" class="btn button-muted" [routerLink]="['/map']">Karte</button>
+        </div>
     </div>
 </div>
-<div class="row">
+<div class="row content">
     <div class="col-md-4" *ngFor="let user of users">
         <div class="card">
             <div class="card-content">
@@ -25,4 +28,4 @@
     </div>
 </div>
 
-<pre>{{users | json }}</pre>
+<!--<pre>{{users | json }}</pre>-->

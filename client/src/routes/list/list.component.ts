@@ -9,7 +9,8 @@ import {User} from '../../components/User';
     selector: 'list',
     templateUrl: './routes/list/list.html',
     directives: [ROUTER_DIRECTIVES, GOOGLE_MAPS_DIRECTIVES],
-    providers: []
+    providers: [],
+    precompile: []
 })
 
 export class ListComponent implements OnInit {
