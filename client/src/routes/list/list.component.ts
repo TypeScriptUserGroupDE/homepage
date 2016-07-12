@@ -16,6 +16,9 @@ import {User} from '../../components/User';
 export class ListComponent implements OnInit {
     users:User[];
     text:string;
+    count:number;
+    pages:number;
+    skip:number = 0;
 
     constructor(private router:Router,
                 public http:Http,
@@ -23,7 +26,19 @@ export class ListComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.http.get('/api/user/get/all')
+        this.http.get('/api/user/get/count')
+            .map(res => res.json())
+            .subscribe(
+                data => {
+                    this.count = data;
+                    this.pages = Array(Math.ceil(this.count / 10))
+                    console.log(this.count);
+                },
+                error => console.log(error)
+            );
+
+        this.http.post('/api/user/get/all',
+            {skip: this.skip})
             .map(res => res.json())
             .subscribe(
                 data => this.users = data,
@@ -33,6 +48,42 @@ export class ListComponent implements OnInit {
 
     onClick(username:string) {
         this.router.navigate(['/single', username]);
+    }
+
+    // loadNext() {
+    //     //todo: use Math.floor()
+    //
+    //     this.skip = this.skip + 10;
+    //     this.http.post('/api/user/get/all',
+    //         {skip: this.skip})
+    //         .map(res => res.json())
+    //         .subscribe(
+    //             data => this.users = data,
+    //             error => console.log(error)
+    //         );
+    //
+    // }
+    //
+    // loadPrevious() {
+    //     this.skip = this.skip - 10;
+    //     this.http.post('/api/user/get/all',
+    //         {skip: this.skip})
+    //         .map(res => res.json())
+    //         .subscribe(
+    //             data => this.users = data,
+    //             error => console.log(error)
+    //         );
+    // }
+
+    loadPage(page:number) {
+        this.skip = page * 10;
+        this.http.post('/api/user/get/all',
+            {skip: this.skip})
+            .map(res => res.json())
+            .subscribe(
+                data => this.users = data,
+                error => console.log(error)
+            );
     }
 }
 

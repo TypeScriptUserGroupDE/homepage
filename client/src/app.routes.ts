@@ -14,9 +14,9 @@ export const routes:RouterConfig = [
     {path: 'list', component: ListComponent},
     {path: 'single/:username', component: SingleComponent},
     {path: 'login', component: LoginComponent},
-    {path: 'user/add', name: 'UserAdd', component: UserAddComponent, canActivate: [AuthService]},
-    {path: 'user/message/:username', name: 'UserMessage', component: UserMessageComponent, canActivate: [AuthService]},
-    {path: 'accessToken', name: 'Callback', component: CallbackComponent}
+    {path: 'user/add', component: UserAddComponent, canActivate: [AuthService]},
+    {path: 'user/message/:username', component: UserMessageComponent, canActivate: [AuthService]},
+    {path: 'accessToken', component: CallbackComponent}
 
 
     // { path: 'crisis-center', component: CrisisCenterComponent },
@@ -29,16 +29,4 @@ export const APP_ROUTER_PROVIDERS = [
     AuthService
 ];
 
-export const AUTH_PROVIDERS = [];
-
-
-// @RouteConfig([
-//     {path: '/', redirectTo: ['/List']},
-//     {path: '/single/:userid', name: 'Single', component: SingleComponent},
-//     {path: '/list', name: 'List', component: ListComponent},
-//     {path: '/login', name: 'Login', component: LoginComponent},
-//     {path: '/map', name: 'Map', component: MapComponent},
-//     {path: '/user/add', name: 'UserAdd', component: UserAddComponent},
-//     {path: '/user/message/:userid', name: 'UserMessage', component: UserMessageComponent},
-//     {path: '/accessToken', name: 'Callback', component: CallbackComponent}
-// ])
+// export const AUTH_PROVIDERS = [];

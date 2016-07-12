@@ -17,7 +17,8 @@ class UserCtrl {
 
     publicRoutes(app:express.Application, baseRoute:string) {
         app.post(baseRoute + "/get", this.getSingleUser);
-        app.get(baseRoute + "/get/all", this.getUsers);
+        app.post(baseRoute + "/get/all", this.getUsers);
+        app.get(baseRoute + "/get/count", this.countUsers);
         app.get(baseRoute + "/get/map", this.getUserCoordinates);
     }
 
@@ -68,25 +69,46 @@ class UserCtrl {
     }
 
     getUsers(req:express.Request, res:express.Response) {
+        let limit:number = 10;
 
         UserModel
             .find({"active": true})
+            .skip(req.body.skip)
+            .limit(limit)
             .lean()
             .exec(done);
 
-        function done(err:any, result:User) {
+        function done(err:any, result:User[]) {
             if (err) {
                 console.log("err");
                 return
             }
 
-            _.forEach(result, function (data, key) {
+            _.forEach(result, function (data:User, key:number) {
                 result[key] = (UserCtrl.cleanSensitiveData(data));
             });
 
             res
                 .status(200)
                 .json(result);
+        }
+    }
+
+    countUsers(req:express.Request, res:express.Response) {
+
+        UserModel
+            .count({"active": true})
+            .exec(done);
+
+        function done(err:any, count:number) {
+            if (err) {
+                console.log("err");
+                return
+            }
+
+            res
+                .status(200)
+                .json(count);
         }
     }
 

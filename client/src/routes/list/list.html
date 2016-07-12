@@ -28,4 +28,19 @@
     </div>
 </div>
 
+<div class="row">
+    <div class="col-md-12">
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <!--<button class="btn button-default" (click)="loadPrevious()" [disabled]="skip === 0">Zurück</button>-->
+        <button *ngFor="let page of pages; let i = index" class="btn button-default" (click)="loadPage(i)">
+            {{i + 1}}
+        </button>
+        <!--<button class="btn button-default" (click)="loadNext()" [disabled]="skip === Math.floor(count)">Weiter</button>-->
+    </div>
+</div>
+
 <!--<pre>{{users | json }}</pre>-->
