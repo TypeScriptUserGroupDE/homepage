@@ -1,5 +1,7 @@
-<div class="col-md-12">
-    <h2>Anmelden</h2>
+<div class="row">
+    <div class="col-md-12">
+        <h2>Nachricht an {{user.name}}</h2>
+    </div>
 </div>
 
 <form [ngFormModel]="form" #userMessageForm="ngForm" novalidate>
@@ -13,8 +15,9 @@
         </textarea>
     </div>
 
-    <button type="submit" (click)="onSubmit()" class="btn btn-default" [disabled]="!userMessageForm.form.valid">Speichern
+    <button type="submit" (click)="onSubmit()" class="btn btn-default" [disabled]="!userMessageForm.form.valid">
+        Speichern
     </button>
 </form>
 
-<pre>{{ model | json }}</pre>
+<!--<pre>{{ user | json }}</pre>-->

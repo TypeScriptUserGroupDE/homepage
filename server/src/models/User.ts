@@ -9,27 +9,29 @@ var Schema = mongoose.Schema;
 
 export interface User extends mongoose.Document, PublicUser {
     _id:typeof mongoose.Schema.Types.ObjectId;
-    github_id: number;
-    name: string;
-    email: string;
-    html_url: string;
-    accessLevel: number;
-    avatar_url: string;
-    github_token: string;
-    active: boolean;
-    website: string;
-    twitter: string;
-    description: string;
-    city: string;
-    zip: number;
-    tec: string;
-    latitude: number;
-    longitude: number
+    github_id:number;
+    login:string;
+    name:string;
+    email:string;
+    html_url:string;
+    accessLevel:number;
+    avatar_url:string;
+    github_token:string;
+    active:boolean;
+    website:string;
+    twitter:string;
+    description:string;
+    city:string;
+    zip:number;
+    tec:string;
+    latitude:number;
+    longitude:number
 }
 
 export var UserSchema = new Schema(
     {
         github_id: {type: Number, unique: true},
+        login: {type: String, unique: true},
         name: String,
         email: String,
         html_url: String,

@@ -25,7 +25,7 @@ export class SingleComponent implements OnInit {
 
     user = new User();
     body:{
-        id?:string
+        username?:string
     };
 
     ngOnInit() {
@@ -42,15 +42,13 @@ export class SingleComponent implements OnInit {
             .subscribe(
                 params => {
                     console.log(params);
-                    this.body.id = params['userid'];
+                    this.body.username = params['username'];
                 }
             );
-
-        console.log(this.body.id);
         let headers = new Headers({'Content-Type': 'application/json'});
         let options = new RequestOptions({headers: headers});
 
-        this.authHttp.post('/api/user/get',
+        this.http.post('/api/user/get',
             JSON.stringify(this.body),
             options)
             .map(res => res.json())
@@ -64,9 +62,9 @@ export class SingleComponent implements OnInit {
         return this.authService.isLoggedIn();
     }
 
-    sendMessage(id:string) {
+    sendMessage(username:string) {
         // if (this.authService.isLoggedIn()) {
-        this.router.navigate(['/user/message', id]);
+        this.router.navigate(['/user/message', username]);
         // } else {
         //     console.log('nope');
         // }

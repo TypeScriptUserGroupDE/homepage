@@ -18,7 +18,7 @@
         </li>
         <!--<li>{{user.avatar_url}}</li>-->
         <!--<li><a href="" class="btn btn-default">Image Upload</a></li>-->
-        <button [disabled]="!isLoggedIn()" class="btn btn-default" (click)="sendMessage(user._id)">{{ sendMessageText }}</button>
+        <button [disabled]="!isLoggedIn()" class="btn btn-default" (click)="sendMessage(user.login)">{{ sendMessageText }}</button>
     </ul>
 </div>
-<!--<pre>{{user | json }}</pre>-->
+<pre>{{user | json }}</pre>

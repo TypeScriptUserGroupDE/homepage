@@ -9,8 +9,8 @@ import Config from "../config/config";
 
 // todo: use IJwtRequest
 interface location {
-    lat: string,
-    lng: string
+    lat:string,
+    lng:string
 }
 
 class UserCtrl {
@@ -28,8 +28,9 @@ class UserCtrl {
     }
 
     getSingleUser(req:JwtRequest, res:express.Response) {
-        
-        UserModel.findOne({$and: [{"_id": req.body.id}, {"active": true}]})
+
+        UserModel.findOne({$and: [{"login": req.body.username}, {"active": true}]})
+            .lean()
             .exec(done);
 
         function done(err:any, result:User) {
@@ -38,10 +39,8 @@ class UserCtrl {
                 return
             }
 
-            //don't give users email adress to client
-            //todo: also for sensitive data
-
-            delete result.email;
+            //don't give sensitive data to outside world
+            result = UserCtrl.cleanSensitiveData(result);
 
             res
                 .status(200)
@@ -49,7 +48,7 @@ class UserCtrl {
         }
     }
 
-    // this allows an authenticated user to get his own data, if he still is active
+    // this allows an authenticated user to get his own data, if he is active
     getUserForm(req:JwtRequest, res:express.Response) {
 
         UserModel.findOne()
@@ -72,6 +71,7 @@ class UserCtrl {
 
         UserModel
             .find({"active": true})
+            .lean()
             .exec(done);
 
         function done(err:any, result:User) {
@@ -79,6 +79,10 @@ class UserCtrl {
                 console.log("err");
                 return
             }
+
+            _.forEach(result, function (data, key) {
+                result[key] = (UserCtrl.cleanSensitiveData(data));
+            });
 
             res
                 .status(200)
@@ -117,7 +121,7 @@ class UserCtrl {
         console.log(Config.mailgun_api_key);
 
         UserModel
-            .findOne({"_id": req.body.id})
+            .findOne({"login": req.body.username})
             .exec(done);
 
         function done(err:any, result:User):any {
@@ -146,7 +150,10 @@ class UserCtrl {
                     formData: payload
                 })
                     .then(function (data:any) {
-                        console.log(data);
+                        console.log('mail qeued');
+                        res
+                            .status(200)
+                            .json("mail qeued");
                     });
             }
 
@@ -156,7 +163,10 @@ class UserCtrl {
 
     updateUser(req:JwtRequest, res:express.Response) {
 
-        UserCtrl.getCoordinates(req.body.city)
+        let location = req.body.zip + ' ' + req.body.city + ',Germany';
+        console.log(location);
+
+        UserCtrl.getCoordinates(location)
             .then(function (result:any) {
                 result = JSON.parse(result);
 
@@ -190,9 +200,16 @@ class UserCtrl {
         }
     }
 
-    static
-    getCoordinates(location:string):any {
+    static getCoordinates(location:string):any {
         return request.get('http://maps.googleapis.com/maps/api/geocode/json?address=' + encodeURIComponent(location))
+    }
+
+    static cleanSensitiveData(data:User) {
+        delete data.email;
+        delete data.github_token;
+        delete data.zip;
+
+        return data
     }
 
 

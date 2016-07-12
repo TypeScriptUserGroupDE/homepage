@@ -4,8 +4,16 @@
 
 <form [ngFormModel]="form" #userAddForm="ngForm" novalidate>
     <div class="form-group">
+        <label for="login">Username</label>
+        <input type="text" class="form-control" [(ngModel)]="model.login" disabled>
+    </div>
+    <div class="form-group">
         <label for="login">Name</label>
         <input type="text" class="form-control" [(ngModel)]="model.name" required>
+    </div>
+    <div class="form-group">
+        <label for="description">Beschreibung</label>
+        <textarea type="text" class="form-control" [(ngModel)]="model.description"></textarea>
     </div>
     <div class="form-group">
         <label for="email">E-Mail (Wird nicht öffentlich angezeigt)</label>
@@ -22,10 +30,6 @@
     <div class="form-group">
         <label for="twitter">Twitter</label>
         <input type="text" class="form-control" [(ngModel)]="model.twitter">
-    </div>
-    <div class="form-group">
-        <label for="description">Beschreibung</label>
-        <textarea type="text" class="form-control" [(ngModel)]="model.description"></textarea>
     </div>
     <div class="form-group">
         <label for="city">Stadt</label>

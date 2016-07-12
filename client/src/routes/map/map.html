@@ -6,13 +6,14 @@
 <sebm-google-map
         [latitude]="lat"
         [longitude]="lng"
-        [zoom]="zoom"
+        [(zoom)]="zoom"
+        [styles]='styles'
 >
     <sebm-google-map-circle
             *ngFor="let marker of markers"
             [latitude]="marker.lat"
             [longitude]="marker.lng"
-            [radius]="25000"
+            [(radius)]="radius"
             [fillColor]="'red'"
     >
     </sebm-google-map-circle>

@@ -30,8 +30,8 @@ export class ListComponent implements OnInit {
             );
     }
 
-    onClick(id:string) {
-        this.router.navigate(['/single', id]);
+    onClick(username:string) {
+        this.router.navigate(['/single', username]);
     }
 }
 

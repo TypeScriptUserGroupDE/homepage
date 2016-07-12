@@ -17,10 +17,12 @@
                         <p>{{user.city}}</p>
                         <!--<p>Nutzt TypeScript für: #node #angularjs #angular2 #ionic</p>-->
                         <!--<a [routerLink]="['Single']">#node #angularjs #angular2</a>-->
-                        <a (click)="onClick(user._id)">Details</a>
+                        <a (click)="onClick(user.login)">Details</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<pre>{{users | json }}</pre>

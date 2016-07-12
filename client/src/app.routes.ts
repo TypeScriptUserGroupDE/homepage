@@ -12,10 +12,10 @@ export const routes:RouterConfig = [
     {path: '', redirectTo: '/list', pathMatch: 'full'},
     {path: 'map', component: MapComponent},
     {path: 'list', component: ListComponent},
-    {path: 'single/:userid', component: SingleComponent},
+    {path: 'single/:username', component: SingleComponent},
     {path: 'login', component: LoginComponent},
     {path: 'user/add', name: 'UserAdd', component: UserAddComponent, canActivate: [AuthService]},
-    {path: 'user/message/:userid', name: 'UserMessage', component: UserMessageComponent, canActivate: [AuthService]},
+    {path: 'user/message/:username', name: 'UserMessage', component: UserMessageComponent, canActivate: [AuthService]},
     {path: 'accessToken', name: 'Callback', component: CallbackComponent}
 
 
