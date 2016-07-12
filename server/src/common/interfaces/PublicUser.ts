@@ -1,6 +1,5 @@
 export interface PublicUser {
     userid:any;
-    login:string;
     github_id:number;
     name:string;
     html_url:string;

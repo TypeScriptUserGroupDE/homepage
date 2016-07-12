@@ -157,7 +157,7 @@ class AuthCtrl {
         };
 
 
-        var expires = "2 days";
+        var expires = "2 days"; // 2 days
         var token = jwt.sign(user, Config.jwt_secret, {
             expiresIn: expires
         });
