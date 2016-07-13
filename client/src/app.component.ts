@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {Router, ROUTER_DIRECTIVES} from '@angular/router';
+import {Router, ActivatedRoute, ROUTER_DIRECTIVES, Event, NavigationEnd} from '@angular/router';
 // import {ProtectedRouterOutlet} from './components/ProtectedRouterOutlet';
 
 import {HeaderComponent} from './routes/header/header.component';
@@ -31,4 +31,21 @@ import {UserMessageComponent} from './routes/user/message/userMessage.component'
 })
 
 export class AppComponent {
+
+    constructor(public router:Router) {
+
+        this.router.events.subscribe(
+            (event:Event) => {
+                if(event instanceof NavigationEnd) {
+                    window.dataLayer.push({
+                        event: 'pageView',
+                        category: '',
+                        label: '',
+                        action: event.urlAfterRedirects
+                        value: ''
+                    });
+                    
+                }
+            });
+    }
 }
