@@ -8,7 +8,8 @@ import {Http, HTTP_PROVIDERS} from '@angular/http';
 import {LocationStrategy, HashLocationStrategy} from "@angular/common";
 import {FORM_PROVIDERS} from '@angular/common';
 import {AuthConfig, AuthHttp} from 'angular2-jwt';
-import {GOOGLE_MAPS_PROVIDERS} from 'angular2-google-maps/core';
+import {GOOGLE_MAPS_PROVIDERS, provideLazyMapsAPILoaderConfig} from 'angular2-google-maps/core';
+import {AppConfig} from './config/config';
 
 //needed for http.XXX.map()
 import 'rxjs/add/operator/catch';
@@ -26,7 +27,7 @@ bootstrap(AppComponent, [
     APP_ROUTER_PROVIDERS,
     HTTP_PROVIDERS,
     GOOGLE_MAPS_PROVIDERS,
-    // provide(LocationStrategy, {useClass: HashLocationStrategy}),
+    provideLazyMapsAPILoaderConfig({ apiKey: AppConfig.google_maps_api_key}),
     provide(AuthHttp, {
         useFactory: (http:Http) => {
             return new AuthHttp(new AuthConfig({

@@ -41,7 +41,7 @@ export class AppComponent {
                         event: 'pageView',
                         category: '',
                         label: '',
-                        action: event.urlAfterRedirects
+                        action: event.urlAfterRedirects,
                         value: ''
                     });
                     
