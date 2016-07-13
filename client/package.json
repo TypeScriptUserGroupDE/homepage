@@ -2,6 +2,7 @@
   "name": "typescript-users",
   "version": "1.0.0",
   "scripts": {
+    "gulp": "gulp",
     "clean": "gulp clean",
     "compile": "gulp compile",
     "build": "gulp build",

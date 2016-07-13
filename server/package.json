@@ -4,6 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "dist": "gulp dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Can Kattw <ck115@hdm-stuttgart.de>",
