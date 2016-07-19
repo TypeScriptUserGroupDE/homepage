@@ -1,0 +1,22 @@
+@import './../../styles/variables';
+
+.banner {
+  padding: 10px 0;
+  font-size: 16px;
+  //color: black;
+  text-align: center;
+
+  h1 {
+    color: white;
+    margin-bottom: 30px;
+  }
+
+  .banner-content {
+    margin: 20px 0;
+  }
+
+  .banner-actions {
+    margin: 20px 0;
+  }
+
+}

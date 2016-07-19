@@ -1,23 +1,34 @@
-<div class="row">
-    <div class="col-md-12">
-        <h2>Nachricht an {{user.name}}</h2>
+<div class="container">
+    <!--bug, see: https://github.com/angular/angular/issues/9801-->
+    <a [routerLink]="['/single/' + user.login]">Zurück zum Profil</a>
+    <h2>E-Mail senden an an {{user.name}}</h2>
+    <div class="row">
+        <div class="col-md-3">
+            <img class="img-responsive img-circle" src="{{ user.avatar_url }}"/>
+            <p>{{ user.name }}</p>
+            <p>{{ user.city }}</p>
+        </div>
+
+        <div class="col-md-9">
+
+            <form #userMessageForm="ngForm" novalidate>
+                <div class="form-group">
+                    <label for="subject">Betreff</label>
+                    <input type="text" name="subject" class="form-control" [(ngModel)]="model.subject" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Nachricht</label>
+                    <textarea rows="8" type="text" name="message" class="form-control" [(ngModel)]="model.message"
+                              required>
+                    </textarea>
+                </div>
+
+                <button type="submit" (click)="onSubmit()" class="btn btn-default"
+                        [disabled]="!userMessageForm.form.valid">
+                    Speichern
+                </button>
+            </form>
+        </div>
     </div>
 </div>
-
-<form [ngFormModel]="form" #userMessageForm="ngForm" novalidate>
-    <div class="form-group">
-        <label for="subject">Betreff</label>
-        <input type="text" class="form-control" [(ngModel)]="model.subject" ngControl="required">
-    </div>
-    <div class="form-group">
-        <label for="message">Nachricht</label>
-        <textarea rows="8" type="text" class="form-control" [(ngModel)]="model.message" ngControl="required">
-        </textarea>
-    </div>
-
-    <button type="submit" (click)="onSubmit()" class="btn btn-default" [disabled]="!userMessageForm.form.valid">
-        Speichern
-    </button>
-</form>
-
-<!--<pre>{{ user | json }}</pre>-->
+<pre>{{ user | json }}</pre>

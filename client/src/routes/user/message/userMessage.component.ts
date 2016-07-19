@@ -1,5 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {NgForm, Control, Validators, FormBuilder, ControlGroup}    from '@angular/common';
+import {
+    NgForm,
+    FormControl,
+    FormGroup,
+    Validators,
+    ValidatorFn,
+    AbstractControl,
+    REACTIVE_FORM_DIRECTIVES
+}    from '@angular/forms';
 import {Http} from '@angular/http';
 import {Headers, RequestOptions} from '@angular/http';
 import {User} from '../../../components/User';
@@ -9,13 +17,12 @@ import {AuthHttp} from 'angular2-jwt';
 @Component({
     selector: 'user-message',
     templateUrl: './routes/user/message/user.message.html',
-    directives: [ROUTER_DIRECTIVES],
+    directives: [ROUTER_DIRECTIVES, REACTIVE_FORM_DIRECTIVES],
     providers: []
 })
 
 export class UserMessageComponent implements OnInit {
-    required:Control;
-    form:ControlGroup;
+    form:FormGroup;
 
     model:{
         username?:string,
@@ -26,12 +33,10 @@ export class UserMessageComponent implements OnInit {
     constructor(private router:Router,
                 private route:ActivatedRoute,
                 public http:Http,
-                public authHttp:AuthHttp,
-                private builder:FormBuilder) {
+                public authHttp:AuthHttp) {
 
-        this.required = new Control("", Validators.required);
-        this.form = builder.group({
-            required: this.required
+        this.form = new FormGroup({
+            required: new FormControl("", Validators.required)
         });
 
         this.model = {};

@@ -1,5 +1,6 @@
 ///<reference path="../typings/index.d.ts"/>
 import {bootstrap}    from '@angular/platform-browser-dynamic';
+import { disableDeprecatedForms, provideForms } from '@angular/forms';
 import {provide} from "@angular/core";
 import {AppComponent} from './app.component';
 import {APP_ROUTER_PROVIDERS} from './app.routes';
@@ -23,12 +24,13 @@ import 'rxjs/add/operator/toPromise';
 enableProdMode();
 
 bootstrap(AppComponent, [
-    FORM_PROVIDERS,
+    disableDeprecatedForms(),
+    provideForms(),
     APP_ROUTER_PROVIDERS,
     HTTP_PROVIDERS,
     GOOGLE_MAPS_PROVIDERS,
     provideLazyMapsAPILoaderConfig({ apiKey: AppConfig.google_maps_api_key}),
-    provide(AuthHttp, {
+        provide(AuthHttp, {
         useFactory: (http:Http) => {
             return new AuthHttp(new AuthConfig({
                 headerName: 'x-access-token',

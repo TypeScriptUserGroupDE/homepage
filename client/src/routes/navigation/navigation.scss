@@ -1,0 +1,31 @@
+@import './../../styles/variables';
+
+.navbar {
+  margin-bottom: 0;
+}
+
+.navbar-default {
+  background-color: $blue;
+  color: white;
+  padding: 10px 0;
+
+  .navbar-brand {
+    color: white;
+
+    &:hover, &:focus {
+      color: $orange;
+    }
+  }
+
+  .navbar-nav {
+    > li {
+      > a {
+        color: white;
+
+        &:hover, &:focus {
+          color: $orange;
+        }
+      }
+    }
+  }
+}

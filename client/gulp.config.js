@@ -10,9 +10,9 @@ var GulpConfig = (function () {
 
         this.build = {
             path: './target/',
-            assetPath: './target/assets/fonts',
+            assetPath: './target/assets',
             fonts: './target/fonts',
-            styles: './target/styles/',
+            styles: './target/',
             vendor: './target/lib/',
             assets: {
                 lib: {
@@ -26,20 +26,32 @@ var GulpConfig = (function () {
             in: './node_modules/bootstrap-sass'
         };
 
+        this.fontAwesome = {
+            in: './node_modules/font-awesome'
+        };
+
         this.fonts = {
-            in: ['src/assets/fonts/*.*', this.bootstrapSass.in + 'assets/fonts/**/*'],
+            in: [
+                'src/assets/fonts/*.*',
+                this.bootstrapSass.in + 'assets/fonts/**/*',
+                this.fontAwesome.in + '/fonts/*',
+                'node_modules/open-sans-fontface/fonts/**/*'
+            ],
             out: this.build.fonts
         };
 
         this.sass = {
-            in: 'src/styles/main.scss',
+            in: '**/*.scss',
             out: this.build.styles,
-            watch: 'src/styles/**/*',
+            watch: '**/*.scss',
             sassOpts: {
                 outputStyle: 'compressed',
                 precision: 3,
                 errLogToConsole: true,
-                includePaths: [this.bootstrapSass.in + '/assets/stylesheets/']
+                includePaths: [
+                    this.bootstrapSass.in + '/assets/stylesheets/',
+                    this.fontAwesome.in + '/scss/'
+                ]
             }
         };
 

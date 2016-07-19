@@ -1,0 +1,14 @@
+@import './../../styles/variables';
+
+section#list {
+
+  .card {
+    display: block;
+    background-color: white;
+    margin-bottom: 30px;
+
+    .card-content {
+      padding: 10px 10px;
+    }
+  }
+}

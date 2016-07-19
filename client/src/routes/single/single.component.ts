@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Http, Headers, RequestOptions} from '@angular/http';
-import {Router, ActivatedRoute} from '@angular/router';
+import {Router, ActivatedRoute, ROUTER_DIRECTIVES} from '@angular/router';
 import {AuthHttp} from 'angular2-jwt';
 import {User} from '../../components/User';
 import {AuthService} from '../../services/AuthService';
@@ -9,6 +9,7 @@ import {LinkyPipe} from 'angular2-linky';
 @Component({
     selector: 'single',
     templateUrl: './routes/single/single.html',
+    directives: [ROUTER_DIRECTIVES],
     providers: [AuthService],
     pipes: [LinkyPipe]
 })
@@ -32,7 +33,7 @@ export class SingleComponent implements OnInit {
         if (this.authService.isLoggedIn()) {
             this.sendMessageText = "Nachricht senden";
         } else {
-            this.sendMessageText = "Bitte anmelden";
+            this.sendMessageText = "Mit GitHub anmelden";
         }
 
         this.body = {};
@@ -63,10 +64,10 @@ export class SingleComponent implements OnInit {
     }
 
     sendMessage(username:string) {
-        // if (this.authService.isLoggedIn()) {
+        if (this.authService.isLoggedIn()) {
         this.router.navigate(['/user/message', username]);
-        // } else {
-        //     console.log('nope');
-        // }
+        } else {
+            this.authService.login();
+        }
     }
 }

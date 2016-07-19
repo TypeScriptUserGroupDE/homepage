@@ -24,11 +24,9 @@ gulp.task('fonts', function () {
 });
 
 gulp.task('sass', ['fonts'], function () {
-    return gulp.src([
-        config.sass.in
-        // './node_modules/bootstrap-sass/assets/stylesheets/bootstrap/**/_*.scss'
-    ])
+    return gulp.src(config.sass.in, {cwd: 'src'})
         .pipe(sass(config.sass.sassOpts))
+        .pipe(concat('styles/main.css'))
         .pipe(gulp.dest(config.sass.out))
         .pipe(browserSync.stream());
 });
@@ -39,8 +37,8 @@ gulp.task('copy:assets', function () {
         .pipe(gulp.dest(config.build.path))
 });
 
-gulp.task('copy:index', function () {
-    return gulp.src(['src/index.html', './systemjs.config.js'])
+gulp.task('copy:html', function () {
+    return gulp.src(['src/**/*.html', './systemjs.config.js'])
         .pipe(gulp.dest(config.build.path))
 });
 
@@ -98,10 +96,10 @@ gulp.task('copy:libs', function () {
 // TypeScript compile
 gulp.task('compile', function () {
     var tsResult = gulp.src('src/**/*.ts')
-        // .pipe(sourcemaps.init())
+    // .pipe(sourcemaps.init())
         .pipe(ts(tscConfig.compilerOptions));
     return tsResult.js
-        // .pipe(sourcemaps.write("."))
+    // .pipe(sourcemaps.write("."))
         .pipe(gulp.dest(config.build.path));
 });
 
@@ -109,7 +107,10 @@ gulp.task('bundle', function () {
     // todo: delete not needed stuff in target/lib after build
 
     var builder = new Builder('target', './systemjs.config.js');
-    builder.buildStatic('app', 'target/app.js')
+    builder.buildStatic('app', 'target/app.js', {
+        minify: true,
+        sourceMaps: true
+    })
         .then(function () {
             browserSync.reload();
         });
@@ -123,9 +124,9 @@ gulp.task('serve', ['build'], function () {
     browserSync.init(config.browserSync.dev);
     gulp.watch([config.sass.watch], ['sass']);
     gulp.watch(['src/**/*.ts'], ['updateBundle']);
-    gulp.watch(['src/**/*', '!src/**/*.ts'], ['copy:assets']).on('change', reload);
+    gulp.watch(['src/assets/**/*', '!src/**/*.ts'], ['copy:assets']).on('change', reload);
     // todo: unneeded?
-    gulp.watch(['src/index.html'], ['copy:index']).on('change', reload);
+    gulp.watch(['src/**/*.html'], ['copy:html']).on('change', reload);
 });
 
 gulp.task('build', function (cb) {

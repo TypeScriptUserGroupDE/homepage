@@ -1,52 +1,52 @@
 @import 'bootstrap';
+@import 'font-awesome';
 @import 'variables';
 
 @font-face {
-  font-family: "Lato";
-  src: url('../assets/fonts/lato/Lato-Regular.ttf');
+  font-family: "Open Sans";
+  src: url('../fonts/Regular/OpenSans-Regular.woff2');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url('../fonts/Bold/OpenSans-Bold.woff2');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url('../fonts/Light/OpenSans-Light.woff2');
+  font-weight: 300;
 }
 
 body {
-  font-family: "Lato", sans-serif;
-
+  font-family: "Open Sans", sans-serif;
   height: 100%;
-  background-color: #fff;
+  background-color: $bg-grey;
 }
 
 // because <a (click)="whatever()"></a> does not show pointer
 a {
   cursor: pointer;
+  font-size: 16px;
+  color: $dark-orange;
+}
+
+p, span, li, .form-control {
+  font-size: 16px;
+  font-weight: lighter;
+}
+
+.strong {
+  font-weight: bold;
 }
 
 .page-wrapper {
   //margin: 60px 0;
 }
 
-.banner {
-  padding: 20px 0;
-  font-size: 16px;
-  color: black;
-  text-align: center;
-  //background-color: $light-blue;
-  background-color: white;
-  //background-color: #152740;
-
-  h1 {
-    color: white;
-    margin-bottom: 30px;
-  }
-
-  .banner-content {
-    margin: 20px 0;
-  }
-
-  .banner-actions {
-    margin: 20px 0;
-  }
-
-}
-
-.description {
+.desc-text {
   white-space: pre-wrap;
 }
 
@@ -57,7 +57,7 @@ a {
 .btn {
   border-radius: 0;
   color: white;
-  //background-color: $yellow;
+  //background-color: $orange;
   background-color: #ff6600;
 }
 
@@ -74,10 +74,59 @@ a {
   height: 900px;
 }
 
+.spacer {
+  padding: 50px 0;
+}
 
-main {
-  //height: 65%;
+.gray-bg-spacer {
+  padding: 50px 0;
   background-color: $lighter-grey;
+}
+
+.gray-bg {
+  background-color: $lighter-grey;
+}
+
+.white-bg-spacer {
+  padding: 50px 0;
+  background-color: #fff;
+}
+
+.white-bg {
+  background-color: #fff;
+}
+
+.blue-bg-spacer {
+  padding: 50px 0;
+  background-color: #23527c;
+  color: white;
+
+  h1 {
+    //font-weight: bold;
+    color: $orange;
+
+  }
+}
+
+.blue-bg {
+  background-color: #23527c;
+  color: white;
+}
+
+.orange-bg-spacer {
+  padding: 50px 0;
+  background-color: orange;
+}
+
+.orange-bg {
+  background-color: orange;
+}
+
+.border-style {
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 100%;
 }
 
 .subfooter {
@@ -85,52 +134,26 @@ main {
   background-color: $lighter-grey;
 }
 
+.no-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
 .footer {
   color: white;
   background-color: $blue;
   padding: 30px 0;
-}
 
-.card {
-  //color: $light-blue;
-  display: block;
-  background-color: white;
-  box-shadow: 1px 1px 10px 2px $dark-grey;
-  border: 1px solid $blue;
-  margin-bottom: 30px;
-  //margin: 5px;
-  //overflow: hidden;
-
-  .card-content {
-    padding: 10px 10px;
-  }
-}
-
-.navbar {
-  margin-bottom: 0;
-}
-
-.navbar-default {
-  background-color: $blue;
-  color: white;
-
-  .navbar-brand {
+  a {
     color: white;
 
     &:hover, &:focus {
-      color: $yellow;
+      color: $orange;
+
     }
   }
+}
 
-  .navbar-nav {
-    > li {
-      > a {
-        color: white;
-
-        &:hover, &:focus {
-          color: $yellow;
-        }
-      }
-    }
-  }
+.float-right {
+  float: right;
 }

@@ -1,46 +1,47 @@
-<div class="row head">
-    <div class="col-md-12">
-        <h2>Entwicklerverzeichnis</h2>
-        <div class="btn-group" role="group" aria-label="...">
-            <button type="button" class="btn button-muted" [routerLink]="['/list']">Liste</button>
-            <button type="button" class="btn button-muted" [routerLink]="['/map']">Karte</button>
+<section id="list" class="gray-bg-spacer">
+
+    <div class="container">
+        <div class="row head">
+            <div class="col-md-12">
+                <h2>Entwicklerverzeichnis</h2>
+                <div class="btn-group" role="group" aria-label="...">
+                    <button type="button" class="btn button-muted" [routerLink]="['/list']">Liste</button>
+                    <button type="button" class="btn button-muted" [routerLink]="['/map']">Karte</button>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-<div class="row content">
-    <div class="col-md-4" *ngFor="let user of users">
-        <div class="card">
-            <div class="card-content">
-                <div class="row">
-                    <div class="col-md-4">
-                        <img class="img-responsive img-circle" src="{{ user.avatar_url }}"/>
-                    </div>
-                    <div class="col-md-8">
-                        <h4>{{user.name}}</h4>
-                        <p>{{user.city}}</p>
-                        <!--<p>Nutzt TypeScript für: #node #angularjs #angular2 #ionic</p>-->
-                        <!--<a [routerLink]="['Single']">#node #angularjs #angular2</a>-->
-                        <a (click)="onClick(user.login)">Details</a>
+        <div class="row content">
+            <div class="col-md-4" *ngFor="let user of users">
+                <div class="card border-style white-bg">
+                    <div class="card-content">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <img class="img-responsive img-circle" src="{{ user.avatar_url }}"/>
+                            </div>
+                            <div class="col-md-8">
+                                <h4>{{user.name}}</h4>
+                                <p>{{user.city}}</p>
+                                <!--<p>Nutzt TypeScript für: #node #angularjs #angular2 #ionic</p>-->
+                                <a (click)="onClick(user.login)">Details</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
-<div class="row">
-    <div class="col-md-12">
-    </div>
-</div>
+        <div class="row">
+            <div class="col-md-12">
+            </div>
+        </div>
 
-<div class="row">
-    <div class="col-md-12">
-        <!--<button class="btn button-default" (click)="loadPrevious()" [disabled]="skip === 0">Zurück</button>-->
-        <button *ngFor="let page of pages; let i = index" class="btn button-default" (click)="loadPage(i)">
-            {{i + 1}}
-        </button>
-        <!--<button class="btn button-default" (click)="loadNext()" [disabled]="skip === Math.floor(count)">Weiter</button>-->
+        <div class="row">
+            <div class="col-md-12">
+                <button *ngFor="let page of pages; let i = index" class="btn button-default" (click)="loadPage(i)">
+                    {{i + 1}}
+                </button>
+            </div>
+        </div>
     </div>
-</div>
-
+</section>
 <!--<pre>{{users | json }}</pre>-->

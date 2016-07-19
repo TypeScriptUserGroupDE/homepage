@@ -41,7 +41,9 @@ class UserCtrl {
             }
 
             //don't give sensitive data to outside world
-            result = UserCtrl.cleanSensitiveData(result);
+            if (result) {
+                result = UserCtrl.cleanSensitiveData(result);
+            }
 
             res
                 .status(200)

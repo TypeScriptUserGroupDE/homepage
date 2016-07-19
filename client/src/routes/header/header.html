@@ -1,13 +1,10 @@
-<div *ngIf="!isLoggedIn()" class="banner">
+<div *ngIf="!isLoggedIn() && !(getCurrentRoute() === '/' || getCurrentRoute() === '/home')" class="banner blue-bg">
     <div class="container">
         <!--<h1>TypeScriptUsers</h1>-->
-        <div class="banner-content">
+        <div class="col-md-9 banner-content">
             <p>TypeScriptUsers ist ein offenes Verzeichnis von TypeScript-Entwicklern in Deutschland.</p>
-            <p>Unser Ziel ist es, die Bekanntheit von TypeScript zu fördern, indem wir TypeScript-Entwickler
-                untereinander
-                vernetzen</p>
         </div>
-        <div class="banner-actions">
+        <div class="col-md-3 banner-actions">
             <button class="btn button-default" (click)="login()">Mit GitHub anmelden</button>
         </div>
     </div>

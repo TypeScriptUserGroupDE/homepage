@@ -1,5 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {NgForm, Control, Validators, FormBuilder, ControlGroup}    from '@angular/common';
+import {
+    NgForm,
+    FormControl,
+    FormGroup,
+    Validators,
+    ValidatorFn,
+    AbstractControl,
+    REACTIVE_FORM_DIRECTIVES
+} from '@angular/forms';
 import {Http} from '@angular/http';
 import {Headers, RequestOptions} from '@angular/http';
 import {ROUTER_DIRECTIVES, Router} from '@angular/router';
@@ -9,29 +17,22 @@ import {User} from '../../../components/User';
 @Component({
     selector: 'user-add',
     templateUrl: './routes/user/add/user.add.html',
-    directives: [ROUTER_DIRECTIVES],
+    directives: [ROUTER_DIRECTIVES, REACTIVE_FORM_DIRECTIVES],
     providers: []
 })
 
 export class UserAddComponent implements OnInit {
-    email:Control;
-    zip:Control;
-    required:Control;
-    form:ControlGroup;
+    form:FormGroup;
 
     constructor(private router:Router,
                 public http:Http,
-                public authHttp:AuthHttp,
-                private builder:FormBuilder) {
+                public authHttp:AuthHttp) {
 
-        this.email = new Control("", Validators.compose([this.emailValidator]));
-        this.zip = new Control("", Validators.compose([Validators.pattern('[0-9]{5}')]));
-        this.required = new Control("", Validators.required);
-
-        this.form = builder.group({
-            email: this.email,
-            zip: this.zip,
-            required: this.required
+        this.form = new FormGroup({
+            // login: null,
+            email: new FormControl('', Validators.compose([this.emailValidator])),
+            zip: new FormControl('', Validators.compose([Validators.pattern('[0-9]{5}')])),
+            required: new FormControl('', Validators.required)
         });
     }
 
@@ -45,14 +46,9 @@ export class UserAddComponent implements OnInit {
             );
     }
 
-    emailValidator(c:Control) {
-        let EMAIL_REGEXP = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
-
-        return EMAIL_REGEXP.test(c.value) ? null : {
-            validateEmail: {
-                valid: false
-            }
-        }
+    emailValidator(control:AbstractControl) {
+        let EMAIL_REGEXP = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
+        return EMAIL_REGEXP.test(control.value) ? null : {'email': true}
     }
 
     onSubmit() {

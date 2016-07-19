@@ -17,7 +17,6 @@ export class HeaderComponent {
                 public authHttp:AuthHttp,
                 public router:Router,
                 private authService:AuthService) {
-
     }
 
     isLoggedIn() {
@@ -27,4 +26,8 @@ export class HeaderComponent {
     login() {
         this.authService.login();
     };
+
+    getCurrentRoute() {
+        return this.authService.getCurrentRoute();
+    }
 }

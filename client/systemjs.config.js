@@ -24,6 +24,7 @@ var packageNames = [
     '@angular/compiler',
     '@angular/core',
     '@angular/http',
+    '@angular/forms',
     '@angular/platform-browser',
     '@angular/platform-browser-dynamic',
     '@angular/router',

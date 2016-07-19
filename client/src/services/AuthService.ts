@@ -39,7 +39,7 @@ export class AuthService implements CanActivate {
 
     logout() {
         window.localStorage.removeItem('token');
-        this.router.navigate(['/list']);
+        this.router.navigate(['/']);
     }
 
     login() {
@@ -48,4 +48,8 @@ export class AuthService implements CanActivate {
         var url = "https://github.com/login/oauth/authorize?client_id=" + client_id + "&scope=" + scope;
         window.location.replace(url);
     };
+
+    getCurrentRoute() {
+        return this.router.url
+    }
 }
