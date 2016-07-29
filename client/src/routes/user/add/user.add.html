@@ -62,8 +62,29 @@
                 <div class="col-md-7">
                     <div class="form-group">
                         <label for="description">Beschreibung (Links werden automatisch konvertiert)</label>
-                        <textarea rows="18" cols="10" type="text" name="description" class="form-control"
+                        <textarea rows="12" cols="10" type="text" name="description" class="form-control"
                                   [(ngModel)]="model.description"></textarea>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="forProjects" class=""
+                                           [(ngModel)]="model.availability && model.availability.forProjects">
+                                    Ich stehe für Projekte zur Verfügung
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="greaterDistance" class=""
+                                           [(ngModel)]="model.availability && model.availability.greaterDistance">
+                                    Auch in größerer Entfernung vom Wohnort
+                                </label>
+                            </div>
+                        </div>
                     </div>
 
                     <!--todo: angular2 elvis operator is currently not supported for two-way data binding,-->
@@ -75,19 +96,23 @@
                         <div class="col-md-6">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" name="angularjs" class="" [(ngModel)]="model.tec && model.tec.angularjs">
+                                    <input type="checkbox" name="angularjs" class=""
+                                           [(ngModel)]="model.tec && model.tec.angularjs">
                                     AngularJS
                                 </label>
                             </div>
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" name="angular2" class="" [(ngModel)]="model.tec && model.tec.angular2">
+                                    <input type="checkbox" name="angular2" class=""
+                                           [(ngModel)]="model.tec && model.tec.angular2">
                                     Angular2
                                 </label>
                             </div>
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" name="ionic" class="" [(ngModel)]="model.tec && model.tec.ionic">
+                                    <input
+                                            type="checkbox" name="ionic" class=""
+                                           [(ngModel)]="model.tec && model.tec.ionic">
                                     Ionic
                                 </label>
                             </div>
@@ -95,13 +120,15 @@
                         <div class="col-md-6">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" name="nodejs" class="" [(ngModel)]="model.tec && model.tec.nodejs">
+                                    <input type="checkbox" name="nodejs" class=""
+                                           [(ngModel)]="model.tec && model.tec.nodejs">
                                     Node.Js
                                 </label>
                             </div>
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" name="nodejs" class="" [(ngModel)]="model.tec && model.tec.nativescript">
+                                    <input type="checkbox" name="nodejs" class=""
+                                           [(ngModel)]="model.tec && model.tec.nativescript">
                                     NativeScript
                                 </label>
                             </div>
@@ -119,4 +146,4 @@
     </div>
 </section>
 
-<!--<pre>{{model | json }}</pre>-->
+<pre>{{model | json }}</pre>

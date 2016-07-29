@@ -44,7 +44,7 @@ export class UserAddComponent implements OnInit {
             .subscribe(
                 data => {
                     this.model = data;
-                    console.log(this.model);
+                    // console.log(this.model);
                 }
             );
     }
@@ -67,7 +67,7 @@ export class UserAddComponent implements OnInit {
             .subscribe(
                 data => {
                     console.log("done");
-                    console.log(data);
+                    // console.log(data);
                     this.router.navigate(['/directory']);
                 },
                 error => console.log(error),

@@ -56,7 +56,7 @@ export class SingleComponent implements OnInit {
             .subscribe(
                 data => {
                     this.user = data;
-                    console.log(this.user)
+                    // console.log(this.user);
                 },
                 error => {
                     console.log(error);

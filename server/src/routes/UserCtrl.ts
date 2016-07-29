@@ -39,8 +39,6 @@ class UserCtrl {
                 return
             }
 
-            console.log(result);
-
             if (result) {
                 result = UserCtrl.cleanSensitiveData(result);
             }
@@ -205,6 +203,7 @@ class UserCtrl {
                     "city": req.body.city,
                     "zip": req.body.zip,
                     "tec": req.body.tec,
+                    "availability": req.body.availability,
                     "active": true,
                     "longitude": result.results[0].geometry.location.lng,
                     "latitude": result.results[0].geometry.location.lat

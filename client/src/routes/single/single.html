@@ -43,26 +43,30 @@
                     <p class="desc-text border-style" innerHTML="{{user.description | linky}}"></p>
                 </div>
 
-                <h2>Verwendet TypeScript mit</h2>
+                <h2>
+                    Verwendet TypeScript mit</h2>
+
+                <!--todo: angular2 elvis operator is currently not supported for two-way data binding,-->
+                <!--see: https://github.com/angular/angular/issues/7697-->
 
                 <div class="tec row">
                     <div *ngIf="user.tec && user.tec.angularjs" class="col-md-4"><p class="border-style white-bg">
                         <i class="fa fa-check-square"
                            aria-hidden="true"></i>
                         AngularJS</p></div>
-                    <div *ngIf="user.tec.angular2" class="col-md-4"><p class="border-style white-bg">
+                    <div *ngIf="user.tec && user.tec.angular2" class="col-md-4"><p class="border-style white-bg">
                         <i class="fa fa-check-square"
                            aria-hidden="true"></i>
                         Angular2</p></div>
-                    <div *ngIf="user.tec.ionic" class="col-md-4"><p class="border-style white-bg">
+                    <div *ngIf="user.tec && user.tec.ionic" class="col-md-4"><p class="border-style white-bg">
                         <i class="fa fa-check-square"
                            aria-hidden="true"></i>
                         Ionic</p></div>
-                    <div *ngIf="user.tec.nodejs" class="col-md-4"><p class="border-style white-bg">
+                    <div *ngIf="user.tec && user.tec.nodejs" class="col-md-4"><p class="border-style white-bg">
                         <i class="fa fa-check-square"
                            aria-hidden="true"></i>
                         Node.js</p></div>
-                    <div *ngIf="user.tec.nativescript" class="col-md-4"><p class="border-style white-bg">
+                    <div *ngIf="user.tec && user.tec.nativescript" class="col-md-4"><p class="border-style white-bg">
                         <i class="fa fa-check-square"
                            aria-hidden="true"></i>
                         NativeScript</p></div>
