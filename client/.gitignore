@@ -6,4 +6,4 @@ typings
 
 dist
 target
-src/config
+# src/config
