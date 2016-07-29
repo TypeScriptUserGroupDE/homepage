@@ -16,7 +16,7 @@
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li class="" routerLinkActive="active"><a [routerLink]="['/home']">Start</a></li>
-                <li class="" routerLinkActive="active"><a [routerLink]="['/list']">Entwicklerverzeichnis</a></li>
+                <li class="" routerLinkActive="active"><a [routerLink]="['/directory']">Entwicklerverzeichnis</a></li>
                 <!--<li><a href="ueber">Über Uns</a></li>-->
                 <li routerLinkActive="active"><a *ngIf="isLoggedIn()" [routerLink]="['/user/add']">Profil bearbeiten</a></li>
                 <li routerLinkActive="active"><a *ngIf="isLoggedIn()" (click)="logout()">Abmelden</a></li>

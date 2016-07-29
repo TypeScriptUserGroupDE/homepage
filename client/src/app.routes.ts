@@ -10,11 +10,11 @@ import {UserAddComponent} from './routes/user/add/userAdd.component';
 import {UserMessageComponent} from './routes/user/message/userMessage.component';
 
 export const routes:RouterConfig = [
-    // {path: '', redirectTo: '/home', pathMatch: 'full'},
+    {path: '', redirectTo: '/home', pathMatch: 'full'},
     {path: 'home', component: HomeComponent},
     {path: 'map', component: MapComponent},
-    {path: 'list', component: ListComponent},
-    {path: 'single/:username', component: SingleComponent},
+    {path: 'directory', component: ListComponent},
+    {path: 'developer/:username', component: SingleComponent},
     {path: 'login', component: LoginComponent},
     {path: 'user/add', component: UserAddComponent, canActivate: [AuthService]},
     {path: 'user/message/:username', component: UserMessageComponent, canActivate: [AuthService]},
