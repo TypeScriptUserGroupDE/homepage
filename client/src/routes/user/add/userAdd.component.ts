@@ -31,7 +31,7 @@ export class UserAddComponent implements OnInit {
         this.form = new FormGroup({
             // login: null,
             email: new FormControl('', Validators.compose([this.emailValidator])),
-            zip: new FormControl('', Validators.compose([Validators.pattern('[0-9]{5}')])),
+            zip: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[0-9]{5}')])),
             required: new FormControl('', Validators.required)
         });
     }
