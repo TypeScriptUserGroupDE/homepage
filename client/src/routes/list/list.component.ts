@@ -50,31 +50,6 @@ export class ListComponent implements OnInit {
         this.router.navigate(['/single', username]);
     }
 
-    // loadNext() {
-    //     //todo: use Math.floor()
-    //
-    //     this.skip = this.skip + 10;
-    //     this.http.post('/api/user/get/all',
-    //         {skip: this.skip})
-    //         .map(res => res.json())
-    //         .subscribe(
-    //             data => this.users = data,
-    //             error => console.log(error)
-    //         );
-    //
-    // }
-    //
-    // loadPrevious() {
-    //     this.skip = this.skip - 10;
-    //     this.http.post('/api/user/get/all',
-    //         {skip: this.skip})
-    //         .map(res => res.json())
-    //         .subscribe(
-    //             data => this.users = data,
-    //             error => console.log(error)
-    //         );
-    // }
-
     loadPage(index:number) {
         this.pageIndex = index;
         this.skip = this.pageIndex * 10;
