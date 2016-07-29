@@ -18,9 +18,10 @@ export class ListComponent implements OnInit {
     text:string;
     count:number;
     pages:number;
+    pageIndex:number = 0;
     skip:number = 0;
 
-    constructor(private router:Router,
+    constructor(public router:Router,
                 public http:Http,
                 public authHttp:AuthHttp) {
     }
@@ -32,7 +33,6 @@ export class ListComponent implements OnInit {
                 data => {
                     this.count = data;
                     this.pages = Array(Math.ceil(this.count / 10))
-                    console.log(this.count);
                 },
                 error => console.log(error)
             );
@@ -75,8 +75,9 @@ export class ListComponent implements OnInit {
     //         );
     // }
 
-    loadPage(page:number) {
-        this.skip = page * 10;
+    loadPage(index:number) {
+        this.pageIndex = index;
+        this.skip = this.pageIndex * 10;
         this.http.post('/api/user/get/all',
             {skip: this.skip})
             .map(res => res.json())

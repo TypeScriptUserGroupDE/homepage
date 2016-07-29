@@ -3,10 +3,10 @@
     <div class="container">
         <div class="row head">
             <div class="col-md-12">
-                <h2>Entwicklerverzeichnis</h2>
+                <h1>Entwicklerverzeichnis</h1>
                 <div class="btn-group" role="group" aria-label="...">
-                    <button type="button" class="btn button-muted" [routerLink]="['/list']">Liste</button>
-                    <button type="button" class="btn button-muted" [routerLink]="['/map']">Karte</button>
+                    <a type="button" class="btn button-muted"  [routerLink]="['/list']" routerLinkActive="active">Liste</a>
+                    <a type="button" class="btn button-muted" [routerLink]="['/map']" routerLinkActive="active">Karte</a>
                 </div>
             </div>
         </div>
@@ -37,9 +37,10 @@
 
         <div class="row">
             <div class="col-md-12">
-                <button *ngFor="let page of pages; let i = index" class="btn button-default" (click)="loadPage(i)">
+                <a *ngFor="let page of pages; let i = index" [class.active]="(i === pageIndex)" class="btn button-muted" (click)="loadPage(i)">
                     {{i + 1}}
-                </button>
+                </a>
+
             </div>
         </div>
     </div>

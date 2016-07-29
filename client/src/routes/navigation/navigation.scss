@@ -2,6 +2,23 @@
 
 .navbar {
   margin-bottom: 0;
+
+  .container {
+
+    .navbar-brand {
+      color: white;
+      padding: 5px 0;
+      margin-left: 0;
+
+      &:hover, &:focus {
+        color: $orange;
+      }
+
+      .logo {
+        max-height: 40px;
+      }
+    }
+  }
 }
 
 .navbar-default {
@@ -9,23 +26,31 @@
   color: white;
   padding: 10px 0;
 
-  .navbar-brand {
-    color: white;
-
-    &:hover, &:focus {
-      color: $orange;
-    }
-  }
-
   .navbar-nav {
     > li {
       > a {
         color: white;
+        font-weight: normal;
 
         &:hover, &:focus {
           color: $orange;
         }
       }
+    }
+
+    > .active {
+
+      > a {
+        background-color: inherit;
+        color: $orange;
+        font-weight: normal;
+
+        &:hover, &:focus {
+          background-color: inherit;
+          color: $orange;
+        }
+      }
+
     }
   }
 }

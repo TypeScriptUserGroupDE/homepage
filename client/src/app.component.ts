@@ -18,6 +18,7 @@ import {UserMessageComponent} from './routes/user/message/userMessage.component'
     directives: [ROUTER_DIRECTIVES, HeaderComponent, NavigationComponent, LoginComponent, UserAddComponent],
     providers: [],
     precompile: [
+        HomeComponent,
         MapComponent,
         HeaderComponent,
         NavigationComponent,
