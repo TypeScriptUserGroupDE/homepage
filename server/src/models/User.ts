@@ -25,7 +25,18 @@ export interface User extends mongoose.Document, PublicUser {
     zip:number;
     tec:string;
     latitude:number;
-    longitude:number
+    longitude:number;
+    availability:{
+        forProjects:boolean;
+        greaterDistance:boolean;
+    };
+    tec:{
+        nodejs:boolean;
+        angularjs:boolean;
+        angular2:boolean;
+        ionic:boolean;
+        nativescript:boolean;
+    };
 }
 
 export var UserSchema = new Schema(
@@ -44,9 +55,19 @@ export var UserSchema = new Schema(
         description: String,
         city: String,
         zip: Number,
-        tec: String,
         latitude: Number,
-        longitude: Number
+        longitude: Number,
+        availability: {
+            forProjects: {type: Boolean, default: false},
+            greaterDistance: {type: Boolean, default: false}
+        },
+        tec: {
+            nodejs: {type: Boolean, default: false},
+            angularjs: {type: Boolean, default: false},
+            angular2: {type: Boolean, default: false},
+            ionic: {type: Boolean, default: false},
+            nativescript: {type: Boolean, default: false}
+        }
     },
     {
         timestamps: true

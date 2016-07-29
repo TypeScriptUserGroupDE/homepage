@@ -36,13 +36,16 @@ export class UserAddComponent implements OnInit {
         });
     }
 
-    model = new User();
+    model? = new User();
 
     ngOnInit() {
         this.authHttp.get('/api/user/get/form')
             .map(res => res.json())
             .subscribe(
-                data => this.model = data
+                data => {
+                    this.model = data;
+                    console.log(this.model);
+                }
             );
     }
 
@@ -65,7 +68,7 @@ export class UserAddComponent implements OnInit {
                 data => {
                     console.log("done");
                     console.log(data);
-                    this.router.navigate(['/list']);
+                    this.router.navigate(['/directory']);
                 },
                 error => console.log(error),
                 () => console.log('Login successful')

@@ -54,8 +54,13 @@ export class SingleComponent implements OnInit {
             options)
             .map(res => res.json())
             .subscribe(
-                data => this.user = data,
-                error => console.log(error)
+                data => {
+                    this.user = data;
+                    console.log(this.user)
+                },
+                error => {
+                    console.log(error);
+                }
             );
     }
 
@@ -65,7 +70,7 @@ export class SingleComponent implements OnInit {
 
     sendMessage(username:string) {
         if (this.authService.isLoggedIn()) {
-        this.router.navigate(['/user/message', username]);
+            this.router.navigate(['/user/message', username]);
         } else {
             this.authService.login();
         }

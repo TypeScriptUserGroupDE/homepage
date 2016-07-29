@@ -65,10 +65,47 @@
                         <textarea rows="18" cols="10" type="text" name="description" class="form-control"
                                   [(ngModel)]="model.description"></textarea>
                     </div>
-                    <!--todo: how to save technology?-->
-                    <div class="form-group">
-                        <label for="tec">Technologie</label>
-                        <input type="text" name="tec" class="form-control" [(ngModel)]="model.tec">
+
+                    <!--todo: angular2 elvis operator is currently not supported for two-way data binding,-->
+                    <!--see: https://github.com/angular/angular/issues/7697-->
+                    <!--workaround: [(ngModel)]="model && model.key"-->
+
+                    <h4>Ich habe Erfahrung mit:</h4>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="angularjs" class="" [(ngModel)]="model.tec && model.tec.angularjs">
+                                    AngularJS
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="angular2" class="" [(ngModel)]="model.tec && model.tec.angular2">
+                                    Angular2
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="ionic" class="" [(ngModel)]="model.tec && model.tec.ionic">
+                                    Ionic
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="nodejs" class="" [(ngModel)]="model.tec && model.tec.nodejs">
+                                    Node.Js
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="nodejs" class="" [(ngModel)]="model.tec && model.tec.nativescript">
+                                    NativeScript
+                                </label>
+                            </div>
+                        </div>
                     </div>
 
                     <button type="submit" (click)="onSubmit()" class="btn btn-default"

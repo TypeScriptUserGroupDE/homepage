@@ -31,7 +31,6 @@ class UserCtrl {
     getSingleUser(req:JwtRequest, res:express.Response) {
 
         UserModel.findOne({$and: [{"login": req.body.username}, {"active": true}]})
-            .lean()
             .exec(done);
 
         function done(err:any, result:User) {
@@ -40,7 +39,8 @@ class UserCtrl {
                 return
             }
 
-            //don't give sensitive data to outside world
+            console.log(result);
+
             if (result) {
                 result = UserCtrl.cleanSensitiveData(result);
             }
@@ -63,10 +63,11 @@ class UserCtrl {
                 console.log("err");
                 return
             }
+            // console.log(result);
 
             res
                 .status(200)
-                .json(result);
+                .json(result.toJSON());
         }
     }
 
@@ -141,8 +142,8 @@ class UserCtrl {
     }
 
     sendMessage(req:JwtRequest, res:express.Response) {
-        console.log(req.body);
-        console.log(Config.mailgun_api_key);
+        // console.log(req.body);
+        // console.log(Config.mailgun_api_key);
 
         UserModel
             .findOne({"login": req.body.username})
@@ -154,7 +155,7 @@ class UserCtrl {
                 return
             }
             if (result) {
-                console.log(result);
+                // console.log(result);
                 let headers = {
                     Authorization: 'Basic ' + new Buffer('api:' + Config.mailgun_api_key).toString("base64")
                 };
@@ -188,7 +189,7 @@ class UserCtrl {
     updateUser(req:JwtRequest, res:express.Response) {
 
         let location = req.body.zip + ' ' + req.body.city + ',Germany';
-        console.log(location);
+        // console.log(location);
 
         UserCtrl.getCoordinates(location)
             .then(function (result:any) {
@@ -229,6 +230,8 @@ class UserCtrl {
     }
 
     static cleanSensitiveData(data:User) {
+        data = JSON.parse(JSON.stringify(data));
+
         delete data.email;
         delete data.github_token;
         delete data.zip;
