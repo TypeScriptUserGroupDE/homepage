@@ -4,7 +4,7 @@
             <div class="col-md-12">
                 <h2>Entwicklerverzeichnis</h2>
                 <div class="btn-group" role="group" aria-label="...">
-                    <a type="button" class="btn button-muted" routerLinkActive="active" [routerLink]="['/list']">Liste</a>
+                    <a type="button" class="btn button-muted" routerLinkActive="active" [routerLink]="['/directory']">Liste</a>
                     <a type="button" class="btn button-muted" routerLinkActive="active" [routerLink]="['/map']">Karte</a>
                 </div>
             </div>
@@ -13,14 +13,14 @@
             <sebm-google-map
                     [latitude]="lat"
                     [longitude]="lng"
-                    [(zoom)]="zoom"
+                    [zoom]="zoom"
                     [styles]='styles'
             >
                 <sebm-google-map-circle
                         *ngFor="let marker of markers"
                         [latitude]="marker.lat"
                         [longitude]="marker.lng"
-                        [(radius)]="radius"
+                        [radius]="25000 * (100000 / (100000 - (marker.count * 4000)))"
                         [fillColor]="'red'"
                 >
                 </sebm-google-map-circle>
@@ -28,3 +28,6 @@
         </div>
     </div>
 </section>
+
+<pre> {{markers | json }} </pre>
+{{zoom}}

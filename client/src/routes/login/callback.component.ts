@@ -43,7 +43,7 @@ export class CallbackComponent implements OnInit {
                     if (data.user.active === false) {
                         this.router.navigateByUrl('/user/add');
                     } else {
-                        this.router.navigateByUrl('/list');
+                        this.router.navigateByUrl('/directory');
                     }
                 },
                 error => console.log(error),

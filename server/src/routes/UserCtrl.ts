@@ -7,19 +7,13 @@ import {model as UserModel} from "./../models/User";
 import {User} from "./../models/User";
 import Config from "../config/config";
 
-// todo: use IJwtRequest
-interface location {
-    lat:string,
-    lng:string
-}
-
 class UserCtrl {
 
     publicRoutes(app:express.Application, baseRoute:string) {
         app.post(baseRoute + "/get", this.getSingleUser);
         app.post(baseRoute + "/get/all", this.getUsers);
         app.get(baseRoute + "/get/count", this.countUsers);
-        app.get(baseRoute + "/get/map", this.getUserCoordinates);
+        app.get(baseRoute + "/get/map", this.getUserMap);
     }
 
     protectedRoutes(app:express.Application, baseRoute:string) {
@@ -113,35 +107,36 @@ class UserCtrl {
         }
     }
 
-    getUserCoordinates(req:express.Request, res:express.Response) {
-        var coordinates:location[] = [];
+    getUserMap(req:express.Request, res:express.Response) {
 
         UserModel
             .find({"active": true})
             .exec(done);
 
-        function done(err:any, result:User) {
+        function done(err:any, result:User[]) {
             if (err) {
                 console.log("err");
                 return
             }
 
-            _.forEach(result, function (user, key) {
-                coordinates.push({
-                    lat: user.latitude,
-                    lng: user.longitude
-                })
+            let userMap = _(result).groupBy('zip').map(function (item:User[], id:string) {
+                let count = _.countBy(item, 'zip');
+                let obj = {};
+                obj = {
+                    "count": count[id],
+                    "lat": item[0].latitude,
+                    "lng": item[0].longitude
+                };
+                return obj
             });
 
             res
                 .status(200)
-                .json(coordinates);
+                .json(userMap);
         }
     }
 
     sendMessage(req:JwtRequest, res:express.Response) {
-        // console.log(req.body);
-        // console.log(Config.mailgun_api_key);
 
         UserModel
             .findOne({"login": req.body.username})
@@ -186,10 +181,11 @@ class UserCtrl {
 
     updateUser(req:JwtRequest, res:express.Response) {
 
-        let location = req.body.zip + ' ' + req.body.city + ',Germany';
+        let location = req.body.zip + ' ' + req.body.city;
         // console.log(location);
 
         UserCtrl.getCoordinates(location)
+
             .then(function (result:any) {
                 result = JSON.parse(result);
 
