@@ -13,14 +13,14 @@
             <sebm-google-map
                     [latitude]="lat"
                     [longitude]="lng"
-                    [(zoom)]="zoom"
+                    [zoom]="zoom"
                     [styles]='styles'
             >
                 <sebm-google-map-circle
                         *ngFor="let marker of markers"
                         [latitude]="marker.lat"
                         [longitude]="marker.lng"
-                        [(radius)]="radius"
+                        [radius]="25000 * (100000 / (100000 - (marker.count * 4000)))"
                         [fillColor]="'red'"
                 >
                 </sebm-google-map-circle>
@@ -30,3 +30,4 @@
 </section>
 
 <pre> {{markers | json }} </pre>
+{{zoom}}

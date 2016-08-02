@@ -2,13 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import {Http} from '@angular/http';
 import {ROUTER_DIRECTIVES, Router} from '@angular/router';
 import {AuthHttp} from 'angular2-jwt';
-import {GOOGLE_MAPS_DIRECTIVES} from 'angular2-google-maps/core';
+import {GOOGLE_MAPS_DIRECTIVES, GoogleMapsAPIWrapper} from 'angular2-google-maps/core';
 
 @Component({
     selector: 'map',
     templateUrl: './routes/map/map.html',
     directives: [ROUTER_DIRECTIVES, GOOGLE_MAPS_DIRECTIVES],
-    providers: [],
+    providers: [GoogleMapsAPIWrapper],
     precompile: [MapComponent]
 })
 
@@ -32,10 +32,9 @@ export class MapComponent implements OnInit {
     }
 
     //config map zoom level and inital center map on coordinates
-    zoom:number = 7;
-    lat:number = 51.165691;
-    lng:number = 10.451526;
-    radius:number = 25000;
+    zoom:number = 6;
+    lat:number = 50.589095;
+    lng:number = 11.600845;
 
     styles = [
         {

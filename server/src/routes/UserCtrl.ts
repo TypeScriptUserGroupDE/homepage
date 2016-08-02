@@ -127,41 +127,16 @@ class UserCtrl {
                 return
             }
 
-            _.forEach(result, function (user, key) {
-                let obj = {};
-                obj[user.zip] = {
-                    // zip: user.zip
-                    lat: user.latitude,
-                    lng: user.longitude
-                };
-
-                // coordinates.push(obj);
-                coordinates.push({
-                    zip: user.zip,
-                    lat: user.latitude,
-                    lng: user.longitude
-                });
-
-                zips.push(
-                    user.zip
-                )
-            });
-
-            // let counted = _.countBy(_.map(_.uniq(coordinates), _.iteratee('zip', 'lat')));
-            // let counted = _.uniqBy(coordinates, 'zip');
-            let userMap = _(coordinates).groupBy('zip').map(function (item, id) {
+            let userMap = _(result).groupBy('zip').map(function (item, id) {
                 let count = _.countBy(item, 'zip');
                 let obj = {};
-                console.log("item");
-                console.log(item);
-                obj[id] = {
+                obj = {
                     "count": count[id],
-                    "lat": item[0].lat,
-                    "lng": item[0].lng
+                    "lat": item[0].latitude,
+                    "lng": item[0].longitude
                 };
                 return obj
             });
-            console.log(JSON.stringify(userMap, null, 2));
 
             res
                 .status(200)
