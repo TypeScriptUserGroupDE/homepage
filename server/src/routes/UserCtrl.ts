@@ -9,8 +9,8 @@ import Config from "../config/config";
 
 // todo: use IJwtRequest
 interface location {
-    lat:string,
-    lng:string
+    lat:number,
+    lng:number
 }
 
 class UserCtrl {
@@ -19,7 +19,7 @@ class UserCtrl {
         app.post(baseRoute + "/get", this.getSingleUser);
         app.post(baseRoute + "/get/all", this.getUsers);
         app.get(baseRoute + "/get/count", this.countUsers);
-        app.get(baseRoute + "/get/map", this.getUserCoordinates);
+        app.get(baseRoute + "/get/map", this.getUserMap);
     }
 
     protectedRoutes(app:express.Application, baseRoute:string) {
@@ -113,35 +113,63 @@ class UserCtrl {
         }
     }
 
-    getUserCoordinates(req:express.Request, res:express.Response) {
+    getUserMap(req:express.Request, res:express.Response) {
         var coordinates:location[] = [];
+        var zips:any[] = [];
 
         UserModel
             .find({"active": true})
             .exec(done);
 
-        function done(err:any, result:User) {
+        function done(err:any, result:User[]) {
             if (err) {
                 console.log("err");
                 return
             }
 
             _.forEach(result, function (user, key) {
-                coordinates.push({
+                let obj = {};
+                obj[user.zip] = {
+                    // zip: user.zip
                     lat: user.latitude,
                     lng: user.longitude
-                })
+                };
+
+                // coordinates.push(obj);
+                coordinates.push({
+                    zip: user.zip,
+                    lat: user.latitude,
+                    lng: user.longitude
+                });
+
+                zips.push(
+                    user.zip
+                )
             });
+
+            // let counted = _.countBy(_.map(_.uniq(coordinates), _.iteratee('zip', 'lat')));
+            // let counted = _.uniqBy(coordinates, 'zip');
+            let userMap = _(coordinates).groupBy('zip').map(function (item, id) {
+                let count = _.countBy(item, 'zip');
+                let obj = {};
+                console.log("item");
+                console.log(item);
+                obj[id] = {
+                    "count": count[id],
+                    "lat": item[0].lat,
+                    "lng": item[0].lng
+                };
+                return obj
+            });
+            console.log(JSON.stringify(userMap, null, 2));
 
             res
                 .status(200)
-                .json(coordinates);
+                .json(userMap);
         }
     }
 
     sendMessage(req:JwtRequest, res:express.Response) {
-        // console.log(req.body);
-        // console.log(Config.mailgun_api_key);
 
         UserModel
             .findOne({"login": req.body.username})
@@ -186,10 +214,11 @@ class UserCtrl {
 
     updateUser(req:JwtRequest, res:express.Response) {
 
-        let location = req.body.zip + ' ' + req.body.city + ',Germany';
+        let location = req.body.zip + ' ' + req.body.city;
         // console.log(location);
 
         UserCtrl.getCoordinates(location)
+
             .then(function (result:any) {
                 result = JSON.parse(result);
 
