@@ -23,7 +23,6 @@ export interface User extends mongoose.Document, PublicUser {
     description:string;
     city:string;
     zip:number;
-    tec:string;
     latitude:number;
     longitude:number;
     availability:{

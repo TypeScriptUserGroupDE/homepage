@@ -7,12 +7,6 @@ import {model as UserModel} from "./../models/User";
 import {User} from "./../models/User";
 import Config from "../config/config";
 
-// todo: use IJwtRequest
-interface location {
-    lat:number,
-    lng:number
-}
-
 class UserCtrl {
 
     publicRoutes(app:express.Application, baseRoute:string) {
@@ -114,8 +108,6 @@ class UserCtrl {
     }
 
     getUserMap(req:express.Request, res:express.Response) {
-        var coordinates:location[] = [];
-        var zips:any[] = [];
 
         UserModel
             .find({"active": true})
@@ -127,7 +119,7 @@ class UserCtrl {
                 return
             }
 
-            let userMap = _(result).groupBy('zip').map(function (item, id) {
+            let userMap = _(result).groupBy('zip').map(function (item:User[], id:string) {
                 let count = _.countBy(item, 'zip');
                 let obj = {};
                 obj = {
