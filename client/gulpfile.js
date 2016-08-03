@@ -107,13 +107,23 @@ gulp.task('bundle', function () {
     // todo: delete not needed stuff in target/lib after build
 
     var builder = new Builder('target', './systemjs.config.js');
-    builder.buildStatic('app', 'target/app.js', {
-        minify: true,
-        sourceMaps: true
+    return builder.buildStatic('app', 'target/app.js', {
+        minify: false,
+        sourceMaps: false
     })
         .then(function () {
             browserSync.reload();
         });
+});
+
+gulp.task('bundle:prod', function () {
+    // todo: delete not needed stuff in target/lib after build
+
+    var builder = new Builder('target', './systemjs.config.js');
+    return builder.buildStatic('app', 'target/app.js', {
+        minify: true,
+        sourceMaps: false
+    })
 });
 
 gulp.task('clean', function () {
@@ -131,6 +141,10 @@ gulp.task('serve', ['build'], function () {
 
 gulp.task('build', function (cb) {
     runSequence('clean', ['compile', 'build:libs', 'copy:libs', 'copy:assets', 'sass'], 'bundle', cb);
+});
+
+gulp.task('dist', function (cb) {
+    runSequence('clean', ['compile', 'build:libs', 'copy:libs', 'copy:assets', 'sass'], 'bundle:prod', cb);
 });
 
 gulp.task('updateBundle', function (cb) {
