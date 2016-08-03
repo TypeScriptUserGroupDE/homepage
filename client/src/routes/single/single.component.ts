@@ -51,7 +51,6 @@ export class SingleComponent implements OnInit {
         let result = true;
 
         for (let i in this.user.tec) {
-            console.log(this.user.tec[i]);
             if (this.user.tec[i] === false) {
                 result = false;
                 break;
