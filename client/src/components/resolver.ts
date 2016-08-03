@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Http, Headers, RequestOptions} from "@angular/http";
+import {AuthHttp} from 'angular2-jwt';
 import {User} from './User';
 import {Observable} from 'rxjs/Observable';
 import {Resolve, ActivatedRoute, ActivatedRouteSnapshot, RouterStateSnapshot} from "@angular/router";
@@ -33,3 +34,18 @@ export class SingleUserResolver implements Resolve {
 
     }
 }
+
+@Injectable()
+export class UserAddResolver implements Resolve {
+
+    constructor(public http:Http,
+    public authHttp:AuthHttp) {
+
+    }
+
+    resolve(route:ActivatedRouteSnapshot, state:RouterStateSnapshot):Observable<User> {
+        return this.authHttp.get('/api/user/get/form')
+            .map(res => res.json());
+    }
+}
+

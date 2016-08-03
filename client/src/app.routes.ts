@@ -9,6 +9,7 @@ import {CallbackComponent} from './routes/login/callback.component';
 import {UserAddComponent} from './routes/user/add/userAdd.component';
 import {UserMessageComponent} from './routes/user/message/userMessage.component';
 import {SingleUserResolver} from './components/resolver';
+import {UserAddResolver} from './components/resolver';
 
 
 export const routes:RouterConfig = [
@@ -18,7 +19,7 @@ export const routes:RouterConfig = [
     {path: 'directory', component: ListComponent},
     {path: 'developer/:username', component: SingleComponent, resolve: {user: SingleUserResolver}},
     {path: 'login', component: LoginComponent},
-    {path: 'user/add', component: UserAddComponent, canActivate: [AuthService]},
+    {path: 'user/add', component: UserAddComponent, canActivate: [AuthService], resolve: {user: UserAddResolver}},
     {path: 'user/message/:username', component: UserMessageComponent, canActivate: [AuthService]},
     {path: 'accessToken', component: CallbackComponent}
 ];
@@ -26,5 +27,6 @@ export const routes:RouterConfig = [
 export const APP_ROUTER_PROVIDERS = [
     provideRouter(routes),
     AuthService,
-    SingleUserResolver
+    SingleUserResolver,
+    UserAddResolver
 ];
