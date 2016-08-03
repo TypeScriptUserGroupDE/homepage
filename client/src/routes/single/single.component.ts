@@ -20,7 +20,7 @@ export class SingleComponent implements OnInit {
                 private router:Router,
                 private authService:AuthService,
                 private route:ActivatedRoute) {
-
+        
     }
 
     user = new User();
