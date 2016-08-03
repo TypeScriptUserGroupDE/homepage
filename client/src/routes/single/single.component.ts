@@ -14,22 +14,27 @@ import {LinkyPipe} from 'angular2-linky';
 })
 
 export class SingleComponent implements OnInit {
-    sendMessageText:string;
+    sendMessageText: string;
 
-    constructor(public http:Http,
-                private router:Router,
-                private authService:AuthService,
-                private route:ActivatedRoute) {
-        
+    constructor(public http: Http,
+                private router: Router,
+                private authService: AuthService,
+                private route: ActivatedRoute) {
+
     }
 
     user = new User();
-    body:{
-        username?:string
+    body: {
+        username?: string
     };
 
     ngOnInit() {
         this.user = this.route.snapshot.data['user'];
+
+        //prevent 'cannot read propery of null error
+        if (this.user.tec === null) {
+            this.user.tec = {};
+        }
 
         if (this.authService.isLoggedIn()) {
             this.sendMessageText = "Nachricht senden";
@@ -44,8 +49,9 @@ export class SingleComponent implements OnInit {
 
     hasTecSelected() {
         let result = true;
-        
+
         for (let i in this.user.tec) {
+            console.log(this.user.tec[i]);
             if (this.user.tec[i] === false) {
                 result = false;
                 break;
@@ -55,7 +61,7 @@ export class SingleComponent implements OnInit {
         return result
     }
 
-    sendMessage(username:string) {
+    sendMessage(username: string) {
         if (this.authService.isLoggedIn()) {
             this.router.navigate(['/user/message', username]);
         } else {

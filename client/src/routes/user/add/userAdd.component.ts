@@ -40,6 +40,11 @@ export class UserAddComponent implements OnInit {
 
     ngOnInit() {
         this.model = this.route.snapshot.data['user'];
+
+        //prevent 'cannot read propery of null error
+        if (this.model.tec === null) {
+            this.model.tec = {};
+        }
     }
 
     emailValidator(control:AbstractControl) {
