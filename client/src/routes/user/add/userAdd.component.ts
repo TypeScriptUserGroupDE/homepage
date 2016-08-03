@@ -10,7 +10,7 @@ import {
 } from '@angular/forms';
 import {Http} from '@angular/http';
 import {Headers, RequestOptions} from '@angular/http';
-import {ROUTER_DIRECTIVES, Router} from '@angular/router';
+import {ActivatedRoute, ROUTER_DIRECTIVES, Router} from '@angular/router';
 import {AuthHttp} from 'angular2-jwt';
 import {User} from '../../../components/User';
 
@@ -26,27 +26,20 @@ export class UserAddComponent implements OnInit {
 
     constructor(private router:Router,
                 public http:Http,
-                public authHttp:AuthHttp) {
+                public authHttp:AuthHttp,
+                private route:ActivatedRoute) {
 
         this.form = new FormGroup({
-            // login: null,
             email: new FormControl('', Validators.compose([this.emailValidator])),
             zip: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[0-9]{5}')])),
             required: new FormControl('', Validators.required)
         });
     }
 
-    model? = new User();
+    model = new User();
 
     ngOnInit() {
-        this.authHttp.get('/api/user/get/form')
-            .map(res => res.json())
-            .subscribe(
-                data => {
-                    this.model = data;
-                    // console.log(this.model);
-                }
-            );
+        this.model = this.route.snapshot.data['user'];
     }
 
     emailValidator(control:AbstractControl) {

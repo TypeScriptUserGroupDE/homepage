@@ -8,22 +8,25 @@ import {HomeComponent} from './routes/home/home.component';
 import {CallbackComponent} from './routes/login/callback.component';
 import {UserAddComponent} from './routes/user/add/userAdd.component';
 import {UserMessageComponent} from './routes/user/message/userMessage.component';
+import {SingleUserResolver} from './components/resolver';
+import {UserAddResolver} from './components/resolver';
+
 
 export const routes:RouterConfig = [
     {path: '', redirectTo: '/home', pathMatch: 'full'},
     {path: 'home', component: HomeComponent},
     {path: 'map', component: MapComponent},
     {path: 'directory', component: ListComponent},
-    {path: 'developer/:username', component: SingleComponent},
+    {path: 'developer/:username', component: SingleComponent, resolve: {user: SingleUserResolver}},
     {path: 'login', component: LoginComponent},
-    {path: 'user/add', component: UserAddComponent, canActivate: [AuthService]},
+    {path: 'user/add', component: UserAddComponent, canActivate: [AuthService], resolve: {user: UserAddResolver}},
     {path: 'user/message/:username', component: UserMessageComponent, canActivate: [AuthService]},
     {path: 'accessToken', component: CallbackComponent}
 ];
 
 export const APP_ROUTER_PROVIDERS = [
     provideRouter(routes),
-    AuthService
+    AuthService,
+    SingleUserResolver,
+    UserAddResolver
 ];
-
-// export const AUTH_PROVIDERS = [];

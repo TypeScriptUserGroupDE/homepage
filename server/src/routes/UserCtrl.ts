@@ -24,7 +24,8 @@ class UserCtrl {
 
     getSingleUser(req:JwtRequest, res:express.Response) {
 
-        UserModel.findOne({$and: [{"login": req.body.username}, {"active": true}]})
+        UserModel
+            .findOne({$and: [{"login": req.body.username}, {"active": true}]})
             .exec(done);
 
         function done(err:any, result:User) {
@@ -46,7 +47,8 @@ class UserCtrl {
     // this allows an authenticated user to get his own data, if he is active
     getUserForm(req:JwtRequest, res:express.Response) {
 
-        UserModel.findOne()
+        UserModel
+            .findOne()
             .where({"github_id": req.decoded.github_id})
             .exec(done);
 
@@ -55,7 +57,6 @@ class UserCtrl {
                 console.log("err");
                 return
             }
-            // console.log(result);
 
             res
                 .status(200)

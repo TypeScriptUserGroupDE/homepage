@@ -17,7 +17,7 @@ export class ListComponent implements OnInit {
     users:User[];
     text:string;
     count:number;
-    pages:number;
+    pages:number[];
     pageIndex:number = 0;
     skip:number = 0;
 
@@ -61,10 +61,4 @@ export class ListComponent implements OnInit {
                 error => console.log(error)
             );
     }
-}
-
-interface marker {
-    lat:number;
-    lng:number;
-    label?:string;
 }
