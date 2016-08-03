@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {Router, ActivatedRoute, ROUTER_DIRECTIVES, Event, NavigationEnd} from '@angular/router';
 
 import {HomeComponent} from './routes/home/home.component';
+import {ImprintComponent} from './routes/imprint/imprint.component';
 import {HeaderComponent} from './routes/header/header.component';
 import {NavigationComponent} from './routes/navigation/navigation.component';
 import {LoginComponent} from './routes/login/login.component';
@@ -19,6 +20,7 @@ import {UserMessageComponent} from './routes/user/message/userMessage.component'
     providers: [],
     precompile: [
         HomeComponent,
+        ImprintComponent,
         MapComponent,
         HeaderComponent,
         NavigationComponent,
