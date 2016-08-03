@@ -36,14 +36,14 @@ export class UserAddComponent implements OnInit {
         });
     }
 
-    model? = new User();
+    model = new User();
 
     ngOnInit() {
         this.authHttp.get('/api/user/get/form')
             .map(res => res.json())
             .subscribe(
                 data => {
-                    this.model = data;
+                    this.model = data; 
                     // console.log(this.model);
                 }
             );
