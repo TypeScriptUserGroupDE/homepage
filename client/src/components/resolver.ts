@@ -3,10 +3,10 @@ import {Http, Headers, RequestOptions} from "@angular/http";
 import {AuthHttp} from 'angular2-jwt';
 import {User} from './User';
 import {Observable} from 'rxjs/Observable';
-import {Resolve, ActivatedRoute, ActivatedRouteSnapshot, RouterStateSnapshot} from "@angular/router";
+import {Resolve, ActivatedRouteSnapshot, RouterStateSnapshot} from "@angular/router";
 
 @Injectable()
-export class SingleUserResolver implements Resolve {
+export class SingleUserResolver implements Resolve<User> {
     user:any;
     body:{
         username?:string
@@ -36,10 +36,10 @@ export class SingleUserResolver implements Resolve {
 }
 
 @Injectable()
-export class UserAddResolver implements Resolve {
+export class UserAddResolver implements Resolve<User> {
 
     constructor(public http:Http,
-    public authHttp:AuthHttp) {
+                public authHttp:AuthHttp) {
 
     }
 

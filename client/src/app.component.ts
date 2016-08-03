@@ -37,15 +37,15 @@ export class AppComponent {
 
         this.router.events.subscribe(
             (event:Event) => {
-                if(event instanceof NavigationEnd) {
-                    window.dataLayer.push({
+                if (event instanceof NavigationEnd) {
+                    (<any>window).dataLayer.push({
                         event: 'pageView',
                         category: '',
                         label: '',
                         action: event.urlAfterRedirects,
                         value: ''
                     });
-                    
+
                 }
             });
     }
