@@ -9,26 +9,26 @@ import Config from "../config/config";
 
 class UserCtrl {
 
-    publicRoutes(app:express.Application, baseRoute:string) {
+    publicRoutes(app: express.Application, baseRoute: string) {
         app.post(baseRoute + "/get", this.getSingleUser);
         app.post(baseRoute + "/get/all", this.getUsers);
         app.get(baseRoute + "/get/count", this.countUsers);
         app.get(baseRoute + "/get/map", this.getUserMap);
     }
 
-    protectedRoutes(app:express.Application, baseRoute:string) {
+    protectedRoutes(app: express.Application, baseRoute: string) {
         app.put(baseRoute + "/update", this.updateUser);
         app.get(baseRoute + "/get/form", this.getUserForm);
         app.post(baseRoute + "/send/mail", this.sendMessage);
     }
 
-    getSingleUser(req:JwtRequest, res:express.Response) {
+    getSingleUser(req: JwtRequest, res: express.Response) {
 
         UserModel
             .findOne({$and: [{"login": req.body.username}, {"active": true}]})
             .exec(done);
 
-        function done(err:any, result:User) {
+        function done(err: any, result: User) {
             if (err) {
                 console.log("err");
                 return
@@ -45,14 +45,14 @@ class UserCtrl {
     }
 
     // this allows an authenticated user to get his own data, if he is active
-    getUserForm(req:JwtRequest, res:express.Response) {
+    getUserForm(req: JwtRequest, res: express.Response) {
 
         UserModel
             .findOne()
             .where({"github_id": req.decoded.github_id})
             .exec(done);
 
-        function done(err:any, result:User) {
+        function done(err: any, result: User) {
             if (err) {
                 console.log("err");
                 return
@@ -64,8 +64,8 @@ class UserCtrl {
         }
     }
 
-    getUsers(req:express.Request, res:express.Response) {
-        let limit:number = 10;
+    getUsers(req: express.Request, res: express.Response) {
+        let limit: number = 10;
 
         UserModel
             .find({"active": true})
@@ -74,13 +74,13 @@ class UserCtrl {
             .lean()
             .exec(done);
 
-        function done(err:any, result:User[]) {
+        function done(err: any, result: User[]) {
             if (err) {
                 console.log("err");
                 return
             }
 
-            _.forEach(result, function (data:User, key:number) {
+            _.forEach(result, function (data: User, key: number) {
                 result[key] = (UserCtrl.cleanSensitiveData(data));
             });
 
@@ -90,13 +90,13 @@ class UserCtrl {
         }
     }
 
-    countUsers(req:express.Request, res:express.Response) {
+    countUsers(req: express.Request, res: express.Response) {
 
         UserModel
             .count({"active": true})
             .exec(done);
 
-        function done(err:any, count:number) {
+        function done(err: any, count: number) {
             if (err) {
                 console.log("err");
                 return
@@ -108,19 +108,19 @@ class UserCtrl {
         }
     }
 
-    getUserMap(req:express.Request, res:express.Response) {
+    getUserMap(req: express.Request, res: express.Response) {
 
         UserModel
             .find({"active": true})
             .exec(done);
 
-        function done(err:any, result:User[]) {
+        function done(err: any, result: User[]) {
             if (err) {
                 console.log("err");
                 return
             }
 
-            let userMap = _(result).groupBy('zip').map(function (item:User[], id:string) {
+            let userMap = _(result).groupBy('zip').map(function (item: User[], id: string) {
                 let count = _.countBy(item, 'zip');
                 let obj = {};
                 obj = {
@@ -137,13 +137,13 @@ class UserCtrl {
         }
     }
 
-    sendMessage(req:JwtRequest, res:express.Response) {
+    sendMessage(req: JwtRequest, res: express.Response) {
 
         UserModel
             .findOne({"login": req.body.username})
             .exec(done);
 
-        function done(err:any, result:User):any {
+        function done(err: any, result: User): any {
             if (err) {
                 console.log("err");
                 return
@@ -168,7 +168,7 @@ class UserCtrl {
                     headers: headers,
                     formData: payload
                 })
-                    .then(function (data:any) {
+                    .then(function (data: any) {
                         console.log('mail qeued');
                         res
                             .status(200)
@@ -180,38 +180,39 @@ class UserCtrl {
     }
 
 
-    updateUser(req:JwtRequest, res:express.Response) {
+    updateUser(req: JwtRequest, res: express.Response) {
 
         let location = req.body.zip + ' ' + req.body.city;
         // console.log(location);
 
         UserCtrl.getCoordinates(location)
 
-            .then(function (result:any) {
+            .then(function (result: any) {
                 result = JSON.parse(result);
+
+                // cannot update if unique values are present, see:
+                // http://stackoverflow.com/questions/23119823/mongoerror-field-name-duplication-not-allowed-with-modifiers
+
+                delete req.body._id;
+                delete req.body.github_id;
+                delete req.body.login;
+
+                let data: User = req.body;
+                data.longitude = result.results[0].geometry.location.lng;
+                data.latitude = result.results[0].geometry.location.lat;
+
+                console.log(data);
 
                 UserModel.findOneAndUpdate({
                     "github_id": req.decoded.github_id
-                }, {
-                    "name": req.body.name,
-                    "website": req.body.website,
-                    "twitter": req.body.twitter,
-                    "description": req.body.description,
-                    "city": req.body.city,
-                    "zip": req.body.zip,
-                    "tec": req.body.tec,
-                    "availability": req.body.availability,
-                    "active": true,
-                    "longitude": result.results[0].geometry.location.lng,
-                    "latitude": result.results[0].geometry.location.lat
-                }, {
+                }, data, {
                     "new": true
                 }, done);
             });
 
-        function done(err:any, result:User) {
+        function done(err: any, result: User) {
             if (err) {
-                console.log("err");
+                console.log(err);
                 return;
             }
 
@@ -221,11 +222,11 @@ class UserCtrl {
         }
     }
 
-    static getCoordinates(location:string):any {
+    static getCoordinates(location: string): any {
         return request.get('http://maps.googleapis.com/maps/api/geocode/json?address=' + encodeURIComponent(location))
     }
 
-    static cleanSensitiveData(data:User) {
+    static cleanSensitiveData(data: User) {
         data = JSON.parse(JSON.stringify(data));
 
         delete data.email;
