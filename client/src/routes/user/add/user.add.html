@@ -10,7 +10,7 @@
             <div class="row">
                 <div class="col-md-5">
                     <div class="row">
-                        <div class="col-md-9">
+                        <div class="col-md-9 col-sm-9">
                             <div class="form-group">
                                 <label for="login">Username</label>
                                 <input type="text" name="login" class="form-control" [(ngModel)]="model.login" disabled>
@@ -20,13 +20,13 @@
                                 <input type="text" name="name" class="form-control" [(ngModel)]="model.name" required>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <label for="">Profilbild</label>
-                            <img class="img-responsive" width="" src="{{model.avatar_url}}">
+                        <div class="col-md-3 col-sm-3">
+                            <label>Profilbild</label>
+                            <img class="img-responsive center-block avatar" width="" src="{{model.avatar_url}}">
                         </div>
                     </div>
                     <div class="form-group" [formGroup]="form">
-                        <label for="email">E-Mail (Wird nicht öffentlich angezeigt)</label>
+                        <label for="email">E-Mail-Adresse (Wird nicht öffentlich angezeigt)</label>
                         <input type="text" name="email" class="form-control" [(ngModel)]="model.email"
                                formControlName="email">
                     </div>
@@ -93,7 +93,7 @@
 
                     <h4>Ich habe Erfahrung mit:</h4>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-6 col-sm-6 col-xs-6">
                             <div class="checkbox">
                                 <label>
                                     <input type="checkbox" name="angularjs" class=""
@@ -117,7 +117,7 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 col-sm-6 col-xs-6">
                             <div class="checkbox">
                                 <label>
                                     <input type="checkbox" name="nodejs" class=""

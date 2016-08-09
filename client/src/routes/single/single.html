@@ -5,8 +5,8 @@
                 <a class="back" [routerLink]="['/directory']"><p>Zurück zum Entwicklerverzeichnis</p></a>
                 <ul class="list-group">
                     <li class="list-group-item">
-                        <img class="user-img img-responsive img-circle center-block" src="{{ user.avatar_url }}"/>
-                        <button class="btn btn-default center-block user-mail"
+                        <img class="user-img img-responsive center-block" src="{{ user.avatar_url }}"/>
+                        <button class="btn button-default center-block user-mail"
                                 (click)="sendMessage(user.login)">{{
                             sendMessageText }}
                         </button>

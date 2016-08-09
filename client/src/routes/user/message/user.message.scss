@@ -11,8 +11,21 @@ section#message {
 
     .list-group {
 
-      .user-img {
-        max-width: 200px;
+      @media (max-width: 767px) {
+        .avatar {
+          width: 100px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .avatar {
+          width: 200px;
+        }
+      }
+
+
+      .avatar {
+        width: 200px;
         margin-bottom: 10px;
       }
 

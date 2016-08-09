@@ -7,7 +7,7 @@
 
     .navbar-brand {
       color: white;
-      padding: 5px 0;
+      padding: 5px 15px;
       margin-left: 0;
 
       &:hover, &:focus {
@@ -25,6 +25,27 @@
   background-color: $blue;
   color: white;
   padding: 10px 0;
+
+  .navbar-collapse {
+    border: inherit;
+    box-shadow: inherit;
+  }
+
+  .navbar-toggle {
+    background-color: #ddd;
+
+    .icon-bar {
+      background-color: $orange;
+    }
+  }
+
+  .navbar-toggle.collapsed {
+    background-color: #ddd;
+
+    .icon-bar {
+      background-color: $blue;
+    }
+  }
 
   .navbar-nav {
     > li {
@@ -53,4 +74,5 @@
 
     }
   }
+
 }

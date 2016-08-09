@@ -6,6 +6,18 @@ section#list {
     display: block;
     background-color: white;
     margin-bottom: 30px;
+    
+    &:hover, &:focus {
+      background-color: darken(white, 5);
+    }
+
+    a {
+      color: black;
+
+      &:hover, &:focus {
+        color: black;
+      }
+    }
 
     .card-content {
       padding: 10px 10px;

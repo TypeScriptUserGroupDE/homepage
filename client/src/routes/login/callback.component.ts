@@ -4,14 +4,13 @@ import {ROUTER_DIRECTIVES, Router, ActivatedRoute} from '@angular/router';
 
 @Component({
     selector: 'callback',
-    template: '',
+    templateUrl: './routes/login/callback.html',
     directives: [ROUTER_DIRECTIVES],
-    providers: [HTTP_PROVIDERS]
+    providers: [HTTP_PROVIDERS],
 })
 
 export class CallbackComponent implements OnInit {
     code:string;
-
 
     constructor(private route:ActivatedRoute,
                 private http:Http,

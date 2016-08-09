@@ -35,11 +35,12 @@ a {
 
   &:hover, &:focus {
     text-decoration: none;
+    color: $orange;
   }
 }
 
 h1 {
-  margin-top: 10px;
+  //margin-top: 10px;
   margin-bottom: 20px;
 }
 
@@ -68,13 +69,19 @@ p, span, li, .form-control {
   border-radius: 0;
   background-color: $orange;
   color: black;
+  
+  &:hover, &:focus {
+    color:black;
+    background-color: lighten($orange, 10%);
+  }
 }
 
 .button-muted {
   background-color: $light-grey;
   color: black;
-  
+
   &:hover, &:focus {
+    color: black;
     background-color: $orange;
   }
 }
@@ -85,10 +92,6 @@ p, span, li, .form-control {
 
 .ng-invalid {
   border-color: red;
-}
-
-.sebm-google-map-container {
-  height: 900px;
 }
 
 .spacer {
