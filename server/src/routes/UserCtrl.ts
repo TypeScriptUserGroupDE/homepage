@@ -205,6 +205,7 @@ class UserCtrl {
                 data.longitude = result.results[0].geometry.location.lng;
                 data.latitude = result.results[0].geometry.location.lat;
                 data.fieldSum = fieldSum;
+                data.active = true;
 
                 console.log(data);
 
