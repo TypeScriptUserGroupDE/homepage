@@ -10,12 +10,12 @@ import RequestPromise = require("request-promise");
 
 class AuthCtrl {
 
-    routes(app:express.Application, baseRoute:string) {
+    routes(app: express.Application, baseRoute: string) {
         app.post(baseRoute, this.signIn);
     }
 
-    signIn(req:express.Request, res:express.Response) {
-        var code:string = req.body.code || "";
+    signIn(req: express.Request, res: express.Response) {
+        var code: string = req.body.code || "";
 
         if (code === "") {
             AuthCtrl.cancel(res);
@@ -23,7 +23,7 @@ class AuthCtrl {
         }
 
         AuthCtrl.getToken(code)
-            .then(function (req:any) {
+            .then(function (req: any) {
 
                     if (req.access_token) {
                         var token = req.access_token;
@@ -36,7 +36,7 @@ class AuthCtrl {
                             .then(function (req) {
                                 UserModel.findOneAndUpdate({'github_id': req.id}, {$set: {'github_token': token}}, {'new': true}, next);
 
-                                function next(err:any, user:User) {
+                                function next(err: any, user: User) {
 
                                     if (err) {
                                         console.log('err');
@@ -60,7 +60,7 @@ class AuthCtrl {
     }
 
 
-    static cancel(res:express.Response) {
+    static cancel(res: express.Response) {
         res
             .status(401)
             .json({
@@ -70,7 +70,7 @@ class AuthCtrl {
         return;
     };
 
-    static getToken(code:string):any {
+    static getToken(code: string): any {
 
         let payload = {
             client_id: Config.github_client_id,
@@ -88,7 +88,7 @@ class AuthCtrl {
         })
     };
 
-    static getUserData(token:string) {
+    static getUserData(token: string) {
 
         return request.get({
             url: 'https://api.github.com/user',
@@ -107,8 +107,8 @@ class AuthCtrl {
                         "Authorization": 'token ' + token
                     },
                     json: true
-                }).then(function (result:any) {
-                    result = result.filter(function (result:any) {
+                }).then(function (result: any) {
+                    result = result.filter(function (result: any) {
                         return result.primary === true;
                     });
 
@@ -121,7 +121,7 @@ class AuthCtrl {
         });
     };
 
-    static createUser(req:any, res:express.Response, token:string) {
+    static createUser(req: any, res: express.Response, token: string) {
         req.github_id = req.id;
         req.github_token = token;
         req.active = false;
@@ -129,7 +129,7 @@ class AuthCtrl {
         var user = new UserModel(req);
         user.save(done);
 
-        var done = (err:any) => {
+        var done = (err: any) => {
             if (err) {
                 console.log('err');
                 res.status(500);
@@ -141,10 +141,10 @@ class AuthCtrl {
     };
 
 
-    static genJWT(fullUser:User) {
+    static genJWT(fullUser: User) {
 
         // todo: clean sensitive data
-        const user:PublicUser = {
+        const user: PublicUser = {
             userid: fullUser._id,
             github_id: fullUser.github_id,
             name: fullUser.name,
