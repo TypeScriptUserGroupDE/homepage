@@ -64,12 +64,9 @@ export class UserAddComponent implements OnInit {
             })
             .subscribe(
                 data => {
-                    console.log("done");
-                    // console.log(data);
                     this.router.navigate(['/directory']);
                 },
-                error => console.log(error),
-                () => console.log('Login successful')
+                error => console.log(error)
             )
         ;
     }

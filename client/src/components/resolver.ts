@@ -13,7 +13,6 @@ export class SingleUserResolver implements Resolve<User> {
     };
 
     constructor(public http:Http) {
-
     }
 
     resolve(route:ActivatedRouteSnapshot, state:RouterStateSnapshot):Observable<User> {
@@ -22,10 +21,7 @@ export class SingleUserResolver implements Resolve<User> {
         let options = new RequestOptions({headers: headers});
 
         this.body = {};
-
         this.body.username = route.params['username'];
-        console.log(route.params['username']);
-        console.log(this.body);
 
         return this.http.post('/api/user/get',
             this.body,
@@ -40,7 +36,6 @@ export class UserAddResolver implements Resolve<User> {
 
     constructor(public http:Http,
                 public authHttp:AuthHttp) {
-
     }
 
     resolve(route:ActivatedRouteSnapshot, state:RouterStateSnapshot):Observable<User> {

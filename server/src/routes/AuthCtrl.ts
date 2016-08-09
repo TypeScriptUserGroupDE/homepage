@@ -17,8 +17,6 @@ class AuthCtrl {
     signIn(req:express.Request, res:express.Response) {
         var code:string = req.body.code || "";
 
-        console.log(req.body);
-
         if (code === "") {
             AuthCtrl.cancel(res);
             return;
@@ -95,7 +93,7 @@ class AuthCtrl {
         return request.get({
             url: 'https://api.github.com/user',
             headers: {
-                "User-Agent": "Awesome-Octocat-App",
+                "User-Agent": "typescriptusers.de App",
                 "Authorization": 'token ' + token
             },
             json: true,

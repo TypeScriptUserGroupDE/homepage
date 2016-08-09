@@ -9,17 +9,14 @@ import {AppConfig} from './../config/config';
 export class AuthService implements CanActivate {
 
     constructor(public http:Http,
-                public authHttp:AuthHttp,
                 public router:Router) {
 
     }
 
     canActivate() {
         if (this.isLoggedIn() === true) {
-            console.log(true);
             return true;
         } else {
-            console.log(false);
             return false
         }
     }

@@ -24,9 +24,11 @@ export class ListComponent implements OnInit {
     constructor(public router:Router,
                 public http:Http,
                 public authHttp:AuthHttp) {
+
     }
 
     ngOnInit() {
+
         this.http.get('/api/user/get/count')
             .map(res => res.json())
             .subscribe(

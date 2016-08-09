@@ -37,7 +37,6 @@ export class CallbackComponent implements OnInit {
             .map(res => res.json())
             .subscribe(
                 data => {
-                    console.log(data);
                     localStorage.setItem('token', data.token);
                     if (data.user.active === false) {
                         this.router.navigateByUrl('/user/add');
@@ -45,8 +44,7 @@ export class CallbackComponent implements OnInit {
                         this.router.navigateByUrl('/directory');
                     }
                 },
-                error => console.log(error),
-                () => console.log('Login successful')
+                error => console.log(error)
             );
     }
 
