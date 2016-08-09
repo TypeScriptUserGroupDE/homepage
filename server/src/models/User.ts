@@ -8,33 +8,34 @@ var Schema = mongoose.Schema;
 
 
 export interface User extends mongoose.Document, PublicUser {
-    _id:typeof mongoose.Schema.Types.ObjectId;
-    github_id:number;
-    login:string;
-    name:string;
-    email:string;
-    html_url:string;
-    accessLevel:number;
-    avatar_url:string;
-    github_token:string;
-    active:boolean;
-    website:string;
-    twitter:string;
-    description:string;
-    city:string;
-    zip:number;
-    latitude:number;
-    longitude:number;
-    availability:{
-        forProjects:boolean;
-        greaterDistance:boolean;
+    _id: typeof mongoose.Schema.Types.ObjectId;
+    github_id: number;
+    login: string;
+    name: string;
+    email: string;
+    html_url: string;
+    accessLevel: number;
+    avatar_url: string;
+    github_token: string;
+    active: boolean;
+    website: string;
+    twitter: string;
+    description: string;
+    city: string;
+    zip: number;
+    latitude: number;
+    longitude: number;
+    fieldSum: number;
+    availability: {
+        forProjects: boolean;
+        greaterDistance: boolean;
     };
-    tec:{
-        nodejs:boolean;
-        angularjs:boolean;
-        angular2:boolean;
-        ionic:boolean;
-        nativescript:boolean;
+    tec: {
+        nodejs: boolean;
+        angularjs: boolean;
+        angular2: boolean;
+        ionic: boolean;
+        nativescript: boolean;
     };
 }
 
@@ -56,6 +57,7 @@ export var UserSchema = new Schema(
         zip: Number,
         latitude: Number,
         longitude: Number,
+        fieldSum: Number,
         availability: {
             forProjects: {type: Boolean, default: false},
             greaterDistance: {type: Boolean, default: false}

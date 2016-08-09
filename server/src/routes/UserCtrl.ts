@@ -69,6 +69,7 @@ class UserCtrl {
 
         UserModel
             .find({"active": true})
+            .sort({"fieldSum": -1})
             .skip(req.body.skip)
             .limit(limit)
             .lean()
@@ -183,23 +184,27 @@ class UserCtrl {
     updateUser(req: JwtRequest, res: express.Response) {
 
         let location = req.body.zip + ' ' + req.body.city;
-        // console.log(location);
 
         UserCtrl.getCoordinates(location)
 
             .then(function (result: any) {
                 result = JSON.parse(result);
 
+                let fieldSum: number = _.size(req.body);
+
                 // cannot update if unique values are present, see:
                 // http://stackoverflow.com/questions/23119823/mongoerror-field-name-duplication-not-allowed-with-modifiers
-
                 delete req.body._id;
+                delete req.body.__v;
+                delete req.body.updatedAt;
+                delete req.body.createdAt;
                 delete req.body.github_id;
                 delete req.body.login;
 
                 let data: User = req.body;
                 data.longitude = result.results[0].geometry.location.lng;
                 data.latitude = result.results[0].geometry.location.lat;
+                data.fieldSum = fieldSum;
 
                 console.log(data);
 
@@ -212,7 +217,7 @@ class UserCtrl {
 
         function done(err: any, result: User) {
             if (err) {
-                console.log(err);
+                console.log('err');
                 return;
             }
 
