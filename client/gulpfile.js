@@ -45,18 +45,17 @@ gulp.task('copy:html', function () {
 /// copy dependencies
 gulp.task('build:libs', function () {
     return gulp.src([
-        'node_modules/jquery/dist/jquery.min.js',
-        'node_modules/bootstrap/dist/js/bootstrap.min.js',
-        'node_modules/es6-shim/es6-shim.min.js',
-        'node_modules/es6-promise/dist/es6-promise.min.js',
+        'node_modules/core-js/client/shim.min.js',
         'node_modules/zone.js/dist/zone.js',
         'node_modules/reflect-metadata/Reflect.js',
+        'node_modules/jquery/dist/jquery.min.js',
+        'node_modules/bootstrap/dist/js/bootstrap.min.js',
         'node_modules/systemjs/dist/system.src.js',
         'system.config.js'
     ])
     // .pipe(sourcemaps.init())
         .pipe(concat('vendor.js'))
-        // .pipe(uglify())
+        .pipe(uglify())
         // .pipe(sourcemaps.write('/maps'))
         .pipe(gulp.dest(config.build.vendor))
 });
@@ -108,7 +107,7 @@ gulp.task('bundle', function () {
 
     var builder = new Builder('target', './systemjs.config.js');
     return builder.buildStatic('app', 'target/app.js', {
-        minify: false,
+        minify: true,
         sourceMaps: false
     })
         .then(function () {
