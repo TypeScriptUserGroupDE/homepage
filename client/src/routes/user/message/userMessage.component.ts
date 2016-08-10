@@ -90,7 +90,7 @@ export class UserMessageComponent implements OnInit {
             })
             .subscribe(
                 data => {
-                    this.router.navigate(['/single', this.model.username]);
+                    this.router.navigate(['/developer', this.model.username]);
                 },
                 error => console.log(error)
             );
