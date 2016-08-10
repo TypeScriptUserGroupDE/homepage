@@ -6,8 +6,6 @@ import {AppComponent} from './app.component';
 import {APP_ROUTER_PROVIDERS} from './app.routes';
 import {enableProdMode} from '@angular/core';
 import {Http, HTTP_PROVIDERS} from '@angular/http';
-import {LocationStrategy, HashLocationStrategy} from "@angular/common";
-import {FORM_PROVIDERS} from '@angular/common';
 import {AuthConfig, AuthHttp} from 'angular2-jwt';
 import {GOOGLE_MAPS_PROVIDERS, provideLazyMapsAPILoaderConfig} from 'angular2-google-maps/core';
 import {AppConfig} from './config/config';

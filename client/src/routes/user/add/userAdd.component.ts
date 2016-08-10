@@ -12,7 +12,8 @@ import {Http} from '@angular/http';
 import {Headers, RequestOptions} from '@angular/http';
 import {ActivatedRoute, ROUTER_DIRECTIVES, Router} from '@angular/router';
 import {AuthHttp} from 'angular2-jwt';
-import {User} from '../../../components/User';
+import {User} from './../../../components/User';
+import {AuthService} from './../../../services/AuthService';
 
 @Component({
     selector: 'user-add',
@@ -22,12 +23,13 @@ import {User} from '../../../components/User';
 })
 
 export class UserAddComponent implements OnInit {
-    form:FormGroup;
+    form: FormGroup;
 
-    constructor(private router:Router,
-                public http:Http,
-                public authHttp:AuthHttp,
-                private route:ActivatedRoute) {
+    constructor(private router: Router,
+                public http: Http,
+                public authHttp: AuthHttp,
+                private route: ActivatedRoute,
+                private authService: AuthService) {
 
         this.form = new FormGroup({
             email: new FormControl('', Validators.compose([this.emailValidator])),
@@ -47,7 +49,7 @@ export class UserAddComponent implements OnInit {
         }
     }
 
-    emailValidator(control:AbstractControl) {
+    emailValidator(control: AbstractControl) {
         let EMAIL_REGEXP = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
         return EMAIL_REGEXP.test(control.value) ? null : {'email': true}
     }
@@ -69,5 +71,14 @@ export class UserAddComponent implements OnInit {
                 error => console.log(error)
             )
         ;
+    }
+
+    deleteUser() {
+        this.authHttp.delete('/api/user/delete')
+            .map(res => res.json())
+            .subscribe(
+                data => this.authService.logout(),
+                error => console.log(error)
+            );
     }
 }

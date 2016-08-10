@@ -20,6 +20,7 @@ class UserCtrl {
         app.put(baseRoute + "/update", this.updateUser);
         app.get(baseRoute + "/get/form", this.getUserForm);
         app.post(baseRoute + "/send/mail", this.sendMessage);
+        app.delete(baseRoute + "/delete", this.deleteUser);
     }
 
     getSingleUser(req: JwtRequest, res: express.Response) {
@@ -170,7 +171,6 @@ class UserCtrl {
                     formData: payload
                 })
                     .then(function (data: any) {
-                        console.log('mail qeued');
                         res
                             .status(200)
                             .json("mail qeued");
@@ -178,6 +178,25 @@ class UserCtrl {
             }
 
         }
+    }
+
+    deleteUser(req: JwtRequest, res: express.Response) {
+        UserModel
+            .findOne()
+            .where({"github_id": req.decoded.github_id})
+            .remove()
+            .exec(done);
+
+        function done(err) {
+            if (err) {
+                console.log('err');
+            }
+
+            res
+                .status(200)
+                .json("user deleted")
+        }
+
     }
 
 
