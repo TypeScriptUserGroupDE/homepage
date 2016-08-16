@@ -16,21 +16,21 @@ import {UserMessageComponent} from './routes/user/message/userMessage.component'
 @Component({
     selector: 'my-app',
     templateUrl: './app.html',
-    directives: [ROUTER_DIRECTIVES, HeaderComponent, NavigationComponent, LoginComponent, UserAddComponent],
+    // directives: [ROUTER_DIRECTIVES, HeaderComponent, NavigationComponent, LoginComponent, UserAddComponent],
     providers: [],
-    precompile: [
-        HomeComponent,
-        ImprintComponent,
-        MapComponent,
-        HeaderComponent,
-        NavigationComponent,
-        LoginComponent,
-        SingleComponent,
-        ListComponent,
-        CallbackComponent,
-        UserAddComponent,
-        UserMessageComponent
-    ]
+    // precompile: [
+    //     HomeComponent,
+    //     ImprintComponent,
+    //     MapComponent,
+    //     HeaderComponent,
+    //     NavigationComponent,
+    //     LoginComponent,
+    //     SingleComponent,
+    //     ListComponent,
+    //     CallbackComponent,
+    //     UserAddComponent,
+    //     UserMessageComponent
+    // ]
 })
 
 export class AppComponent {

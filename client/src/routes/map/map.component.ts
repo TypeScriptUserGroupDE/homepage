@@ -8,8 +8,7 @@ import {GOOGLE_MAPS_DIRECTIVES, GoogleMapsAPIWrapper} from 'angular2-google-maps
     selector: 'map',
     templateUrl: './routes/map/map.html',
     directives: [ROUTER_DIRECTIVES, GOOGLE_MAPS_DIRECTIVES],
-    providers: [GoogleMapsAPIWrapper],
-    precompile: [MapComponent]
+    providers: [GoogleMapsAPIWrapper]
 })
 
 export class MapComponent implements OnInit {

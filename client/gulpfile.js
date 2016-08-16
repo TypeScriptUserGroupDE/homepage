@@ -107,8 +107,8 @@ gulp.task('bundle', function () {
 
     var builder = new Builder('target', './systemjs.config.js');
     return builder.buildStatic('app', 'target/app.js', {
-        minify: true,
-        sourceMaps: false
+        minify: false,
+        sourceMaps: true
     })
         .then(function () {
             browserSync.reload();
@@ -120,7 +120,7 @@ gulp.task('bundle:prod', function () {
 
     var builder = new Builder('target', './systemjs.config.js');
     return builder.buildStatic('app', 'target/app.js', {
-        minify: true,
+        minify: false,
         sourceMaps: false
     })
 });

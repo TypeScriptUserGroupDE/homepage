@@ -1,4 +1,4 @@
-import {provideRouter, RouterConfig} from '@angular/router';
+import {Routes, RouterModule} from '@angular/router';
 import {AuthService} from './services/AuthService';
 import {LoginComponent} from './routes/login/login.component';
 import {SingleComponent} from './routes/single/single.component';
@@ -13,7 +13,7 @@ import {SingleUserResolver} from './components/resolver';
 import {UserAddResolver} from './components/resolver';
 
 
-export const routes:RouterConfig = [
+const routes: Routes = [
     {path: '', redirectTo: '/home', pathMatch: 'full'},
     {path: 'home', component: HomeComponent},
     {path: 'impressum', component: ImprintComponent},
@@ -26,9 +26,4 @@ export const routes:RouterConfig = [
     {path: 'accessToken', component: CallbackComponent}
 ];
 
-export const APP_ROUTER_PROVIDERS = [
-    provideRouter(routes),
-    AuthService,
-    SingleUserResolver,
-    UserAddResolver
-];
+export const routing = RouterModule.forRoot(routes);

@@ -5,8 +5,7 @@ import {ROUTER_DIRECTIVES, Router} from '@angular/router';
     selector: 'list',
     templateUrl: './routes/imprint/imprint.html',
     directives: [ROUTER_DIRECTIVES],
-    providers: [],
-    precompile: []
+    providers: []
 })
 
 export class ImprintComponent implements OnInit {

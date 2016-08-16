@@ -8,8 +8,7 @@ import {AuthService} from '../../services/AuthService';
     selector: 'list',
     templateUrl: './routes/home/home.html',
     directives: [ROUTER_DIRECTIVES],
-    providers: [],
-    precompile: []
+    providers: []
 })
 
 export class HomeComponent implements OnInit {
@@ -17,7 +16,7 @@ export class HomeComponent implements OnInit {
     constructor(public http:Http,
                 public authHttp:AuthHttp,
                 public router:Router,
-                private authService:AuthService) {
+                public authService:AuthService) {
     }
 
     ngOnInit() {
