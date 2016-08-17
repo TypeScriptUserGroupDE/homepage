@@ -2,22 +2,24 @@ import {Component, OnInit} from '@angular/core';
 import {Http} from '@angular/http';
 import {ROUTER_DIRECTIVES, Router} from '@angular/router';
 import {AuthHttp} from 'angular2-jwt';
-import {GOOGLE_MAPS_DIRECTIVES, GoogleMapsAPIWrapper} from 'angular2-google-maps/core';
+import {
+    GOOGLE_MAPS_DIRECTIVES
+} from 'angular2-google-maps/core';
 
 @Component({
     selector: 'map',
     templateUrl: './routes/map/map.html',
     directives: [ROUTER_DIRECTIVES, GOOGLE_MAPS_DIRECTIVES],
-    providers: [GoogleMapsAPIWrapper]
+    providers: []
 })
 
 export class MapComponent implements OnInit {
 
-    markers:Marker[];
+    markers: Marker[];
 
-    constructor(private router:Router,
-                public http:Http,
-                public authHttp:AuthHttp) {
+    constructor(private router: Router,
+                public http: Http,
+                public authHttp: AuthHttp) {
     }
 
     ngOnInit() {
@@ -26,14 +28,26 @@ export class MapComponent implements OnInit {
             .subscribe(
                 data => this.markers = data,
                 error => console.log(error)
-            )
-        ;
+            );
+
+        this.onZoomChange(6);
     }
 
     //config map zoom level and inital center map on coordinates
-    zoom:number = 6;
-    lat:number = 50.589095;
-    lng:number = 11.600845;
+    zoom: number = 6;
+    lat: number = 50.589095;
+    lng: number = 11.600845;
+    radius: number;
+
+    onClick(id: string) {
+        this.router.navigate(['Single', {userid: id}]);
+    }
+
+    onZoomChange(z: number) {
+        this.zoom = z;
+        let p = Math.pow(2, (21 - z));
+        this.radius = (p * 1128.497220 * 0.0010) + (25000 * (z / 21));
+    }
 
     styles = [
         {
@@ -220,15 +234,10 @@ export class MapComponent implements OnInit {
             ]
         }
     ];
-
-    // radius:number = 25000;
-    onClick(id:string) {
-        this.router.navigate(['Single', {userid: id}]);
-    }
 }
 
 interface Marker {
-    lat:number;
-    lng:number;
-    label?:string;
+    lat: number;
+    lng: number;
+    label?: string;
 }
