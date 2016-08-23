@@ -5,6 +5,7 @@ export class User {
         public email?:String,
         public html_url?:String,
         public accessLevel?:Number,
-        public tec?: any
+        public tec?: any,
+        public city?: any
     ) {}
 }

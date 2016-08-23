@@ -2,6 +2,7 @@ import express = require("express");
 import jwt = require("jsonwebtoken");
 import _ = require("lodash/index");
 import {JwtRequest} from "./../common/interfaces/JwtRequest";
+import {SearchRequest} from "./../common/interfaces/SearchRequest";
 import request = require("request-promise");
 import {model as UserModel} from "./../models/User";
 import {User} from "./../models/User";
@@ -11,22 +12,21 @@ class UserCtrl {
 
     publicRoutes(app: express.Application, baseRoute: string) {
         app.post(baseRoute + "/get", this.getSingleUser);
-        app.post(baseRoute + "/get/all", this.getUsers);
-        app.get(baseRoute + "/get/count", this.countUsers);
+        app.get(baseRoute + "/get/all", this.getUsers);
         app.get(baseRoute + "/get/map", this.getUserMap);
     }
 
     protectedRoutes(app: express.Application, baseRoute: string) {
-        app.put(baseRoute + "/update", this.updateUser);
         app.get(baseRoute + "/get/form", this.getUserForm);
         app.post(baseRoute + "/send/mail", this.sendMessage);
+        app.put(baseRoute + "/update", this.updateUser);
         app.delete(baseRoute + "/delete", this.deleteUser);
     }
 
     getSingleUser(req: JwtRequest, res: express.Response) {
 
         UserModel
-            .findOne({$and: [{"login": req.body.username}, {"active": true}]})
+            .findOne({"$and": [{"login": req.body.username}, {"active": true}]})
             .exec(done);
 
         function done(err: any, result: User) {
@@ -69,10 +69,8 @@ class UserCtrl {
         let limit: number = 10;
 
         UserModel
-            .find({"active": true})
+            .find({"active": true}, 'name login avatar_url city tec')
             .sort({"fieldSum": -1})
-            .skip(req.body.skip)
-            .limit(limit)
             .lean()
             .exec(done);
 
@@ -86,29 +84,47 @@ class UserCtrl {
                 result[key] = (UserCtrl.cleanSensitiveData(data));
             });
 
+
             res
                 .status(200)
                 .json(result);
         }
     }
 
-    countUsers(req: express.Request, res: express.Response) {
-
-        UserModel
-            .count({"active": true})
-            .exec(done);
-
-        function done(err: any, count: number) {
-            if (err) {
-                console.log("err");
-                return
-            }
-
-            res
-                .status(200)
-                .json(count);
-        }
-    }
+    // searchByCity(req: SearchRequest, res: express.Response) {
+    //     req.body.tec = req.body.tec || [];
+    //
+    //     UserModel
+    //         .find({
+    //             "$or": [
+    //                 {
+    //                     "$and": [
+    //                         {"active": true},
+    //                         {"city": new RegExp("^" + req.body.city + "$", "i")}
+    //                     ]
+    //                 },
+    //                 {
+    //                     "$and": [
+    //                         {"active": true},
+    //                         {"tec": req.body.tec}
+    //                     ]
+    //                 }
+    //             ]
+    //         })
+    //         .sort({"fieldSum": -1})
+    //         .exec(done);
+    //
+    //     function done(err: any, result: User[]) {
+    //         if (err) {
+    //             console.log("err");
+    //             return
+    //         }
+    //
+    //         res
+    //             .status(200)
+    //             .json(result);
+    //     }
+    // }
 
     getUserMap(req: express.Request, res: express.Response) {
 
@@ -187,7 +203,7 @@ class UserCtrl {
             .remove()
             .exec(done);
 
-        function done(err) {
+        function done(err: any) {
             if (err) {
                 console.log('err');
             }
@@ -247,11 +263,13 @@ class UserCtrl {
         }
     }
 
-    static getCoordinates(location: string): any {
+    static
+    getCoordinates(location: string): any {
         return request.get('http://maps.googleapis.com/maps/api/geocode/json?address=' + encodeURIComponent(location))
     }
 
-    static cleanSensitiveData(data: User) {
+    static
+    cleanSensitiveData(data: User) {
         data = JSON.parse(JSON.stringify(data));
 
         delete data.email;

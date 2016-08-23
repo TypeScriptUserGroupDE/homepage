@@ -50,6 +50,7 @@ gulp.task('build:libs', function () {
         'node_modules/reflect-metadata/Reflect.js',
         'node_modules/jquery/dist/jquery.min.js',
         'node_modules/bootstrap/dist/js/bootstrap.min.js',
+        'node_modules/lodash/lodash.js',
         'node_modules/systemjs/dist/system.src.js',
         'system.config.js'
     ])
@@ -106,9 +107,16 @@ gulp.task('bundle', function () {
     // todo: delete not needed stuff in target/lib after build
 
     var builder = new Builder('target', './systemjs.config.js');
+    builder.config({
+        meta: {
+            'target/lib/vendor.js': {
+                build: false
+            }
+        }
+    });
     return builder.buildStatic('app', 'target/app.js', {
         minify: false,
-        sourceMaps: true
+        sourceMaps: false
     })
         .then(function () {
             browserSync.reload();

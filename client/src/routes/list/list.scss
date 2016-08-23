@@ -1,12 +1,51 @@
 @import './../../styles/variables';
 
 section#list {
+  @media (min-width: 1023px) {
+    .searchForm {
+      //margin-top: 30px;
+
+      .col-md-8 {
+        padding-right: 10px;
+      }
+      .col-md-4 {
+        padding-left: 0;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .searchForm {
+      margin-top: 30px;
+
+      .col-md-8 {
+      }
+      .col-md-4 {
+        .search-submit {
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+
+  .search-input {
+    display: inline;
+    float: left;
+    width: 100%;
+    border: 1px solid #ccc;
+    padding: 6px 12px;
+  }
+
+  .search-submit {
+    width: 100%;
+    float: right;
+  }
 
   .card {
     display: block;
     background-color: white;
     margin-bottom: 30px;
-    
+
     &:hover, &:focus {
       background-color: darken(white, 5);
     }
@@ -23,4 +62,5 @@ section#list {
       padding: 10px 10px;
     }
   }
+
 }
