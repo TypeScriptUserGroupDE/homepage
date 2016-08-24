@@ -8,7 +8,7 @@
                 vernetzen</p>
         </div>
         <div class="banner-actions">
-            <button *ngIf="!isLoggedIn() || !(getCurrentRoute() === '/' || getCurrentRoute() === '/home')" class="btn button-default" (click)="login()">Mit GitHub anmelden</button>
+            <button *ngIf="!isLoggedIn() || !(getCurrentRoute() === '/' || getCurrentRoute() === '/home')" class="btn btn-default" (click)="login()">Mit GitHub anmelden</button>
         </div>
     </div>
 </section>

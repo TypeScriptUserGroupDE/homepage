@@ -6,7 +6,9 @@ var map = {
     'angular2-jwt':                     'lib/angular2-jwt/angular2-jwt.js',
     'angular2-google-maps':             'lib/angular2-google-maps',
     'angular2-linky':                   'lib/angular2-linky',
-    'autolinker':                       'lib/autolinker/dist'
+    'autolinker':                       'lib/autolinker/dist',
+    'ng2-bootstrap':                    'lib/ng2-bootstrap',
+    'moment':                           'lib/moment'
 };
 
 // packages tells the System loader how to load when no filename and/or no extension
@@ -16,7 +18,9 @@ var packages = {
     "angular2-jwt":                     {defaultExtension: 'js'},
     'angular2-google-maps/core':        {defaultExtension: 'js', main: 'index.js'},
     'angular2-linky':                   {defaultExtension: 'js', main: 'index.js'},
-    'autolinker':                       {defaultExtension: 'js', main: 'Autolinker.min.js'}
+    'autolinker':                       {defaultExtension: 'js', main: 'Autolinker.min.js'},
+    'ng2-bootstrap':                    {defaultExtension: 'js', main: 'ng2-bootstrap.js'},
+    'moment':                           {defaultExtension: 'js', main: 'moment.js'}
 };
 
 var packageNames = [

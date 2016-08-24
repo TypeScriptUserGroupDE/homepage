@@ -1,10 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {
-    NgForm,
     FormControl,
     FormGroup,
     Validators,
-    ValidatorFn,
     AbstractControl,
     REACTIVE_FORM_DIRECTIVES
 } from '@angular/forms';
@@ -14,11 +12,14 @@ import {ActivatedRoute, ROUTER_DIRECTIVES, Router} from '@angular/router';
 import {AuthHttp} from 'angular2-jwt';
 import {User} from './../../../components/User';
 import {AuthService} from './../../../services/AuthService';
+import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS} from 'ng2-bootstrap/ng2-bootstrap';
+import {DeleteUserModalComponent} from './../deleteUserModal/deleteUserModal.component';
 
 @Component({
     selector: 'user-add',
     templateUrl: './routes/user/add/user.add.html',
-    directives: [ROUTER_DIRECTIVES, REACTIVE_FORM_DIRECTIVES],
+    directives: [ROUTER_DIRECTIVES, REACTIVE_FORM_DIRECTIVES, MODAL_DIRECTIVES, DeleteUserModalComponent],
+    viewProviders: [BS_VIEW_PROVIDERS],
     providers: []
 })
 
@@ -71,14 +72,5 @@ export class UserAddComponent implements OnInit {
                 error => console.log(error)
             )
         ;
-    }
-
-    deleteUser() {
-        this.authHttp.delete('/api/user/delete')
-            .map(res => res.json())
-            .subscribe(
-                data => this.authService.logout(),
-                error => console.log(error)
-            );
     }
 }

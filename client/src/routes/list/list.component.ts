@@ -49,8 +49,6 @@ export class ListComponent implements OnInit {
 
     paginate(search?: string) {
         search = search || "";
-        console.log('changed');
-        console.log(search);
         this.filteredUsers = new SearchPipe().transform(this.users, search);
         this.count = this.filteredUsers.length;
         this.pages = Array(Math.ceil(this.count / this.itemsPerPage));
@@ -58,7 +56,6 @@ export class ListComponent implements OnInit {
     }
 
     loadPage(index: number) {
-        console.log(index);
         this.pageIndex = index;
         console.log(this.skip);
         this.skip = this.pageIndex * this.itemsPerPage;

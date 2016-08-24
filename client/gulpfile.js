@@ -83,6 +83,16 @@ gulp.task('copy:libs', function () {
         .pipe(gulp.dest(config.build.vendor + 'angular2-linky'));
 
     gulp.src([
+        'node_modules/ng2-bootstrap/**/*'
+    ])
+        .pipe(gulp.dest(config.build.vendor + 'ng2-bootstrap'));
+
+    gulp.src([
+        'node_modules/moment/**/*'
+    ])
+        .pipe(gulp.dest(config.build.vendor + 'moment'));
+
+    gulp.src([
         'node_modules/autolinker/**/*'
     ])
         .pipe(gulp.dest(config.build.vendor + 'autolinker'));

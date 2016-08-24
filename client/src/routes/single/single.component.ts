@@ -38,7 +38,7 @@ export class SingleComponent implements OnInit {
         if (this.authService.isLoggedIn()) {
             this.sendMessageText = "Nachricht senden";
         } else {
-            this.sendMessageText = "Mit GitHub anmelden";
+            this.sendMessageText = "Anmelden für Kontakt";
         }
     }
 

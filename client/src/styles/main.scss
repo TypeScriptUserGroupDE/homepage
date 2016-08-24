@@ -64,9 +64,10 @@ p, span, li, .form-control {
   margin-bottom: 30px;
 }
 
-.btn {
+.btn-default {
   font-weight: normal;
   border-radius: 0;
+  border: 0;
   background-color: $orange;
   color: black;
   
@@ -161,4 +162,12 @@ p, span, li, .form-control {
 
 .float-right {
   float: right;
+}
+
+.inline {
+  display: inline;
+}
+
+.green-text {
+  color: #1fa67a;
 }

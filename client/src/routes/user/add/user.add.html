@@ -55,8 +55,11 @@
                         <input type="text" name="html_url" class="form-control" [(ngModel)]="model.html_url" required>
                     </div>
                     <div class="form-group">
-                        <label for="twitter">Twitter</label>
-                        <input type="text" name="twitter" class="form-control" [(ngModel)]="model.twitter">
+                        <label for="twitter">Twitter Username</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">@</div>
+                            <input type="text" name="twitter" class="form-control" [(ngModel)]="model.twitter">
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-7">
@@ -80,7 +83,8 @@
                             <div class="checkbox">
                                 <label>
                                     <input type="checkbox" name="greaterDistance" class=""
-                                           [(ngModel)]="model.availability.greaterDistance">
+                                           [(ngModel)]="model.availability.greaterDistance"
+                                           [disabled]="!model.availability.forProjects">
                                     Auch in größerer Entfernung vom Wohnort
                                 </label>
                             </div>
@@ -112,7 +116,7 @@
                                 <label>
                                     <input
                                             type="checkbox" name="ionic" class=""
-                                           [(ngModel)]="model.tec.ionic">
+                                            [(ngModel)]="model.tec.ionic">
                                     Ionic
                                 </label>
                             </div>
@@ -139,7 +143,11 @@
                             [disabled]="!userAddForm.form.valid">
                         Speichern
                     </button>
-                    <a class="btn-delete" (click)="deleteUser()">Profil löschen</a>
+                    <a *ngIf="model.active" class="btn btn-link float-right" (click)="deleteUserModal.show()">Profil
+                        löschen</a>
+
+                    <delete-user-modal #deleteUserModal="child"></delete-user-modal>
+
                 </div>
             </div>
 

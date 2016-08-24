@@ -1,44 +1,23 @@
-import {Component} from '@angular/core';
-import {Router, ActivatedRoute, ROUTER_DIRECTIVES, Event, NavigationEnd} from '@angular/router';
-
-import {HomeComponent} from './routes/home/home.component';
-import {ImprintComponent} from './routes/imprint/imprint.component';
-import {HeaderComponent} from './routes/header/header.component';
-import {NavigationComponent} from './routes/navigation/navigation.component';
-import {LoginComponent} from './routes/login/login.component';
-import {SingleComponent} from './routes/single/single.component';
-import {ListComponent} from './routes/list/list.component';
-import {MapComponent} from './routes/map/map.component';
-import {CallbackComponent} from './routes/login/callback.component';
-import {UserAddComponent} from './routes/user/add/userAdd.component';
-import {UserMessageComponent} from './routes/user/message/userMessage.component';
+import {Component, ViewContainerRef} from '@angular/core';
+import {Router, Event, NavigationEnd} from '@angular/router';
 
 @Component({
     selector: 'my-app',
     templateUrl: './app.html',
-    // directives: [ROUTER_DIRECTIVES, HeaderComponent, NavigationComponent, LoginComponent, UserAddComponent],
-    providers: [],
-    // precompile: [
-    //     HomeComponent,
-    //     ImprintComponent,
-    //     MapComponent,
-    //     HeaderComponent,
-    //     NavigationComponent,
-    //     LoginComponent,
-    //     SingleComponent,
-    //     ListComponent,
-    //     CallbackComponent,
-    //     UserAddComponent,
-    //     UserMessageComponent
-    // ]
+    providers: []
 })
 
 export class AppComponent {
+    viewContainerRef:ViewContainerRef;
 
-    constructor(public router:Router) {
+    constructor(public router: Router,
+                viewContainerRef: ViewContainerRef) {
+
+        // ng2-bootstrap: You need this small hack in order to catch application root view container ref
+        this.viewContainerRef = viewContainerRef;
 
         this.router.events.subscribe(
-            (event:Event) => {
+            (event: Event) => {
                 if (event instanceof NavigationEnd) {
                     (<any>window).dataLayer.push({
                         event: 'pageView',

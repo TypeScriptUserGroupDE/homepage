@@ -61,15 +61,15 @@
 
         <div class="row">
             <div class="col-md-12">
-                <a *ngFor="let page of pages; let i = index" [class.active]="(i === pageIndex)" class="btn button-muted"
-                   (click)="loadPage(i)">
-                    {{i + 1}}
-                </a>
-
+                <div class="btn-group" role="group" aria-label="...">
+                    <button *ngFor="let page of pages; let i = index" [class.active]="(i === pageIndex)"
+                            class="btn button-muted"
+                            (click)="loadPage(i)">
+                        {{i + 1}}
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 </section>
 <!--<pre>{{users | json }}</pre>-->
-<pre>{{pages | json }}</pre>
-<pre>{{search | json }}</pre>
