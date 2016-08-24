@@ -16,7 +16,7 @@
                                 <input type="text" name="login" class="form-control" [(ngModel)]="model.login" disabled>
                             </div>
                             <div class="form-group">
-                                <label for="name">Name</label>
+                                <label for="name">Name *</label>
                                 <input type="text" name="name" class="form-control" [(ngModel)]="model.name" required>
                             </div>
                         </div>
@@ -26,29 +26,26 @@
                         </div>
                     </div>
                     <div class="form-group" [formGroup]="form">
-                        <label for="email">E-Mail-Adresse (Wird nicht öffentlich angezeigt)</label>
+                        <label for="email">E-Mail-Adresse *</label>
+                        <p class="info">Deine E-Mail-Adresse wird nicht veröffentlicht.</p>
                         <input type="text" name="email" class="form-control" [(ngModel)]="model.email"
                                formControlName="email">
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group" [formGroup]="form">
-                                <label for="zip">Postleitzahl</label>
+                                <label for="zip">Postleitzahl *</label>
                                 <input type="number" name="zip" class="form-control" [(ngModel)]="model.zip"
                                        formControlName="zip">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group" [formGroup]="form">
-                                <label for="city">Ort</label>
+                                <label for="city">Ort *</label>
                                 <input type="text" name="city" class="form-control" [(ngModel)]="model.city" required
                                        formControlName="required">
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="website">Website</label>
-                        <input type="text" name="website" class="form-control" [(ngModel)]="model.website">
                     </div>
                     <div class="form-group">
                         <label for="html_url">GitHub URL</label>
@@ -61,6 +58,28 @@
                             <input type="text" name="twitter" class="form-control" [(ngModel)]="model.twitter">
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="website">Website</label>
+                        <input type="text" name="website" class="form-control" [(ngModel)]="model.website">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="website">Firma</label>
+                                <input type="text" name="company" class="form-control" [(ngModel)]="model.company">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="website">Webseite der Firma</label>
+                                <input type="text" name="company_url" class="form-control"
+                                       [(ngModel)]="model.company_url"
+                                       [disabled]="!model.company"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <p>* Diese Felder müssen ausgefüllt werden.</p>
                 </div>
                 <div class="col-md-7">
                     <div class="form-group">

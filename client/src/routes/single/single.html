@@ -13,6 +13,12 @@
                     </li>
                     <li class="list-group-item name">{{user.name}}</li>
                     <li class="list-group-item city">{{user.city}}</li>
+                    <li class="list-group-item" *ngIf="user.company && user.company_url">
+                        <a href="{{user.company_url}}">{{user.company}}</a>
+                    </li>
+                    <li class="list-group-item" *ngIf="user.company && !user.company_url">
+                        {{user.company}}
+                    </li>
                     <li class="list-group-item" *ngIf="user.html_url">GitHub: <a
                             href="{{user.html_url}}">{{user.login}}</a>
                     </li>
@@ -32,7 +38,7 @@
 
                     </div>
                     <div class="col-md-6">
-                        <button class="btn btn-default float-right" *ngIf="isLoggedIn()" [routerLink]="['']">
+                        <button class="btn btn-default float-right" *ngIf="isLoggedIn()" [routerLink]="['/user/add']">
                             <i class="fa fa-user" aria-hidden="true"></i>
                             Profil bearbeiten
                         </button>

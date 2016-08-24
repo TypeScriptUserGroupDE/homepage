@@ -20,6 +20,8 @@ export interface User extends mongoose.Document, PublicUser {
     active: boolean;
     website: string;
     twitter: string;
+    company: string;
+    company_url: string;
     description: string;
     city: string;
     zip: number;
@@ -52,6 +54,8 @@ export var UserSchema = new Schema(
         active: Boolean,
         website: String,
         twitter: String,
+        company: String,
+        company_url: String,
         description: String,
         city: String,
         zip: Number,
