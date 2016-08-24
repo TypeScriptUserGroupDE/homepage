@@ -27,25 +27,28 @@
 
             </div>
         </div>
-        <div class="row content">
 
-            <div class="jumbotron" *ngIf="search">
-                <span>Suche nur nach {{search}}</span>
-                <a (click)="inValidateSearch()">Zurück</a>
-            </div>
+        <div class="jumbotron search-info" *ngIf="search">
+            <span>Suche nur nach "{{search}}"</span>
+            <a class="float-right" (click)="inValidateSearch()">Alles anzeigen</a>
+        </div>
 
-            <div class="col-md-4 col-sm-6" *ngFor="let user of paginatedUsers | search: search">
+        <div class="flex-row content">
+
+            <div class="flex-item col-lg-4 col-md-6 col-sm-6" *ngFor="let user of paginatedUsers | search: search">
                 <div class="card border-style white-bg">
                     <a (click)="onClick(user.login)">
                         <div class="card-content">
                             <div class="row">
-                                <div class="col-md-4 col-xs-4">
+                                <div class="col-md-4 col-xs-4 img">
                                     <img class="img-responsive" src="{{ user.avatar_url }}"/>
                                 </div>
-                                <div class="col-md-8 col-xs-8">
+                                <div class="col-md-8 col-xs-8 text">
                                     <h4>{{user.name}}</h4>
                                     <p>{{user.city}}</p>
-                                    <!--<p>Nutzt TypeScript für: #node #angularjs #angular2 #ionic</p>-->
+                                    <ul class="tec no-list">
+                                        <li class="inline" *ngFor="let tec of user.tec | tec">{{tec.value}}</li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>

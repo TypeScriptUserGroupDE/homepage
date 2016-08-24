@@ -4,11 +4,12 @@ import {ROUTER_DIRECTIVES, Router} from '@angular/router';
 import {GOOGLE_MAPS_DIRECTIVES} from 'angular2-google-maps/core';
 import {User} from '../../components/User';
 import {SearchPipe} from "../../services/SearchPipe";
+import {TecPipe} from "../../services/TecPipe";
 
 @Component({
     selector: 'list',
     templateUrl: './routes/list/list.html',
-    pipes: [SearchPipe],
+    pipes: [SearchPipe, TecPipe],
     directives: [ROUTER_DIRECTIVES, GOOGLE_MAPS_DIRECTIVES],
     providers: []
 })

@@ -41,6 +41,40 @@ section#list {
     float: right;
   }
 
+  .search-info {
+    font-weight: bold;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: $light-orange;
+    padding: 10px 20px;
+    max-width: 400px;
+
+    a {
+      &:hover, &:focus {
+        color: $blue;
+      }
+    }
+  }
+  
+  .flex-row {
+    margin-left: -15px;
+    margin-right: -15px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: stretch;
+    align-items: stretch;
+  }
+
+  .flex-item {
+    display: flex;
+    order: 0;
+    flex: 1 1 auto;
+    align-self: auto;
+    box-sizing: border-box;
+  }
+
   .card {
     display: block;
     background-color: white;
@@ -59,7 +93,33 @@ section#list {
     }
 
     .card-content {
-      padding: 10px 10px;
+      padding: 0;
+
+      .img {
+        padding-right: 10px;
+        padding-left: 10px;
+      }
+
+      .text {
+        padding-right: 10px;
+        padding-left: 10px;
+      }
+
+      .tec {
+        > li {
+          font-size: 14px;
+
+          &:last-child {
+            border: 1px solid $orange;
+            background-color: $orange;
+            border-radius: 12px;
+            margin-left: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 0 5px;
+          }
+        }
+      }
     }
   }
 

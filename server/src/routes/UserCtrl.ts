@@ -167,7 +167,6 @@ class UserCtrl {
                 return
             }
             if (result) {
-                // console.log(result);
                 let headers = {
                     Authorization: 'Basic ' + new Buffer('api:' + Config.mailgun_api_key).toString("base64")
                 };
@@ -241,8 +240,6 @@ class UserCtrl {
                 data.latitude = result.results[0].geometry.location.lat;
                 data.fieldSum = fieldSum;
                 data.active = true;
-
-                console.log(data);
 
                 UserModel.findOneAndUpdate({
                     "github_id": req.decoded.github_id
