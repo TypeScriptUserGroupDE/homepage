@@ -10,7 +10,7 @@ import {DataService} from "../../../services/DataService";
     directives: [CORE_DIRECTIVES, MODAL_DIRECTIVES],
     viewProviders: [BS_VIEW_PROVIDERS],
     providers: [],
-    exportAs: 'child'
+    exportAs: 'deleteUserModal'
 })
 
 export class DeleteUserModalComponent {

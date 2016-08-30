@@ -165,7 +165,7 @@
                     <a *ngIf="model.active" class="btn btn-link float-right" (click)="deleteUserModal.show()">Profil
                         löschen</a>
 
-                    <delete-user-modal #deleteUserModal="child"></delete-user-modal>
+                    <delete-user-modal #deleteUserModal="deleteUserModal"></delete-user-modal>
 
                 </div>
             </div>

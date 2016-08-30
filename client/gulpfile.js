@@ -138,7 +138,7 @@ gulp.task('bundle:prod', function () {
 
     var builder = new Builder('target', './systemjs.config.js');
     return builder.buildStatic('app', 'target/app.js', {
-        minify: true,
+        minify: false,
         sourceMaps: false
     })
 });
@@ -157,7 +157,7 @@ gulp.task('serve', ['build'], function () {
 });
 
 gulp.task('build', function (cb) {
-    runSequence('clean', ['compile', 'build:libs', 'copy:libs', 'copy:assets', 'sass'], 'bundle', cb);
+    runSequence('clean', ['compile', 'build:libs', 'copy:libs', 'copy:assets', 'sass'], 'bundle:prod', cb);
 });
 
 gulp.task('dist', function (cb) {
@@ -165,7 +165,7 @@ gulp.task('dist', function (cb) {
 });
 
 gulp.task('updateBundle', function (cb) {
-    runSequence('compile', 'bundle', cb);
+    runSequence('compile', 'bundle:prod', cb);
 });
 
 gulp.task('default', ['serve']);
