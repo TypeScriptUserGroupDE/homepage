@@ -75,6 +75,7 @@ class UserCtrl {
             .exec(done);
 
         function done(err: any, result: User[]) {
+
             if (err) {
                 console.log("err");
                 return
@@ -173,8 +174,6 @@ class UserCtrl {
 
                 let payload = {
                     from: Config.mailgun_sender_email,
-                    //todo: override to not spam anyone
-                    // to: 'strauss@w11k.de',
                     to: result.email,
                     subject: req.body.subject,
                     text: req.body.message
@@ -190,6 +189,10 @@ class UserCtrl {
                             .status(200)
                             .json("mail qeued");
                     });
+            } else {
+                res
+                    .status(400)
+                    .json("user not found");
             }
 
         }
