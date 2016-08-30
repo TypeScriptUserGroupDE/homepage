@@ -6,6 +6,7 @@ import  bodyParser = require("body-parser");
 import morgan = require("morgan");
 import db = require("./common/db");
 import AuthCtrl  from "./routes/AuthCtrl";
+import TestCtrl  from "./routes/TestCtrl";
 import UserCtrl  from "./routes/UserCtrl";
 
 db.init();
@@ -23,6 +24,7 @@ app.use(bodyParser.json());
  * */
 
 AuthCtrl.routes(app, "/api/login");
+TestCtrl.routes(app, "/api/test");
 UserCtrl.publicRoutes(app, "/api/user");
 
 /**
