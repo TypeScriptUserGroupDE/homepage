@@ -8,8 +8,8 @@ import {AppConfig} from './../config/config';
 
 export class AuthService implements CanActivate {
 
-    constructor(public http:Http,
-                public router:Router) {
+    constructor(public http: Http,
+                public router: Router) {
 
     }
 
@@ -39,6 +39,7 @@ export class AuthService implements CanActivate {
         this.router.navigate(['/']);
     }
 
+    // redirect to github OAuth
     login() {
         var client_id = AppConfig.github_client_id;
         var scope = "user:email";

@@ -17,6 +17,7 @@ import {UserAddComponent} from './routes/user/add/userAdd.component';
 import {UserMessageComponent} from './routes/user/message/userMessage.component';
 
 import {AuthService} from './services/AuthService';
+import {DataService} from './services/DataService';
 import {SingleUserResolver} from './components/resolver';
 import {UserAddResolver} from './components/resolver';
 
@@ -49,6 +50,7 @@ import {AppConfig} from './config/config';
     providers: [
         provideLazyMapsAPILoaderConfig({apiKey: AppConfig.google_maps_api_key}),
         AuthService,
+        DataService,
         SingleUserResolver,
         UserAddResolver,
         provide(AuthHttp, {

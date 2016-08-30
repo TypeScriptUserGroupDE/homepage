@@ -1,5 +1,5 @@
 import {Injectable, Pipe} from '@angular/core';
-import {User} from "../components/User";
+import {UserListItem} from "../components/UserListItem";
 
 @Pipe({
     name: 'search'
@@ -8,8 +8,8 @@ import {User} from "../components/User";
 
 export class SearchPipe {
 
-    transform(value:User[], term:string) {
+    transform(value:UserListItem[], term:string) {
         if (term.length === 0) return value;
-        return value.filter((item: User) => item.city.toLowerCase().startsWith(term.toLowerCase()))
+        return value.filter((item: UserListItem) => item.city.toLowerCase().startsWith(term.toLowerCase()))
     }
 }

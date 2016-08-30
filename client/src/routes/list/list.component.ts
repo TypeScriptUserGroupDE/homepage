@@ -2,23 +2,23 @@ import {Component, OnInit, Input} from '@angular/core';
 import {Http} from '@angular/http';
 import {ROUTER_DIRECTIVES, Router} from '@angular/router';
 import {GOOGLE_MAPS_DIRECTIVES} from 'angular2-google-maps/core';
-import {User} from '../../components/User';
-import {SearchPipe} from "../../services/SearchPipe";
-import {TecPipe} from "../../services/TecPipe";
+import {UserListItem} from '../../components/UserListItem';
+import {SearchPipe} from './../../services/SearchPipe';
+import {TecPipe} from './../../services/TecPipe';
+import {DataService} from './../../services/DataService';
 
 @Component({
     selector: 'list',
     templateUrl: './routes/list/list.html',
     pipes: [SearchPipe, TecPipe],
     directives: [ROUTER_DIRECTIVES, GOOGLE_MAPS_DIRECTIVES],
-    providers: []
 })
 
 export class ListComponent implements OnInit {
     @Input() search: string = "";
-    users: User[];
-    paginatedUsers: User[];
-    filteredUsers: User[];
+    users: UserListItem[];
+    paginatedUsers: UserListItem[];
+    filteredUsers: UserListItem[];
     text: string;
     count: number;
     itemsPerPage: number = 9;
@@ -30,15 +30,16 @@ export class ListComponent implements OnInit {
     tec: string;
 
     constructor(public router: Router,
-                public http: Http) {
+                public http: Http,
+                private dataService: DataService) {
 
     }
 
     ngOnInit() {
         this.isSearchDone = false;
 
-        this.http.get('/api/user/get/all')
-            .map(res => res.json())
+        this.dataService
+            .getUserList()
             .subscribe(
                 data => {
                     this.users = data;
@@ -58,7 +59,6 @@ export class ListComponent implements OnInit {
 
     loadPage(index: number) {
         this.pageIndex = index;
-        console.log(this.skip);
         this.skip = this.pageIndex * this.itemsPerPage;
         this.paginatedUsers = this.filteredUsers.slice(this.skip + 0, this.skip + this.itemsPerPage)
     };

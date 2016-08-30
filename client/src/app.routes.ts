@@ -22,7 +22,7 @@ const routes: Routes = [
     {path: 'developer/:username', component: SingleComponent, resolve: {user: SingleUserResolver}},
     {path: 'login', component: LoginComponent},
     {path: 'user/add', component: UserAddComponent, canActivate: [AuthService], resolve: {user: UserAddResolver}},
-    {path: 'user/message/:username', component: UserMessageComponent, canActivate: [AuthService]},
+    {path: 'user/message/:username', component: UserMessageComponent, canActivate: [AuthService], resolve: {user: SingleUserResolver}},
     {path: 'accessToken', component: CallbackComponent}
 ];
 

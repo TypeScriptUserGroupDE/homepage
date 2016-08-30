@@ -5,6 +5,7 @@ import {AuthHttp} from 'angular2-jwt';
 import {
     GOOGLE_MAPS_DIRECTIVES
 } from 'angular2-google-maps/core';
+import {DataService} from "../../services/DataService";
 
 @Component({
     selector: 'map',
@@ -14,17 +15,21 @@ import {
 })
 
 export class MapComponent implements OnInit {
+    //config map zoom level and inital center map on coordinates
+    zoom: number = 6;
+    lat: number = 50.589095;
+    lng: number = 11.600845;
+    radius: number;
 
     markers: Marker[];
 
     constructor(private router: Router,
-                public http: Http,
-                public authHttp: AuthHttp) {
+                private dataService: DataService) {
     }
 
     ngOnInit() {
-        this.http.get('/api/user/get/map')
-            .map(res => res.json())
+        this.dataService
+            .getMapMarkers()
             .subscribe(
                 data => this.markers = data,
                 error => console.log(error)
@@ -33,11 +38,7 @@ export class MapComponent implements OnInit {
         this.onZoomChange(6);
     }
 
-    //config map zoom level and inital center map on coordinates
-    zoom: number = 6;
-    lat: number = 50.589095;
-    lng: number = 11.600845;
-    radius: number;
+
 
     onClick(id: string) {
         this.router.navigate(['Single', {userid: id}]);

@@ -9,23 +9,19 @@ import {LinkyPipe} from 'angular2-linky';
     selector: 'single',
     templateUrl: './routes/single/single.html',
     directives: [ROUTER_DIRECTIVES],
-    providers: [AuthService],
+    providers: [],
     pipes: [LinkyPipe]
 })
 
 export class SingleComponent implements OnInit {
     sendMessageText: string;
+    user: User;
 
     constructor(public http: Http,
                 private router: Router,
                 private authService: AuthService,
                 private route: ActivatedRoute) {
     }
-
-    user = new User();
-    body: {
-        username?: string
-    };
 
     ngOnInit() {
         this.user = this.route.snapshot.data['user'];

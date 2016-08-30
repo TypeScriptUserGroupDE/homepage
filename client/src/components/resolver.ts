@@ -1,46 +1,27 @@
 import {Injectable} from '@angular/core';
-import {Http, Headers, RequestOptions} from "@angular/http";
-import {AuthHttp} from 'angular2-jwt';
-import {User} from './User';
 import {Observable} from 'rxjs/Observable';
 import {Resolve, ActivatedRouteSnapshot, RouterStateSnapshot} from "@angular/router";
+import {User} from './User';
+import {DataService} from "../services/DataService";
 
 @Injectable()
 export class SingleUserResolver implements Resolve<User> {
-    user:any;
-    body:{
-        username?:string
-    };
-
-    constructor(public http:Http) {
+    constructor(private dataService: DataService) {
     }
 
-    resolve(route:ActivatedRouteSnapshot, state:RouterStateSnapshot):Observable<User> {
-
-        let headers = new Headers({'Content-Type': 'application/json'});
-        let options = new RequestOptions({headers: headers});
-
-        this.body = {};
-        this.body.username = route.params['username'];
-
-        return this.http.post('/api/user/get',
-            this.body,
-            options)
-            .map(res => res.json());
-
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<User> {
+        return this.dataService.getSingleUser(route.params['username']);
     }
 }
 
 @Injectable()
 export class UserAddResolver implements Resolve<User> {
 
-    constructor(public http:Http,
-                public authHttp:AuthHttp) {
+    constructor(private dataService: DataService) {
     }
 
-    resolve(route:ActivatedRouteSnapshot, state:RouterStateSnapshot):Observable<User> {
-        return this.authHttp.get('/api/user/get/form')
-            .map(res => res.json());
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<User> {
+        return this.dataService.getSingleUserWithAuthentication();
     }
 }
 

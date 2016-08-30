@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Http, Headers, HTTP_PROVIDERS, Response, RequestOptions} from '@angular/http';
 import {ROUTER_DIRECTIVES, Router, ActivatedRoute} from '@angular/router';
+import {DataService} from "../../services/DataService";
 
 @Component({
     selector: 'callback',
@@ -10,11 +11,12 @@ import {ROUTER_DIRECTIVES, Router, ActivatedRoute} from '@angular/router';
 })
 
 export class CallbackComponent implements OnInit {
-    code:string;
+    code: string;
 
-    constructor(private route:ActivatedRoute,
-                private http:Http,
-                private router:Router) {
+    constructor(private route: ActivatedRoute,
+                private http: Http,
+                private router: Router,
+                private dataService: DataService) {
     }
 
     ngOnInit() {
@@ -25,20 +27,12 @@ export class CallbackComponent implements OnInit {
                 params => this.code = params['code']
             );
 
-        let body = JSON.stringify({code: this.code});
-
-        let headers = new Headers({'Content-Type': 'application/json'});
-        let options = new RequestOptions({headers: headers});
-
-        this.http.post(
-            '/api/login',
-            body,
-            options)
-            .map(res => res.json())
+        this.dataService
+            .gitHubAuth(this.code)
             .subscribe(
                 data => {
                     localStorage.setItem('token', data.token);
-                    if (data.user.active === false) {
+                    if (data.active === false) {
                         this.router.navigateByUrl('/user/add');
                     } else {
                         this.router.navigateByUrl('/directory');

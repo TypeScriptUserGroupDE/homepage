@@ -1,6 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {Http} from '@angular/http';
-import {AuthHttp} from 'angular2-jwt';
 import {AppConfig} from './../../config/config';
 
 @Component({
@@ -11,8 +9,7 @@ import {AppConfig} from './../../config/config';
 
 export class LoginComponent implements OnInit {
 
-    constructor(public http:Http,
-                public authHttp:AuthHttp) {
+    constructor() {
     }
 
     ngOnInit() {

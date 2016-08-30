@@ -138,7 +138,7 @@ gulp.task('bundle:prod', function () {
 
     var builder = new Builder('target', './systemjs.config.js');
     return builder.buildStatic('app', 'target/app.js', {
-        minify: false,
+        minify: true,
         sourceMaps: false
     })
 });

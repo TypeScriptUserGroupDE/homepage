@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {
     FormControl,
     FormGroup,
@@ -6,14 +6,11 @@ import {
     AbstractControl,
     REACTIVE_FORM_DIRECTIVES
 } from '@angular/forms';
-import {Http} from '@angular/http';
-import {Headers, RequestOptions} from '@angular/http';
 import {ActivatedRoute, ROUTER_DIRECTIVES, Router} from '@angular/router';
-import {AuthHttp} from 'angular2-jwt';
 import {User} from './../../../components/User';
-import {AuthService} from './../../../services/AuthService';
 import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS} from 'ng2-bootstrap/ng2-bootstrap';
 import {DeleteUserModalComponent} from './../deleteUserModal/deleteUserModal.component';
+import {DataService} from "../../../services/DataService";
 
 @Component({
     selector: 'user-add',
@@ -27,10 +24,8 @@ export class UserAddComponent implements OnInit {
     form: FormGroup;
 
     constructor(private router: Router,
-                public http: Http,
-                public authHttp: AuthHttp,
                 private route: ActivatedRoute,
-                private authService: AuthService) {
+                private dataService: DataService) {
 
         this.form = new FormGroup({
             email: new FormControl('', Validators.compose([this.emailValidator])),
@@ -44,7 +39,7 @@ export class UserAddComponent implements OnInit {
     ngOnInit() {
         this.model = this.route.snapshot.data['user'];
 
-        //prevent 'cannot read propery of null error
+        //prevent 'cannot read propery of null' error
         if (this.model.tec === null) {
             this.model.tec = {};
         }
@@ -56,15 +51,8 @@ export class UserAddComponent implements OnInit {
     }
 
     onSubmit() {
-        let body = JSON.stringify(this.model);
-        let headers = new Headers({'Content-Type': 'application/json'});
-        let options = new RequestOptions({headers: headers});
-
-        this.authHttp.put('/api/user/update', body, options)
-            .map(res => {
-                let body = res.json();
-                return body
-            })
+        this.dataService
+            .updateUser(this.model)
             .subscribe(
                 data => {
                     this.router.navigate(['/directory']);

@@ -1,8 +1,8 @@
 import {Component, ViewChild} from '@angular/core';
 import {CORE_DIRECTIVES} from '@angular/common';
 import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS, ModalDirective} from 'ng2-bootstrap/ng2-bootstrap';
-import {AuthHttp} from 'angular2-jwt';
 import {AuthService} from './../../../services/AuthService';
+import {DataService} from "../../../services/DataService";
 
 @Component({
     selector: 'delete-user-modal',
@@ -14,11 +14,11 @@ import {AuthService} from './../../../services/AuthService';
 })
 
 export class DeleteUserModalComponent {
-    @ViewChild('deleteUserModal') public deleteUserModal:ModalDirective;
+    @ViewChild('deleteUserModal') public deleteUserModal: ModalDirective;
 
 
-    constructor(private authHttp: AuthHttp,
-                private authService: AuthService) {
+    constructor(private authService: AuthService,
+                private dataService: DataService) {
     }
 
     show() {
@@ -30,8 +30,8 @@ export class DeleteUserModalComponent {
     }
 
     deleteUser() {
-        this.authHttp.delete('/api/user/delete')
-            .map(res => res.json())
+        this.dataService
+            .deleteUser()
             .subscribe(
                 data => {
                     this.authService.logout();

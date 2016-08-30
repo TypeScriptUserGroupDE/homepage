@@ -13,6 +13,7 @@ import {Headers, RequestOptions} from '@angular/http';
 import {User} from '../../../components/User';
 import {ROUTER_DIRECTIVES, Router, ActivatedRoute} from '@angular/router';
 import {AuthHttp} from 'angular2-jwt';
+import {DataService} from "../../../services/DataService";
 
 @Component({
     selector: 'user-message',
@@ -22,18 +23,21 @@ import {AuthHttp} from 'angular2-jwt';
 })
 
 export class UserMessageComponent implements OnInit {
-    form:FormGroup;
+    form: FormGroup;
+    user: User;
+    username: string;
 
-    model:{
-        username?:string,
-        subject?:string,
-        message?:string
+    model: {
+        username?: string,
+        subject?: string,
+        message?: string
     };
 
-    constructor(private router:Router,
-                private route:ActivatedRoute,
-                public http:Http,
-                public authHttp:AuthHttp) {
+    constructor(private router: Router,
+                private route: ActivatedRoute,
+                public http: Http,
+                public authHttp: AuthHttp,
+                private dataService: DataService) {
 
         this.form = new FormGroup({
             required: new FormControl("", Validators.required)
@@ -42,52 +46,18 @@ export class UserMessageComponent implements OnInit {
         this.model = {};
     }
 
-    user = new User();
-    body:{
-        username?:string
-    };
-
     ngOnInit() {
-        this.body = {};
-
-        this.route
-            .params
-            .subscribe(
-                params => {
-                    this.body.username = params['username'];
-                }
-            );
-
-        let headers = new Headers({'Content-Type': 'application/json'});
-        let options = new RequestOptions({headers: headers});
-
-        this.authHttp.post('/api/user/get',
-            JSON.stringify(this.body),
-            options)
-            .map(res => res.json())
-            .subscribe(
-                data => this.user = data,
-                error => console.log(error)
-            );
+        this.user = this.route.snapshot.data['user'];
+        console.log(this.user);
     }
 
     onSubmit() {
-        this.route
-            .params
-            .subscribe(
-                params => {
-                    this.model.username = params['username'];
-                }
-            );
+        this.model.username = this.user.login;
+        console.log(this.model);
 
-        let headers = new Headers({'Content-Type': 'application/json'});
-        let options = new RequestOptions({headers: headers});
 
-        this.authHttp.post('/api/user/send/mail', JSON.stringify(this.model), options)
-            .map(res => {
-                let body = res.json();
-                return body
-            })
+        this.dataService
+            .sendMessageToUser(this.model)
             .subscribe(
                 data => {
                     this.router.navigate(['/developer', this.model.username]);
