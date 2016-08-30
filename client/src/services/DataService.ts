@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http, Headers, HTTP_PROVIDERS, RequestOptions, Response} from '@angular/http';
+import {Http, Headers, RequestOptions, Response} from '@angular/http';
 import {AuthHttp} from 'angular2-jwt';
 import {Router} from '@angular/router';
 import {Observable}     from 'rxjs/Observable';
@@ -49,6 +49,7 @@ export class DataService {
             data,
             this.options)
             .map(this.extractData)
+            .catch(this.handleError)
     }
 
     deleteUser(): Observable<User> {

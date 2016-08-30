@@ -35,7 +35,7 @@
 
         <div class="flex-row content">
 
-            <div class="flex-item col-lg-4 col-md-6 col-sm-6" *ngFor="let user of paginatedUsers | search: search">
+            <div class=" col-lg-4 col-md-6 col-sm-6" *ngFor="let user of paginatedUsers | search: search">
                 <div class="card border-style white-bg">
                     <a (click)="onClick(user.login)">
                         <div class="card-content">
