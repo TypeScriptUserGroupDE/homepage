@@ -6,7 +6,7 @@ export default class Config {
     public static mailgun_api_key = process.env.TYPESCRIPTUSERS_MAILGUN_API_KEY;
     public static mailgun_domain = process.env.TYPESCRIPTUSERS_MAILGUN_DOMAIN;
     public static mailgun_sender_email = process.env.TYPESCRIPTUSERS_MAILGUN_SENDER_EMAIL;
-    public static log_directory = process.env.TYPESCRIPTUSERS_LOG_DIRECTORY || "/var/log/typescriptusers";
+    public static log_directory = process.env.TYPESCRIPTUSERS_LOG_DIRECTORY || "/var/log/typescriptusers/log";
     public static log_level = process.env.TYPESCRIPTUSERS_LOG_LEVEL || "error";
     public static production_mode = process.env.TYPESCRIPTUSERS_PRODUCTION_MODE || "true";
 }
