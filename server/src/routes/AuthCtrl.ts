@@ -103,7 +103,7 @@ class AuthCtrl {
                 return request.get({
                     url: 'https://api.github.com/user/emails',
                     headers: {
-                        "User-Agent": "Awesome-Octocat-App",
+                        "User-Agent": "typescriptusers.de App",
                         "Authorization": 'token ' + token
                     },
                     json: true

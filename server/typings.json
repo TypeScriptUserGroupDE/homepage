@@ -16,7 +16,8 @@
     "request": "registry:dt/request#0.0.0+20160524135346",
     "request-promise": "registry:dt/request-promise#0.4.2+20160316155526",
     "rx": "npm:rx/ts/rx.all.d.ts",
-    "serve-static": "github:DefinitelyTyped/DefinitelyTyped/serve-static/serve-static.d.ts#27d7b56688bfeba9c6fc1ce0ecb611d929982d44"
+    "serve-static": "github:DefinitelyTyped/DefinitelyTyped/serve-static/serve-static.d.ts#27d7b56688bfeba9c6fc1ce0ecb611d929982d44",
+    "winston": "registry:dt/winston#0.0.0+20160417152829"
   },
   "dependencies": {
     "form-data": "registry:npm/form-data#1.0.0+20160211003958",

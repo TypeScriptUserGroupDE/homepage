@@ -15,7 +15,6 @@ class TestCtrl {
     }
 
     test(req: express.Request, res: express.Response) {
-        console.log('tested');
 
         res
             .status(200)
