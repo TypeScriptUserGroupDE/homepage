@@ -1,0 +1,76 @@
+<section id="intro" class="banner blue-bg-spacer">
+  <div class="container">
+    <!--<h1>TypeScriptUsers</h1>-->
+    <div class="banner-content">
+      <p>TypeScriptUsers ist ein offenes Verzeichnis von TypeScript-Entwicklern in Deutschland.</p>
+      <p>Unser Ziel ist es, die Bekanntheit von TypeScript zu fördern, indem wir TypeScript-Entwickler
+        untereinander
+        vernetzen</p>
+    </div>
+    <div class="banner-actions">
+      <button *ngIf="!isLoggedIn() || !(getCurrentRoute() === '/' || getCurrentRoute() === '/home')" class="btn btn-default" (click)="login()">Mit GitHub anmelden</button>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="gray-bg-spacer">
+  <div class="container">
+    <div class="row ">
+      <div class="col-md-6">
+
+
+        <h1>Über TypeScript</h1>
+        <p>
+          TypeScript ist ein Superset von JavaScript und erweitert dieses um statische Typen und Konzepte der
+          Objektorientierung, wie
+        </p>
+        <ul class="">
+          <li>Klassen,</li>
+          <li>Module,</li>
+          <li>Interfaces</li>
+          <li>und statische Typ-Prüfungen.</li>
+        </ul>
+        <p>
+          TypeScript kompiliert zu JavaScript und kann daher auf jeder Zielplattform ausgeführt werden.
+        </p>
+
+      </div>
+      <div class="col-md-6">
+        <h1>Über Uns</h1>
+        <p>
+          TypeScriptUsers.de ist ein Projekt der TypeScript User Group Deutschland e.V.
+        </p>
+        <p>
+          Wir wollen die Bekanntheit von TypeScript fördern, indem wir der deutschen TypeScipt-Community die
+          Möglichkeit bieten sich zu vernetzen und über TypeScript auszutauschen.
+        </p>
+        <p>
+          Neben unserem offenen Entwicklerverzeichnis wollen wir als User Group auch regelmäßige Treffen
+          organisieren.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="spacer">
+  <div class="container">
+    <h1>Kontakt</h1>
+    <div class="col-md-4 col-sm-4">
+      <p><i class="fa fa-3x fa-github" aria-hidden="true"></i></p>
+      <h4>GitHub</h4>
+      <a href="https://github.com/TypeScriptUserGroupDE/homepage">TypeScriptUsersGroupDE</a>
+    </div>
+    <div class="col-md-4 col-sm-4">
+
+      <p><img class="img-responsive fa-img" src="assets/gitter.png"></p>
+      <h4>Gitter</h4>
+      <a href="https://gitter.im/TypeScriptUserGroupDE/TypeScriptUsersGroupDE">TypeScriptUsersGroupDE</a>
+    </div>
+    <div class="col-md-4 col-sm-4">
+      <p><i class="fa fa-3x fa-twitter" aria-hidden="true"></i></p>
+      <h4>Twitter</h4>
+      <a href="https://twitter.com/typescriptusers">@TypeScriptUsers</a>
+    </div>
+  </div>
+</section>

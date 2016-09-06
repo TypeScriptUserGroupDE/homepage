@@ -1,0 +1,30 @@
+<nav class="navbar navbar-default navbar-static-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+              aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <!--<a class="navbar-brand" href="/">TypeScriptUsers</a>-->
+      <a class="navbar-brand" href="/">
+        <img class="logo" src="assets/logo_white_bold.png">
+      </a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="" routerLinkActive="active"><a [routerLink]="['/home']">Über uns</a></li>
+        <li class="" routerLinkActive="active"><a [routerLink]="['/directory']">Entwicklerverzeichnis</a></li>
+        <li class=""><a target="_blank" href="https://gitter.im/TypeScriptUserGroupDE/TypeScriptUsersGroupDE">Chat</a></li>
+
+        <!--todo: queryParams will not be persisted to different routes in next(?) angular2 release-->
+        <!--see: https://github.com/angular/angular/commit/23ee29b6a2ae396f6ec13f71c9552e3e0a983c3c-->
+        <li routerLinkActive="active" *ngIf="isLoggedIn()"><a [routerLink]="['/user/add']" [queryParams]="{}">Profil bearbeiten</a></li>
+        <li routerLinkActive="active"><a *ngIf="isLoggedIn()" (click)="logout()">Abmelden</a></li>
+        <li routerLinkActive="active"><a *ngIf="!isLoggedIn()" (click)="login()">Anmelden</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>

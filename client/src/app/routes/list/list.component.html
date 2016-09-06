@@ -1,0 +1,78 @@
+<section id="list" class="gray-bg-spacer">
+
+  <div class="container">
+    <div class="row head">
+      <div class="col-md-12">
+        <h1>Entwicklerverzeichnis</h1>
+        <div class="row">
+          <div class="col-md-8">
+            <div class="btn-group" role="group" aria-label="...">
+              <a type="button" class="btn button-muted" [routerLink]="['/directory']"
+                 routerLinkActive="active">Liste</a>
+              <a type="button" class="btn button-muted" [routerLink]="['/map']"
+                 routerLinkActive="active">Karte</a>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <form #searchListForm="ngForm" novalidate>
+              <div class="searchForm">
+                <input class="search-input" name="search" placeholder="Nach Ort suchen"
+                       type="search"
+                       (ngModelChange)="paginate($event)"
+                       [(ngModel)]="search">
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="jumbotron search-info" *ngIf="search">
+      <span>Suche nur nach "{{search}}"</span>
+      <a class="float-right" (click)="inValidateSearch()">Alles anzeigen</a>
+    </div>
+
+    <div class="flex-row content">
+
+      <div class=" col-lg-4 col-md-6 col-sm-6" *ngFor="let user of paginatedUsers | search: search">
+        <div class="card border-style white-bg">
+          <a (click)="onClick(user.login)">
+            <div class="card-content">
+              <div class="row">
+                <div class="col-md-4 col-xs-4 img">
+                  <img class="img-responsive" src="{{ user.avatar_url }}"/>
+                </div>
+                <div class="col-md-8 col-xs-8 text">
+                  <h4>{{user.name}}</h4>
+                  <p>{{user.city}}</p>
+                  <ul class="tec no-list">
+                    <li class="inline" *ngFor="let tec of user.tec | tec">{{tec.value}}</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="btn-group" role="group" aria-label="...">
+          <button *ngFor="let page of pages; let i = index" [class.active]="(i === pageIndex)"
+                  class="btn button-muted"
+                  (click)="loadPage(i)">
+            {{i + 1}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--<pre>{{users | json }}</pre>-->

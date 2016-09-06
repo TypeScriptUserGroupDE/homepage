@@ -1,0 +1,15 @@
+@import './../../styles/variables';
+
+section#about {
+
+}
+
+section#contact {
+  text-align: center;
+
+  .fa-img {
+    display: inline;
+    margin: 4px;
+    height: 40px;
+  }
+}

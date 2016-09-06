@@ -1,0 +1,96 @@
+<section id="single" class="gray-bg-spacer">
+  <div class="container">
+    <div class="row">
+      <div class="overview col-md-3">
+        <a class="back" [routerLink]="['/directory']"><p>Zurück zum Entwicklerverzeichnis</p></a>
+        <ul class="list-group">
+          <li class="list-group-item">
+            <img class="user-img img-responsive center-block" src="{{ user.avatar_url }}"/>
+            <button class="btn btn-default center-block user-mail"
+                    (click)="sendMessage(user.login)">{{
+              sendMessageText }}
+            </button>
+          </li>
+          <li class="list-group-item name">{{user.name}}</li>
+          <li class="list-group-item city">{{user.city}}</li>
+          <li class="list-group-item" *ngIf="user.company && user.company_url">
+            <a href="{{user.company_url}}">{{user.company}}</a>
+          </li>
+          <li class="list-group-item" *ngIf="user.company && !user.company_url">
+            {{user.company}}
+          </li>
+          <li class="list-group-item" *ngIf="user.html_url">GitHub: <a
+            href="{{user.html_url}}">{{user.login}}</a>
+          </li>
+          <li class="list-group-item" *ngIf="user.website">Webseite: <a href="{{user.website}}">{{user.website}}</a>
+          </li>
+          <li class="list-group-item" *ngIf="user.twitter">Twitter: <a
+            href="https://twitter.com/{{user.twitter}}">@{{user.twitter}}</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="info col-md-9">
+
+        <div class="row">
+          <div class="col-md-6">
+            <h2 class="name">Über {{user.name}}</h2>
+
+          </div>
+          <div class="col-md-6">
+            <button class="btn btn-default float-right" *ngIf="isLoggedIn()" [routerLink]="['/user/add']">
+              <i class="fa fa-user" aria-hidden="true"></i>
+              Profil bearbeiten
+            </button>
+
+          </div>
+        </div>
+
+        <div class="avail row">
+          <div class="col-md-6">
+                        <span *ngIf="user.availability.forProjects" class="border-style white-bg avail-info">
+                            <i class="fa fa-check-square green-text"
+                               aria-hidden="true"></i>
+                            {{user.name}} steht für Projekte zur Verfügung</span>
+          </div>
+          <div class="col-md-6">
+                        <span *ngIf="user.availability.greaterDistance" class="border-style white-bg avail-info">
+                            <i class="fa fa-check-square green-text"
+                               aria-hidden="true"></i>
+                            Auch in größerer Entfernung vom Wohnort</span>
+          </div>
+        </div>
+        <div class="desc">
+          <p class="desc-text border-style" innerHTML="{{user.description | linky}}"></p>
+        </div>
+
+        <h2 *ngIf="hasTecSelected() === true">
+          Verwendet TypeScript mit</h2>
+
+        <div class="tec row">
+          <div *ngIf="user.tec.angularjs" class="col-md-4"><p class="border-style white-bg">
+            <i class="fa fa-check-square green-text"
+               aria-hidden="true"></i>
+            AngularJS</p></div>
+          <div *ngIf="user.tec.angular2" class="col-md-4"><p class="border-style white-bg">
+            <i class="fa fa-check-square green-text"
+               aria-hidden="true"></i>
+            Angular2</p></div>
+          <div *ngIf="user.tec.ionic" class="col-md-4"><p class="border-style white-bg">
+            <i class="fa fa-check-square green-text"
+               aria-hidden="true"></i>
+            Ionic</p></div>
+          <div *ngIf="user.tec.nodejs" class="col-md-4"><p class="border-style white-bg">
+            <i class="fa fa-check-square green-text"
+               aria-hidden="true"></i>
+            Node.js</p></div>
+          <div *ngIf="user.tec.nativescript" class="col-md-4"><p class="border-style white-bg">
+            <i class="fa fa-check-square green-text"
+               aria-hidden="true"></i>
+            NativeScript</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--<pre>{{user | json }}</pre>-->

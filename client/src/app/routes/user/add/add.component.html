@@ -1,0 +1,177 @@
+<section id="user-add" class="gray-bg-spacer">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>Anmelden</h1>
+      </div>
+    </div>
+
+    <form #userAddForm="ngForm" novalidate>
+      <div class="row">
+        <div class="col-md-5">
+          <div class="row">
+            <div class="col-md-9 col-sm-9">
+              <div class="form-group">
+                <label for="login">Username</label>
+                <input type="text" name="login" class="form-control" [(ngModel)]="model.login" disabled>
+              </div>
+              <div class="form-group">
+                <label for="name">Name *</label>
+                <input type="text" name="name" class="form-control" [(ngModel)]="model.name" required>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-3">
+              <label>Profilbild</label>
+              <img class="img-responsive center-block avatar" width="" src="{{model.avatar_url}}">
+            </div>
+          </div>
+          <div class="form-group" [formGroup]="form">
+            <label for="email">E-Mail-Adresse *</label>
+            <p class="info">Deine E-Mail-Adresse wird nicht veröffentlicht.</p>
+            <input type="text" name="email" class="form-control" [(ngModel)]="model.email"
+                   formControlName="email">
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group" [formGroup]="form">
+                <label for="zip">Postleitzahl *</label>
+                <input type="number" name="zip" class="form-control" [(ngModel)]="model.zip"
+                       formControlName="zip">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group" [formGroup]="form">
+                <label for="city">Ort *</label>
+                <input type="text" name="city" class="form-control" [(ngModel)]="model.city" required
+                       formControlName="required">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="html_url">GitHub URL</label>
+            <input type="text" name="html_url" class="form-control" [(ngModel)]="model.html_url" required>
+          </div>
+          <div class="form-group">
+            <label for="twitter">Twitter Username</label>
+            <div class="input-group">
+              <div class="input-group-addon">@</div>
+              <input type="text" name="twitter" class="form-control" [(ngModel)]="model.twitter">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="website">Website</label>
+            <input type="text" name="website" class="form-control" [(ngModel)]="model.website">
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="website">Firma</label>
+                <input type="text" name="company" class="form-control" [(ngModel)]="model.company">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="website">Webseite der Firma</label>
+                <input type="text" name="company_url" class="form-control"
+                       [(ngModel)]="model.company_url"
+                       [disabled]="!model.company"
+                >
+              </div>
+            </div>
+          </div>
+          <p>* Diese Felder müssen ausgefüllt werden.</p>
+        </div>
+        <div class="col-md-7">
+          <div class="form-group">
+            <label for="description">Beschreibung (Links werden automatisch konvertiert)</label>
+            <textarea rows="12" cols="10" type="text" name="description" class="form-control"
+                      [(ngModel)]="model.description"></textarea>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="forProjects" class=""
+                         [(ngModel)]="model.availability.forProjects">
+                  Ich stehe für Projekte zur Verfügung
+                </label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="greaterDistance" class=""
+                         [(ngModel)]="model.availability.greaterDistance"
+                         [disabled]="!model.availability.forProjects">
+                  Auch in größerer Entfernung vom Wohnort
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!--todo: angular2 elvis operator is currently not supported for two-way data binding,-->
+          <!--see: https://github.com/angular/angular/issues/7697-->
+          <!--workaround: [(ngModel)]="model && model.key"-->
+
+          <h4>Ich habe Erfahrung mit:</h4>
+          <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-6">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="angularjs" class=""
+                         [(ngModel)]="model.tec.angularjs">
+                  AngularJS
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="angular2" class=""
+                         [(ngModel)]="model.tec.angular2">
+                  Angular2
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input
+                    type="checkbox" name="ionic" class=""
+                    [(ngModel)]="model.tec.ionic">
+                  Ionic
+                </label>
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-6">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="nodejs" class=""
+                         [(ngModel)]="model.tec.nodejs">
+                  Node.Js
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="nodejs" class=""
+                         [(ngModel)]="model.tec.nativescript">
+                  NativeScript
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" (click)="onSubmit()" class="btn btn-default"
+                  [disabled]="!userAddForm.form.valid">
+            Speichern
+          </button>
+          <a *ngIf="model.active" class="btn btn-link float-right" (click)="deleteUserModal.show()">Profil
+            löschen</a>
+
+          <delete-user-modal #deleteUserModal="deleteUserModal"></delete-user-modal>
+
+        </div>
+      </div>
+
+    </form>
+  </div>
+</section>
+
+<!--<pre>{{model | json }}</pre>-->

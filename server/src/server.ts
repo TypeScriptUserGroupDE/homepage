@@ -10,7 +10,7 @@ import TestCtrl  from "./routes/TestCtrl";
 import UserCtrl  from "./routes/UserCtrl";
 import logger from "./common/logging";
 
-process.on('uncaughtException', function (error) {
+process.on('uncaughtException', function (error:Error) {
     logger.log("error", error.stack);
     process.exit(1)
 });
