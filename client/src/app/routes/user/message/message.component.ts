@@ -1,25 +1,21 @@
 import {Component, OnInit} from '@angular/core';
 import {
-  NgForm,
   FormControl,
   FormGroup,
   Validators,
-  ValidatorFn,
-  AbstractControl,
   REACTIVE_FORM_DIRECTIVES
 }    from '@angular/forms';
+import {AlertComponent} from 'ng2-bootstrap/ng2-bootstrap';
 import {Http} from '@angular/http';
-import {Headers, RequestOptions} from '@angular/http';
 import {User} from '../../../components/User';
 import {ROUTER_DIRECTIVES, Router, ActivatedRoute} from '@angular/router';
-import {AuthHttp} from 'angular2-jwt';
 import {DataService} from "../../../services/data/data.service";
 
 @Component({
   selector: 'user-message',
   templateUrl: './message.component.html',
   styleUrls: ['./message.component.scss'],
-  directives: [ROUTER_DIRECTIVES, REACTIVE_FORM_DIRECTIVES],
+  directives: [ROUTER_DIRECTIVES, REACTIVE_FORM_DIRECTIVES, AlertComponent],
   providers: []
 })
 
@@ -33,6 +29,8 @@ export class UserMessageComponent implements OnInit {
     subject?: string,
     message?: string
   };
+
+  alerts = [];
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -48,6 +46,7 @@ export class UserMessageComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.route.snapshot.data['user'];
+    this.alerts.push({msg: 'Nachricht gesendet', type: 'success'});
   }
 
   onSubmit() {
@@ -57,7 +56,8 @@ export class UserMessageComponent implements OnInit {
       .sendMessageToUser(this.model)
       .subscribe(
         data => {
-          this.router.navigate(['/developer', this.model.username]);
+          // this.router.navigate(['/developer', this.model.username]);
+          this.alerts.push({msg: 'Nachricht gesendet', type: 'success'});
         },
         error => console.log(error)
       );

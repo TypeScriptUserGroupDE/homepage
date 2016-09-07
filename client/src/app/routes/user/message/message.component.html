@@ -1,7 +1,11 @@
 <section id="message" class="gray-bg-spacer">
   <div class="container">
-    <!--bug, see: https://github.com/angular/angular/issues/9801-->
+    <alert *ngFor="let alert of alerts" [type]="alert.type">
+      {{ alert?.msg }}
+    </alert>
+
     <div class="row">
+
 
       <div class="overview col-md-3">
         <a class="back" [routerLink]="['/developer/' + user.login]">
