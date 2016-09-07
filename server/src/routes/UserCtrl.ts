@@ -157,12 +157,29 @@ class UserCtrl {
     }
 
     sendMessage(req: JwtRequest, res: express.Response) {
+        let sender: User;
 
         UserModel
-            .findOne({"login": req.body.username})
+            .findOne()
+            .where({"github_id": req.decoded.github_id})
             .exec(done);
 
-        function done(err: any, result: User): any {
+        function done(err: any, result: User) {
+            if (err) {
+                console.log("err");
+                return
+            }
+            if (result) {
+                sender = result;
+
+                UserModel
+                    .findOne({"login": req.body.username})
+                    .exec(sendMail);
+            }
+
+        }
+
+        function sendMail(err: any, result: User): any {
             if (err) {
                 console.log("err");
                 return
@@ -173,7 +190,7 @@ class UserCtrl {
                 };
 
                 let payload = {
-                    from: Config.mailgun_sender_email,
+                    from: sender.name+ ' <' + sender.email + '>',
                     to: result.email,
                     subject: req.body.subject,
                     text: req.body.message
