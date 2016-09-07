@@ -190,7 +190,7 @@ class UserCtrl {
                 };
 
                 let payload = {
-                    from: sender.name+ ' <' + sender.email + '>',
+                    from: sender.name + ' <' + sender.email + '>',
                     to: result.email,
                     subject: req.body.subject,
                     text: req.body.message

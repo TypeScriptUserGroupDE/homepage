@@ -25,6 +25,7 @@ import {SearchPipe} from './pipes/search.pipe';
 import {UserAddResolver, SingleUserResolver} from "./services/resolver/resolver.service";
 import {AuthService} from "./services/auth/auth.service";
 import {DataService} from "./services/data/data.service";
+import {tokenNotExpired, JwtHelper} from 'angular2-jwt';
 
 
 @NgModule({
@@ -58,6 +59,7 @@ import {DataService} from "./services/data/data.service";
     DataService,
     SingleUserResolver,
     UserAddResolver,
+    JwtHelper,
     provideLazyMapsAPILoaderConfig({apiKey: AppConfig.google_maps_api_key}),
     provide(AuthHttp, {
       useFactory: (http: Http) => {

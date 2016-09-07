@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Http, Headers, HTTP_PROVIDERS, RequestOptions} from '@angular/http';
-import {AuthHttp, tokenNotExpired} from 'angular2-jwt';
+import {tokenNotExpired, JwtHelper} from 'angular2-jwt';
 import {Router, CanActivate} from '@angular/router';
 import {AppConfig} from './../../config/app.config';
 
@@ -9,7 +9,8 @@ import {AppConfig} from './../../config/app.config';
 export class AuthService implements CanActivate {
 
   constructor(public http: Http,
-              public router: Router) {
+              public router: Router,
+              private jwtHelper: JwtHelper) {
 
   }
 
@@ -18,6 +19,16 @@ export class AuthService implements CanActivate {
       return true;
     } else {
       return false
+    }
+  }
+
+  getUserName(): string {
+    if (window.localStorage.getItem('token')) {
+      let token = window.localStorage.getItem('token');
+      let decoded = this.jwtHelper.decodeToken(token);
+      return decoded.name
+    } else {
+      return "not logged in"
     }
   }
 

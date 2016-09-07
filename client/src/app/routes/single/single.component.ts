@@ -27,12 +27,13 @@ export class SingleComponent implements OnInit {
   ngOnInit() {
     this.user = this.route.snapshot.data['user'];
 
+
     //prevent 'cannot read propery of null error
     if (this.user.tec === null) {
       this.user.tec = {};
     }
 
-    if (this.authService.isLoggedIn()) {
+    if (this.authService.isLoggedIn() && this.authService.getUserName() !== this.user.name) {
       this.sendMessageText = "Nachricht senden";
     } else {
       this.sendMessageText = "Anmelden für Kontakt";

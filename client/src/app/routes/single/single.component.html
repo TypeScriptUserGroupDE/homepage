@@ -6,7 +6,7 @@
         <ul class="list-group">
           <li class="list-group-item">
             <img class="user-img img-responsive center-block" src="{{ user.avatar_url }}"/>
-            <button class="btn btn-default center-block user-mail"
+            <button *ngIf="authService.getUserName() !== user.name" class="btn btn-default center-block user-mail"
                     (click)="sendMessage(user.login)">{{
               sendMessageText }}
             </button>
