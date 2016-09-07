@@ -49,13 +49,10 @@ export class UserMessageComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.route.snapshot.data['user'];
-    console.log(this.user);
   }
 
   onSubmit() {
     this.model.username = this.user.login;
-    console.log(this.model);
-
 
     this.dataService
       .sendMessageToUser(this.model)
