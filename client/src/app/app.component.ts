@@ -13,7 +13,7 @@ export class AppComponent {
 
   constructor(public router: Router,
               viewContainerRef: ViewContainerRef) {
-
+    
     // ng2-bootstrap: You need this small hack in order to catch application root view container ref
     this.viewContainerRef = viewContainerRef;
 

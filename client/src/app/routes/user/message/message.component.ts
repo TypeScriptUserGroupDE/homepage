@@ -37,7 +37,6 @@ export class UserMessageComponent implements OnInit {
   constructor(private router: Router,
               private route: ActivatedRoute,
               public http: Http,
-              public authHttp: AuthHttp,
               private dataService: DataService) {
 
     this.form = new FormGroup({

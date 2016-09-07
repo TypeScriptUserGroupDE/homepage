@@ -1,4 +1,4 @@
-import {NgModule, provide} from '@angular/core';
+import {NgModule, provide, enableProdMode} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
 import {Http, HttpModule} from '@angular/http';
@@ -27,6 +27,7 @@ import {AuthService} from "./services/auth/auth.service";
 import {DataService} from "./services/data/data.service";
 import {tokenNotExpired, JwtHelper} from 'angular2-jwt';
 
+enableProdMode();
 
 @NgModule({
   imports: [
@@ -74,5 +75,6 @@ import {tokenNotExpired, JwtHelper} from 'angular2-jwt';
     })],
   bootstrap: [AppComponent]
 })
+
 export class AppModule {
 }
