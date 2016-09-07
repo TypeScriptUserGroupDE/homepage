@@ -25,7 +25,7 @@ import {SearchPipe} from './pipes/search.pipe';
 import {UserAddResolver, SingleUserResolver} from "./services/resolver/resolver.service";
 import {AuthService} from "./services/auth/auth.service";
 import {DataService} from "./services/data/data.service";
-import {tokenNotExpired, JwtHelper} from 'angular2-jwt';
+import {JwtHelper} from 'angular2-jwt';
 
 enableProdMode();
 
