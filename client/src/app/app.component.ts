@@ -1,5 +1,6 @@
 import {Component, ViewContainerRef} from '@angular/core';
 import {Router, Event, NavigationEnd} from '@angular/router';
+import './rxjs-extensions';
 
 @Component({
   selector: 'my-app',

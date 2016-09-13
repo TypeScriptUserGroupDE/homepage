@@ -1,18 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {Http} from '@angular/http';
-import {ROUTER_DIRECTIVES, Router} from '@angular/router';
-import {AuthHttp} from 'angular2-jwt';
-import {
-  GOOGLE_MAPS_DIRECTIVES
-} from 'angular2-google-maps/core';
+import {Router} from '@angular/router';
 import {DataService} from "../../services/data/data.service";
+import {Marker} from '../../components/Marker';
 
 @Component({
   selector: 'map',
   templateUrl: './map.component.html',
-  styleUrls: ['./map.component.scss'],
-  directives: [ROUTER_DIRECTIVES, GOOGLE_MAPS_DIRECTIVES],
-  providers: []
+  styleUrls: ['./map.component.scss']
 })
 
 export class MapComponent implements OnInit {
@@ -235,10 +229,4 @@ export class MapComponent implements OnInit {
       ]
     }
   ];
-}
-
-interface Marker {
-  lat: number;
-  lng: number;
-  label?: string;
 }

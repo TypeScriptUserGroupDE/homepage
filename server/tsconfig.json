@@ -9,8 +9,6 @@
     "sourceMap": true
   },
   "files": [
-    "./typings/index.d.ts",
-    "typings/main/ambient/node/node.d.ts",
-    "typings/main/ambient/node/browser.d.ts"
+    "./typings/index.d.ts"
   ]
 }

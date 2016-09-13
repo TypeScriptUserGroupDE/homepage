@@ -1,15 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {Http, HTTP_PROVIDERS} from '@angular/http';
-import {AuthHttp, tokenNotExpired} from 'angular2-jwt';
-import {ROUTER_DIRECTIVES, Router} from '@angular/router';
+import {Http} from '@angular/http';
+import {AuthHttp} from 'angular2-jwt';
+import {Router} from '@angular/router';
 import {AuthService} from '../../services/auth/auth.service';
 
 @Component({
   selector: 'list',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  directives: [ROUTER_DIRECTIVES],
-  providers: []
 })
 
 export class HomeComponent implements OnInit {

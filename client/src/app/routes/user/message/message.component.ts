@@ -2,21 +2,17 @@ import {Component, OnInit} from '@angular/core';
 import {
   FormControl,
   FormGroup,
-  Validators,
-  REACTIVE_FORM_DIRECTIVES
+  Validators
 }    from '@angular/forms';
-import {AlertComponent} from 'ng2-bootstrap/ng2-bootstrap';
 import {Http} from '@angular/http';
 import {User} from '../../../components/User';
-import {ROUTER_DIRECTIVES, Router, ActivatedRoute} from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 import {DataService} from "../../../services/data/data.service";
 
 @Component({
   selector: 'user-message',
   templateUrl: './message.component.html',
   styleUrls: ['./message.component.scss'],
-  directives: [ROUTER_DIRECTIVES, REACTIVE_FORM_DIRECTIVES, AlertComponent],
-  providers: []
 })
 
 export class UserMessageComponent implements OnInit {
@@ -32,8 +28,7 @@ export class UserMessageComponent implements OnInit {
 
   alerts = [];
 
-  constructor(private router: Router,
-              private route: ActivatedRoute,
+  constructor(private route: ActivatedRoute,
               public http: Http,
               private dataService: DataService) {
 

@@ -5,7 +5,6 @@ import {AppConfig} from './../../config/app.config';
   selector: 'login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  providers: []
 })
 
 export class LoginComponent implements OnInit {

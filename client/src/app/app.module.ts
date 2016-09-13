@@ -1,9 +1,11 @@
-import {NgModule, provide, enableProdMode} from '@angular/core';
+import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-import {FormsModule} from '@angular/forms';
-import {Http, HttpModule} from '@angular/http';
-import {AuthConfig, AuthHttp} from 'angular2-jwt';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HttpModule} from '@angular/http';
+import {JwtHelper, provideAuth, AuthHttp} from 'angular2-jwt';
 import {provideLazyMapsAPILoaderConfig, AgmCoreModule} from 'angular2-google-maps/core';
+import {AlertComponent, ModalModule} from 'ng2-bootstrap/ng2-bootstrap';
+import {LinkyPipe} from 'angular2-linky';
 import {AppConfig} from './config/app.config';
 import {routing} from './app.routes';
 import {AppComponent} from './app.component';
@@ -25,17 +27,21 @@ import {SearchPipe} from './pipes/search.pipe';
 import {UserAddResolver, SingleUserResolver} from "./services/resolver/resolver.service";
 import {AuthService} from "./services/auth/auth.service";
 import {DataService} from "./services/data/data.service";
-import {JwtHelper} from 'angular2-jwt';
+// import {Observable}     from 'rxjs/Observable';
+// import {throw}     from 'rxjs/Observable/throw';
+// import {catch}     from 'rxjs/Operator/catch';
 
-enableProdMode();
+
 
 @NgModule({
   imports: [
     BrowserModule,
     routing,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
-    AgmCoreModule.forRoot()
+    AgmCoreModule.forRoot(),
+    ModalModule
   ],
   declarations: [
     AppComponent,
@@ -51,9 +57,12 @@ enableProdMode();
     DeleteUserModalComponent,
     UserMessageComponent,
     CallbackComponent,
+    DeleteUserModalComponent,
+    AlertComponent,
     TecPipe,
     KeysPipe,
-    SearchPipe
+    SearchPipe,
+    LinkyPipe
   ],
   providers: [
     AuthService,
@@ -62,17 +71,14 @@ enableProdMode();
     UserAddResolver,
     JwtHelper,
     provideLazyMapsAPILoaderConfig({apiKey: AppConfig.google_maps_api_key}),
-    provide(AuthHttp, {
-      useFactory: (http: Http) => {
-        return new AuthHttp(new AuthConfig({
-          headerName: 'x-access-token',
-          headerPrefix: '',
-          noTokenScheme: true,
-          tokenName: 'token'
-        }), http);
-      },
-      deps: [Http]
-    })],
+    AuthHttp,
+    provideAuth({
+      headerName: 'x-access-token',
+      headerPrefix: '',
+      noTokenScheme: true,
+      tokenName: 'token'
+    })
+  ],
   bootstrap: [AppComponent]
 })
 

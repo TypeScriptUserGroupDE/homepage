@@ -4,21 +4,15 @@ import {
   FormGroup,
   Validators,
   AbstractControl,
-  REACTIVE_FORM_DIRECTIVES
 } from '@angular/forms';
-import {ActivatedRoute, ROUTER_DIRECTIVES, Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {User} from './../../../components/User';
-import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS} from 'ng2-bootstrap/ng2-bootstrap';
-import {DeleteUserModalComponent} from './../delete-user-modal/delete-user-modal.component';
 import {DataService} from "../../../services/data/data.service";
 
 @Component({
   selector: 'user-add',
   templateUrl: './add.component.html',
-  styleUrls: ['./add.component.scss'],
-  directives: [ROUTER_DIRECTIVES, REACTIVE_FORM_DIRECTIVES, MODAL_DIRECTIVES, DeleteUserModalComponent],
-  viewProviders: [BS_VIEW_PROVIDERS],
-  providers: []
+  styleUrls: ['./add.component.scss']
 })
 
 export class UserAddComponent implements OnInit {

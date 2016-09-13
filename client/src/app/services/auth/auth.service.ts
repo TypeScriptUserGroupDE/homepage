@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http, Headers, HTTP_PROVIDERS, RequestOptions} from '@angular/http';
+import {Http} from '@angular/http';
 import {tokenNotExpired, JwtHelper} from 'angular2-jwt';
 import {Router, CanActivate} from '@angular/router';
 import {AppConfig} from './../../config/app.config';

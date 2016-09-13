@@ -1,6 +1,6 @@
 import express = require("express");
 import jwt = require("jsonwebtoken");
-import _ = require("lodash/index");
+import _ = require("lodash");
 import {JwtRequest} from "./../common/interfaces/JwtRequest";
 import {SearchRequest} from "./../common/interfaces/SearchRequest";
 import request = require("request-promise");

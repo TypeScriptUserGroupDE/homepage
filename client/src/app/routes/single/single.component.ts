@@ -1,17 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {Http} from '@angular/http';
-import {Router, ActivatedRoute, ROUTER_DIRECTIVES} from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 import {User} from '../../components/User';
 import {AuthService} from '../../services/auth/auth.service';
-import {LinkyPipe} from 'angular2-linky';
 
 @Component({
   selector: 'single',
   templateUrl: './single.component.html',
   styleUrls: ['./single.component.scss'],
-  directives: [ROUTER_DIRECTIVES],
-  providers: [],
-  pipes: [LinkyPipe]
 })
 
 export class SingleComponent implements OnInit {
@@ -28,7 +24,7 @@ export class SingleComponent implements OnInit {
     this.user = this.route.snapshot.data['user'];
 
 
-    //prevent 'cannot read propery of null error
+    //prevent 'cannot read propery of null' error
     if (this.user.tec === null) {
       this.user.tec = {};
     }

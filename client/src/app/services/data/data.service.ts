@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {Observable}     from 'rxjs/Observable';
 import {User} from './../../components/User';
 import {UserListItem} from './../../components/UserListItem';
+import {Marker} from '../../components/Marker';
 
 @Injectable()
 

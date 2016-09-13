@@ -1,6 +1,6 @@
 import express = require("express");
 import jwt = require("jsonwebtoken");
-import _ = require("lodash/index");
+import _ = require("lodash");
 import request = require("request-promise");
 import {model as UserModel} from "./../models/User";
 import {User} from "./../models/User";
