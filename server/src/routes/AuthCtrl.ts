@@ -147,7 +147,7 @@ class AuthCtrl {
         const user: PublicUser = {
             userid: fullUser._id,
             github_id: fullUser.github_id,
-            name: fullUser.name,
+            login: fullUser.login,
             html_url: fullUser.html_url,
             accessLevel: fullUser.accessLevel,
             avatar_url: fullUser.avatar_url,

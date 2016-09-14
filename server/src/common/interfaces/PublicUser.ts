@@ -1,7 +1,7 @@
 export interface PublicUser {
     userid:any;
     github_id:number;
-    name:string;
+    login:string;
     html_url:string;
     accessLevel:number;
     avatar_url:string;

@@ -26,7 +26,8 @@ export class AuthService implements CanActivate {
     if (window.localStorage.getItem('token')) {
       let token = window.localStorage.getItem('token');
       let decoded = this.jwtHelper.decodeToken(token);
-      return decoded.name
+      console.log(decoded);
+      return decoded.login
     } else {
       return "not logged in"
     }

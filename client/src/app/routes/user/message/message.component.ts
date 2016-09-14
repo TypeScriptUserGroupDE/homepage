@@ -41,7 +41,6 @@ export class UserMessageComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.route.snapshot.data['user'];
-    this.alerts.push({msg: 'Nachricht gesendet', type: 'success'});
   }
 
   onSubmit() {
@@ -51,7 +50,6 @@ export class UserMessageComponent implements OnInit {
       .sendMessageToUser(this.model)
       .subscribe(
         data => {
-          // this.router.navigate(['/developer', this.model.username]);
           this.alerts.push({msg: 'Nachricht gesendet', type: 'success'});
         },
         error => console.log(error)

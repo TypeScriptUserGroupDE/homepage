@@ -22,6 +22,7 @@ export class SingleComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.route.snapshot.data['user'];
+    console.log(this.authService.getUserName());
 
 
     //prevent 'cannot read propery of null' error
@@ -29,12 +30,14 @@ export class SingleComponent implements OnInit {
       this.user.tec = {};
     }
 
-    if (this.authService.isLoggedIn() && this.authService.getUserName() !== this.user.name) {
+    if (this.authService.isLoggedIn() && this.authService.getUserName() !== this.user.login) {
       this.sendMessageText = "Nachricht senden";
-    } else {
-      this.sendMessageText = "Anmelden für Kontakt";
+    }
+    else {
+      this.sendMessageText = "Anmelden für Kontakt"
     }
   }
+
 
   isLoggedIn() {
     return this.authService.isLoggedIn();
