@@ -62,6 +62,11 @@ p, span, li, .form-control {
   margin-bottom: 30px;
 }
 
+.btn, .btn.active {
+  box-shadow: none;
+  border-radius: 0;
+}
+
 .btn-padding {
   padding: 6px 12px;
 }
@@ -134,6 +139,15 @@ p, span, li, .form-control {
 .blue-bg {
   background-color: #23527c;
   color: white;
+}
+
+.yellow-bg-spacer {
+  padding: 50px 0;
+  background-color: $yellow;
+}
+
+.yellow-bg {
+  background-color: $yellow;
 }
 
 .orange-bg-spacer {
