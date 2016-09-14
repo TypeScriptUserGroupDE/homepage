@@ -32,7 +32,9 @@ export class UserAddComponent implements OnInit {
   model = new User();
 
   ngOnInit() {
-    this.model = this.route.snapshot.data['user'];
+    this.route.data.subscribe(
+      data => this.model = data['user']
+    );
 
     //prevent 'cannot read propery of null' error
     if (this.model.tec === null) {

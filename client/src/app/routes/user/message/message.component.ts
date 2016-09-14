@@ -40,7 +40,9 @@ export class UserMessageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.user = this.route.snapshot.data['user'];
+    this.route.data.subscribe(
+      data => this.user = data['user']
+    );
   }
 
   onSubmit() {
