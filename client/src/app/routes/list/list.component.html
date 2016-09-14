@@ -5,13 +5,19 @@
       <div class="col-md-12">
         <h1>Entwicklerverzeichnis</h1>
         <div class="row">
-          <div class="col-md-8">
+          <div class="col-md-4">
             <div class="btn-group" role="group" aria-label="...">
               <a type="button" class="btn button-muted" [routerLink]="['/directory']"
                  routerLinkActive="active">Liste</a>
               <a type="button" class="btn button-muted" [routerLink]="['/map']"
                  routerLinkActive="active">Karte</a>
             </div>
+          </div>
+          <div class="col-md-4">
+            <label class="btn-padding">
+              <input type="checkbox" (change)="prepareData($event.target.checked)">
+              Für Projekte verfügbar
+            </label>
           </div>
           <div class="col-md-4">
             <form #searchListForm="ngForm" novalidate>

@@ -15,6 +15,7 @@ import * as _ from 'lodash';
 export class ListComponent implements OnInit {
   @Input() search: string = "";
   term: string = "";
+  data: UserListItem[];
   users: UserListItem[]; // all users
   filteredUsers: UserListItem[]; // users which match search term
   paginatedUsers: UserListItem[]; // split user array into multiple pages
@@ -41,13 +42,26 @@ export class ListComponent implements OnInit {
       .getUserList()
       .subscribe(
         data => {
-          this.users = this.flatten(data);
-          this.typeAheadData = _.uniq(_.map(this.users, 'city'));
-          this.typeAheadData = this.typeAheadData.concat(this.technologies);
-          this.paginate();
+          this.data = data;
+          this.prepareData();
         },
         error => console.log(error)
       );
+  }
+
+  prepareData(filterAvailable?:boolean) {
+    this.users = this.flatten(this.data);
+
+    if (filterAvailable) {
+      this.users = this.filterAvailable(this.users);
+    }
+    this.typeAheadData = _.uniq(_.map(this.users, 'city'));
+    this.typeAheadData = this.typeAheadData.concat(this.technologies);
+    this.paginate();
+  }
+
+  filterAvailable(users:UserListItem[]) {
+    return _.filter(users, ['forProjects', true]);
   }
 
   paginate(search?: string) {
@@ -79,7 +93,12 @@ export class ListComponent implements OnInit {
   // todo: potenial performance problem
   flatten(data: UserListItem[]) {
     return _.forEach(data, function (item: UserListItem, key: string) {
+
       _.forEach(item.tec, function (obj: string, key: string) {
+        item[key] = obj;
+      });
+
+      _.forEach(item.availability, function (obj: string, key: string) {
         item[key] = obj;
       });
     });

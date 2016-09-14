@@ -69,7 +69,7 @@ class UserCtrl {
         let limit: number = 10;
 
         UserModel
-            .find({"active": true}, 'name login avatar_url city tec')
+            .find({"active": true}, 'name login avatar_url city tec availability')
             .sort({"fieldSum": -1})
             .lean()
             .exec(done);
