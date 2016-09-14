@@ -4,7 +4,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {JwtHelper, provideAuth, AuthHttp} from 'angular2-jwt';
 import {provideLazyMapsAPILoaderConfig, AgmCoreModule} from 'angular2-google-maps/core';
-import {AlertComponent, ModalModule} from 'ng2-bootstrap/ng2-bootstrap';
+import {AlertComponent, ModalModule, TypeaheadModule} from 'ng2-bootstrap/ng2-bootstrap';
 import {LinkyPipe} from 'angular2-linky';
 import {AppConfig} from './config/app.config';
 import {routing} from './app.routes';
@@ -27,10 +27,6 @@ import {SearchPipe} from './pipes/search.pipe';
 import {UserAddResolver, SingleUserResolver} from "./services/resolver/resolver.service";
 import {AuthService} from "./services/auth/auth.service";
 import {DataService} from "./services/data/data.service";
-// import {Observable}     from 'rxjs/Observable';
-// import {throw}     from 'rxjs/Observable/throw';
-// import {catch}     from 'rxjs/Operator/catch';
-
 
 
 @NgModule({
@@ -41,7 +37,8 @@ import {DataService} from "./services/data/data.service";
     ReactiveFormsModule,
     HttpModule,
     AgmCoreModule.forRoot(),
-    ModalModule
+    ModalModule,
+    TypeaheadModule
   ],
   declarations: [
     AppComponent,

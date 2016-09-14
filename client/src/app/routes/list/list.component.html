@@ -15,11 +15,18 @@
           </div>
           <div class="col-md-4">
             <form #searchListForm="ngForm" novalidate>
-              <div class="searchForm">
-                <input class="search-input" name="search" placeholder="Nach Ort suchen"
+              <div class="searchForm input-group">
+                <input class="search-input form-control"
+                       name="search"
+                       placeholder="Nach Ort oder Framework suchen"
+                       autocomplete="off"
                        type="search"
-                       (ngModelChange)="paginate($event)"
-                       [(ngModel)]="search">
+                       [(ngModel)]="search"
+                       [typeahead]="typeAheadData"
+                       [typeaheadMinLength]="2">
+                <span class="input-group-btn">
+                  <button class="btn btn-default search-submit" (click)="paginate()">Suchen</button>
+                </span>
               </div>
             </form>
           </div>
@@ -28,14 +35,13 @@
       </div>
     </div>
 
-    <div class="jumbotron search-info" *ngIf="search">
-      <span>Suche nur nach "{{search}}"</span>
+    <div *ngIf="term" class="jumbotron search-info">
+      <span>Suche nur nach "{{term}}"</span>
       <a class="float-right" (click)="inValidateSearch()">Alles anzeigen</a>
     </div>
 
     <div class="flex-row content">
-
-      <div class=" col-lg-4 col-md-6 col-sm-6" *ngFor="let user of paginatedUsers | search: search">
+      <div class=" col-lg-4 col-md-6 col-sm-6" *ngFor="let user of paginatedUsers | term: term">
         <div class="card border-style white-bg">
           <a (click)="onClick(user.login)">
             <div class="card-content">
@@ -47,7 +53,7 @@
                   <h4>{{user.name}}</h4>
                   <p>{{user.city}}</p>
                   <ul class="tec no-list">
-                    <li class="inline" *ngFor="let tec of user.tec | tec">{{tec.value}}</li>
+                    <li class="inline" [ngClass]="tec.key" *ngFor="let tec of user.tec | tec">{{tec.value}}</li>
                   </ul>
                 </div>
               </div>

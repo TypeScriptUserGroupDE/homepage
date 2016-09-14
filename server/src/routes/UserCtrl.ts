@@ -85,7 +85,6 @@ class UserCtrl {
                 result[key] = (UserCtrl.cleanSensitiveData(data));
             });
 
-
             res
                 .status(200)
                 .json(result);

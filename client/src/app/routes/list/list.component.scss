@@ -31,13 +31,13 @@ section#list {
   .search-input {
     display: inline;
     float: left;
-    width: 100%;
     border: 1px solid #ccc;
     padding: 6px 12px;
+    height: 32px;
   }
 
   .search-submit {
-    width: 100%;
+    padding: 6px 12px;
     float: right;
   }
 
@@ -108,16 +108,15 @@ section#list {
       .tec {
         > li {
           font-size: 14px;
-
-          &:last-child {
-            border: 1px solid $orange;
-            background-color: $orange;
-            border-radius: 12px;
-            margin-left: 10px;
-            font-size: 14px;
-            font-weight: bold;
-            padding: 0 5px;
-          }
+        }
+        .more {
+          border: 1px solid $orange;
+          background-color: $orange;
+          border-radius: 12px;
+          margin-left: 10px;
+          font-size: 14px;
+          font-weight: bold;
+          padding: 0 5px;
         }
       }
     }

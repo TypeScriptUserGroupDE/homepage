@@ -169,3 +169,16 @@ p, span, li, .form-control {
 .green-text {
   color: #1fa67a;
 }
+
+typeahead-container {
+  ul {
+    right: 15px;
+  }
+
+  .dropdown-menu>.active>a, .dropdown-menu>.active>a:focus, .dropdown-menu>.active>a:hover {
+    color: black;
+    text-decoration: none;
+    background-color: $orange;
+    outline: 0;
+  }
+}

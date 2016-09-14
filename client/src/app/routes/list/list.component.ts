@@ -3,8 +3,8 @@ import {Http} from '@angular/http';
 import {Router} from '@angular/router';
 import {UserListItem} from '../../components/UserListItem';
 import {SearchPipe} from './../../pipes/search.pipe';
-import {TecPipe} from './../../pipes/tec.pipe';
 import {DataService} from './../../services/data/data.service';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'list',
@@ -14,9 +14,10 @@ import {DataService} from './../../services/data/data.service';
 
 export class ListComponent implements OnInit {
   @Input() search: string = "";
-  users: UserListItem[];
-  paginatedUsers: UserListItem[];
-  filteredUsers: UserListItem[];
+  term: string = "";
+  users: UserListItem[]; // all users
+  filteredUsers: UserListItem[]; // users which match search term
+  paginatedUsers: UserListItem[]; // users split in order to be displayed on multiple pages
   text: string;
   count: number;
   itemsPerPage: number = 9;
@@ -25,7 +26,9 @@ export class ListComponent implements OnInit {
   skip: number = 0;
   isSearchDone: boolean = false;
   city: string;
-  tec: string;
+  // tec: string;
+  typeAheadData: any;
+  technologies: string[] = ['angularjs', 'angular2', 'nodejs', 'ionic', 'nativescript'];
 
   constructor(public router: Router,
               public http: Http,
@@ -39,7 +42,10 @@ export class ListComponent implements OnInit {
       .getUserList()
       .subscribe(
         data => {
-          this.users = data;
+          this.users = this.flatten(data);
+          this.typeAheadData = _.map(this.users, 'city');
+          this.typeAheadData = this.typeAheadData.concat(this.technologies);
+          console.log(this.typeAheadData);
           this.paginate();
         },
         error => console.log(error)
@@ -47,8 +53,9 @@ export class ListComponent implements OnInit {
   }
 
   paginate(search?: string) {
-    search = search || "";
-    this.filteredUsers = new SearchPipe().transform(this.users, search);
+    this.term = this.search || "";
+
+    this.filteredUsers = new SearchPipe().transform(this.users, this.term);
     this.count = this.filteredUsers.length;
     this.pages = Array(Math.ceil(this.count / this.itemsPerPage));
     this.paginatedUsers = this.filteredUsers.slice(0, this.itemsPerPage);
@@ -67,6 +74,17 @@ export class ListComponent implements OnInit {
 
   onClick(username: string) {
     this.router.navigate(['/developer', username]);
+  }
+
+
+  // flatten data to make it easily filter-able
+  // todo: potenial performance problem
+  flatten(data: UserListItem[]) {
+    return _.forEach(data, function (item: UserListItem, key: string) {
+      _.forEach(item.tec, function (obj: string, key: string) {
+        item[key] = obj;
+      });
+    });
   }
 
 }

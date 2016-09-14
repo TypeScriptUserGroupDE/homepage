@@ -27,7 +27,6 @@ export class CallbackComponent implements OnInit {
       .gitHubAuth(this.code)
       .subscribe(
         data => {
-          console.log(data);
           localStorage.setItem('token', data.token);
           if (data.user.active === false) {
             this.router.navigateByUrl('/user/add');

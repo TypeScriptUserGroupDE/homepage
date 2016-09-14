@@ -25,6 +25,7 @@
     "@angular/platform-browser-dynamic": "2.0.0-rc.6",
     "@angular/router": "3.0.0-rc.2",
     "@types/autolinker": "^0.24.27",
+    "@types/lodash": "^4.14.34",
     "angular2-google-maps": "^0.14.0",
     "angular2-jwt": "^0.1.21",
     "angular2-linky": "^1.1.1",
