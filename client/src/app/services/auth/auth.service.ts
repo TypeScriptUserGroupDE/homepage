@@ -11,29 +11,23 @@ export class AuthService implements CanActivate {
   constructor(public http: Http,
               public router: Router,
               private jwtHelper: JwtHelper) {
-
   }
 
   canActivate() {
-    if (this.isLoggedIn() === true) {
-      return true;
-    } else {
-      return false
-    }
+    return this.isLoggedIn();
   }
 
   getUserName(): string {
     if (window.localStorage.getItem('token')) {
       let token = window.localStorage.getItem('token');
       let decoded = this.jwtHelper.decodeToken(token);
-      console.log(decoded);
       return decoded.login
     } else {
       return "not logged in"
     }
   }
 
-  isLoggedIn() {
+  isLoggedIn():boolean {
     if (window.localStorage.getItem('token')) {
       if (tokenNotExpired('token') === true) {
         return true
