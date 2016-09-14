@@ -17,7 +17,7 @@ export class ListComponent implements OnInit {
   term: string = "";
   users: UserListItem[]; // all users
   filteredUsers: UserListItem[]; // users which match search term
-  paginatedUsers: UserListItem[]; // users split in order to be displayed on multiple pages
+  paginatedUsers: UserListItem[]; // split user array into multiple pages
   text: string;
   count: number;
   itemsPerPage: number = 9;
@@ -26,7 +26,6 @@ export class ListComponent implements OnInit {
   skip: number = 0;
   isSearchDone: boolean = false;
   city: string;
-  // tec: string;
   typeAheadData: any;
   technologies: string[] = ['angularjs', 'angular2', 'nodejs', 'ionic', 'nativescript'];
 
@@ -43,9 +42,8 @@ export class ListComponent implements OnInit {
       .subscribe(
         data => {
           this.users = this.flatten(data);
-          this.typeAheadData = _.map(this.users, 'city');
+          this.typeAheadData = _.uniq(_.map(this.users, 'city'));
           this.typeAheadData = this.typeAheadData.concat(this.technologies);
-          console.log(this.typeAheadData);
           this.paginate();
         },
         error => console.log(error)
