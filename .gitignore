@@ -3,3 +3,4 @@
 
 client/dist
 env_keys.sh
+npm-debug.log
