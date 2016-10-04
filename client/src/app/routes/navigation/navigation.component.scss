@@ -7,7 +7,7 @@
 
     .navbar-brand {
       color: white;
-      padding: 5px 15px;
+      padding: 0 15px;
       margin-left: 0;
 
       &:hover, &:focus {
@@ -15,7 +15,7 @@
       }
 
       .logo {
-        max-height: 40px;
+        max-height: 50px;
       }
     }
   }
