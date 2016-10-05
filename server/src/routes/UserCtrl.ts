@@ -255,22 +255,15 @@ class UserCtrl {
     getUsersNearCity(req: express.Request, res: express.Response) {
         let coordinates: number[];
 
-        if (!req.body.city) {
-            UserCtrl.cancel(res);
-            logger.log("warn", "search by empty city");
-            return
-        }
-
         CityModel
             .findOne({"name_lowercase": req.body.city.toLowerCase()})
             .then(function (result: City) {
                     if (result) {
                         coordinates = result.loc;
                     } else {
-                        console.log('no users in this area');
                         res
-                            .status(404)
-                            .json('no users in this area');
+                            .status(200)
+                            .json([]); // no users in this area
                         return
                     }
 

@@ -53,9 +53,14 @@
       </div>
     </div>
 
-    <div *ngIf="isSearchDone" class="jumbotron search-info">
-      <span>Suche nur nach "{{search}}"</span>
-      <a class="float-right" (click)="inValidateSearch()">Alles anzeigen</a>
+    <div *ngIf="noResults" class="jumbotron search-info">
+      <span>Keine Entwickler gefunden</span>
+      <a class="float-right" (click)="inValidateSearch()">Alle Entwickler anzeigen</a>
+    </div>
+
+    <div *ngIf="isSearchDone && !noResults" class="jumbotron search-info">
+      <span>Suche nur nach "{{searchTerm}}"</span>
+      <a class="float-right" (click)="inValidateSearch()">Alle Entwickler anzeigen</a>
     </div>
 
     <div class="flex-row content">

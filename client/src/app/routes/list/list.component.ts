@@ -17,7 +17,7 @@ export class ListComponent implements OnInit {
   users: UserListItem[]; // all users
   filteredUsers: UserListItem[]; // users which match search term
   paginatedUsers: UserListItem[]; // split user array into multiple pages
-  text: string;
+  searchTerm: string;
   count: number;
   filterByTec: any;
   itemsPerPage: number = 9;
@@ -25,6 +25,7 @@ export class ListComponent implements OnInit {
   pageIndex: number = 0;
   skip: number = 0;
   isSearchDone: boolean;
+  noResults: boolean;
   city: string;
   typeAheadData: any;
   typeAheadDataLoaded: boolean = false;
@@ -68,12 +69,17 @@ export class ListComponent implements OnInit {
       )
   }
 
-  doSearch(search?: string) {
+  doSearch(search: string) {
+    if (search === "") {
+      this.inValidateSearch();
+      return
+    }
     this.dataService.getUsersNearCity(search)
       .subscribe(
         data => {
           this.data = data;
           this.isSearchDone = true;
+          this.searchTerm = search;
           this.prepareData();
         },
         error => console.log(error)
@@ -81,6 +87,11 @@ export class ListComponent implements OnInit {
   }
 
   prepareData(filterAvailable?: boolean) {
+    this.noResults = false;
+    if (this.data.length === 0) {
+      this.noResults = true;
+    }
+
     this.users = this.data;
     if (filterAvailable) {
       this.users = this.filterAvailable(this.users);
