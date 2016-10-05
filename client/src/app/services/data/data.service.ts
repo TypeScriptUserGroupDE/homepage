@@ -6,6 +6,7 @@ import {Observable}     from 'rxjs/Observable';
 import {User} from './../../components/User';
 import {UserListItem} from './../../components/UserListItem';
 import {Marker} from '../../components/Marker';
+import {UserDistance} from "../../components/UserDistance";
 
 @Injectable()
 
@@ -71,6 +72,27 @@ export class DataService {
   sendMessageToUser(data: any): Observable<any> {
     return this.authHttp.post('/api/user/send/mail',
       data,
+      this.options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  getCityList():Observable<[string]> {
+    return this.http.get('/api/city/get',
+      this.options)
+      .map(this.extractData)
+      .catch(this.handleError);
+
+  }
+
+  getUsersNearCity(city: string, distance?: number): Observable<UserListItem[]> {
+    distance = distance || 25;
+
+    return this.http.post('/api/user/get/near',
+      {
+        city: city,
+        distance: distance
+      },
       this.options)
       .map(this.extractData)
       .catch(this.handleError);

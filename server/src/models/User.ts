@@ -1,8 +1,5 @@
 import mongoose = require("mongoose");
-
 mongoose.Promise = require("bluebird");
-
-// import HashService from "./../common/services/HashService";
 import {PublicUser} from "../common/interfaces/PublicUser";
 var Schema = mongoose.Schema;
 
@@ -28,6 +25,7 @@ export interface User extends mongoose.Document, PublicUser {
     latitude: number;
     longitude: number;
     fieldSum: number;
+    loc: number[],
     availability: {
         forProjects: boolean;
         greaterDistance: boolean;
@@ -59,8 +57,12 @@ export var UserSchema = new Schema(
         description: String,
         city: String,
         zip: Number,
-        latitude: Number,
-        longitude: Number,
+        loc: {
+            type: [Number], // [0]: longitude, [1]: latitude
+            index: '2dsphere'
+        },
+        // latitude: Number,
+        // longitude: Number,
         fieldSum: Number,
         availability: {
             forProjects: {type: Boolean, default: false},

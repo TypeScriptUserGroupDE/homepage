@@ -2,11 +2,15 @@ import express = require("express");
 import jwt = require("jsonwebtoken");
 import _ = require("lodash");
 import {JwtRequest} from "./../common/interfaces/JwtRequest";
-import {SearchRequest} from "./../common/interfaces/SearchRequest";
 import request = require("request-promise");
 import {model as UserModel} from "./../models/User";
 import {User} from "./../models/User";
 import Config from "../config/config";
+import logger from "../common/logging";
+import {model as CityModel, City} from "../models/City";
+import CityCtrl from "./CityCtrl";
+import {UserDistance} from "../common/interfaces/UserDistance";
+import {UserListItem} from "../common/interfaces/UserListItem";
 
 class UserCtrl {
 
@@ -14,6 +18,7 @@ class UserCtrl {
         app.post(baseRoute + "/get", this.getSingleUser);
         app.get(baseRoute + "/get/all", this.getUsers);
         app.get(baseRoute + "/get/map", this.getUserMap);
+        app.post(baseRoute + "/get/near", this.getUsersNearCity);
     }
 
     protectedRoutes(app: express.Application, baseRoute: string) {
@@ -65,6 +70,7 @@ class UserCtrl {
         }
     }
 
+    // todo: merge getUsers and getUsersNearCity because of duplicate functionality
     getUsers(req: express.Request, res: express.Response) {
         let limit: number = 10;
 
@@ -74,15 +80,23 @@ class UserCtrl {
             .lean()
             .exec(done);
 
-        function done(err: any, result: User[]) {
-
+        function done(err: any, result: any) {
             if (err) {
                 console.log("err");
                 return
             }
 
             _.forEach(result, function (data: User, key: number) {
-                result[key] = (UserCtrl.cleanSensitiveData(data));
+                result[key]['forProjects'] = data.availability.forProjects;
+                result[key]['greaterDistance'] = data.availability.greaterDistance;
+                result[key]['nodejs'] = data.tec.nodejs;
+                result[key]['angularjs'] = data.tec.angularjs;
+                result[key]['angular2'] = data.tec.angular2;
+                result[key]['ionic'] = data.tec.ionic;
+                result[key]['nativescript'] = data.tec.nativescript;
+
+                delete result[key].availability;
+                // delete result[key].tec;
             });
 
             res
@@ -141,11 +155,17 @@ class UserCtrl {
             let userMap = _(result).groupBy('zip').map(function (item: User[], id: string) {
                 let count = _.countBy(item, 'zip');
                 let obj = {};
-                obj = {
-                    "count": count[id],
-                    "lat": item[0].latitude,
-                    "lng": item[0].longitude
-                };
+
+                if (item[0].loc) {
+                    obj = {
+                        "count": count[id],
+                        "lat": item[0].loc[1],
+                        "lng": item[0].loc[0]
+                    };
+                } else {
+                    logger.log("warn", "User has no location data set:" + item[0]);
+                }
+
                 return obj
             });
 
@@ -199,12 +219,11 @@ class UserCtrl {
                     url: 'https://api.mailgun.net/v3/' + Config.mailgun_domain + '/messages',
                     headers: headers,
                     formData: payload
-                })
-                    .then(function (data: any) {
-                        res
-                            .status(200)
-                            .json("mail qeued");
-                    });
+                }).then(function (data: any) {
+                    res
+                        .status(200)
+                        .json("mail qeued");
+                });
             } else {
                 res
                     .status(400)
@@ -233,14 +252,75 @@ class UserCtrl {
 
     }
 
+    getUsersNearCity(req: express.Request, res: express.Response) {
+        let coordinates: number[];
+
+        if (!req.body.city) {
+            UserCtrl.cancel(res);
+            logger.log("warn", "search by empty city");
+            return
+        }
+
+        CityModel
+            .findOne({"name_lowercase": req.body.city.toLowerCase()})
+            .then(function (result: City) {
+                    if (result) {
+                        coordinates = result.loc;
+                    } else {
+                        console.log('no users in this area');
+                        res
+                            .status(404)
+                            .json('no users in this area');
+                        return
+                    }
+
+                    if (coordinates) {
+
+                        UserModel.geoNear({
+                            type: "Point",
+                            coordinates: coordinates
+                        }, {
+                            spherical: true,
+                            maxDistance: 15000,
+                        }).then(function (result: UserDistance[]) {
+                                let out: any = [];
+                                _.forEach(result, function (data: UserDistance, key: number) {
+                                    let obj: UserListItem = {
+                                        dis: data.dis,
+                                        name: data.obj.name,
+                                        login: data.obj.login,
+                                        avatar_url: data.obj.avatar_url,
+                                        city: data.obj.city,
+                                        forProjects: data.obj.availability.forProjects,
+                                        greaterDistance: data.obj.availability.greaterDistance,
+                                        nodejs: data.obj.tec.nodejs,
+                                        angularjs: data.obj.tec.angularjs,
+                                        angular2: data.obj.tec.angular2,
+                                        ionic: data.obj.tec.ionic,
+                                        nativescript: data.obj.tec.nativescript,
+                                        tec: data.obj.tec
+                                    };
+                                    out.push(obj);
+                                });
+
+                                res
+                                    .status(200)
+                                    .json(out);
+                            }
+                        );
+                    }
+                }
+            );
+    }
 
     updateUser(req: JwtRequest, res: express.Response) {
-
         let location = req.body.zip + ' ' + req.body.city;
 
         UserCtrl.getCoordinates(location)
-
             .then(function (result: any) {
+                // save users city (w/o zip to cities collection
+                UserCtrl.saveCityCoordinates(req.body.city);
+
                 result = JSON.parse(result);
 
                 let fieldSum: number = _.size(req.body);
@@ -255,8 +335,11 @@ class UserCtrl {
                 delete req.body.login;
 
                 let data: User = req.body;
-                data.longitude = result.results[0].geometry.location.lng;
-                data.latitude = result.results[0].geometry.location.lat;
+                data.loc = [];
+                data.loc[0] = result.results[0].geometry.location.lng;
+                data.loc[1] = result.results[0].geometry.location.lat;
+                // data.longitude = result.results[0].geometry.location.lng;  // todo remove
+                // data.latitude = result.results[0].geometry.location.lat; // todo remove
                 data.fieldSum = fieldSum;
                 data.active = true;
 
@@ -279,13 +362,24 @@ class UserCtrl {
         }
     }
 
-    static
-    getCoordinates(location: string): any {
-        return request.get('http://maps.googleapis.com/maps/api/geocode/json?address=' + encodeURIComponent(location))
+    static getCoordinates(location: string): any {
+        return request.get('http://maps.googleapis.com/maps/api/geocode/json?language=de&region=de&address=' + encodeURIComponent(location))
     }
 
-    static
-    cleanSensitiveData(data: User) {
+    static saveCityCoordinates(city: string) {
+        CityModel
+            .findOne({"name_lowercase": city.toLowerCase()})
+            .then(function (result: City) {
+                if (!result) {
+                    UserCtrl.getCoordinates(city)
+                        .then((result: City) => {
+                            let city = CityCtrl.createCity(result);
+                        });
+                }
+            });
+    };
+
+    static cleanSensitiveData(data: User) {
         data = JSON.parse(JSON.stringify(data));
 
         delete data.email;
@@ -295,7 +389,15 @@ class UserCtrl {
         return data
     }
 
-
+    static cancel(res: express.Response) {
+        res
+            .status(401)
+            .json({
+                "status": 401,
+                "message": "Something went wrong."
+            });
+        return;
+    };
 }
 
 export default new UserCtrl();

@@ -9,8 +9,8 @@ import {ImprintComponent} from './routes/imprint/imprint.component';
 import {CallbackComponent} from './routes/callback/callback.component';
 import {UserAddComponent} from './routes/user/add/add.component';
 import {UserMessageComponent} from './routes/user/message/message.component';
-import {SingleUserResolver} from './services/resolver/resolver.service';
-import {UserAddResolver} from './services/resolver/resolver.service';
+import {SingleUserResolver, SearchResolver, UserAddResolver} from './services/resolver/resolver.service';
+import {SearchComponent} from "./routes/search/search.component";
 
 
 const routes: Routes = [
@@ -19,6 +19,7 @@ const routes: Routes = [
   {path: 'impressum', component: ImprintComponent},
   {path: 'map', component: MapComponent},
   {path: 'directory', component: ListComponent},
+  {path: 'search/:city', component: SearchComponent, resolve: {search: SearchResolver}},
   {path: 'developer/:username', component: SingleComponent, resolve: {user: SingleUserResolver}},
   {path: 'login', component: LoginComponent},
   {path: 'user/add', component: UserAddComponent, canActivate: [AuthService], resolve: {user: UserAddResolver}},

@@ -23,10 +23,12 @@ import {UserMessageComponent} from './routes/user/message/message.component';
 import {CallbackComponent} from './routes/callback/callback.component';
 import {TecPipe} from './pipes/tec.pipe';
 import {KeysPipe} from './pipes/keys.pipe';
-import {SearchPipe} from './pipes/search.pipe';
-import {UserAddResolver, SingleUserResolver} from "./services/resolver/resolver.service";
+import {filterTecPipe} from './pipes/search.pipe';
+import {UserAddResolver, SingleUserResolver, SearchResolver} from "./services/resolver/resolver.service";
 import {AuthService} from "./services/auth/auth.service";
 import {DataService} from "./services/data/data.service";
+import {SearchComponent} from "./routes/search/search.component";
+import {DistancePipe} from "./pipes/distance.pipe";
 
 
 @NgModule({
@@ -46,6 +48,7 @@ import {DataService} from "./services/data/data.service";
     HeaderComponent,
     ImprintComponent,
     ListComponent,
+    SearchComponent,
     LoginComponent,
     MapComponent,
     NavigationComponent,
@@ -58,7 +61,8 @@ import {DataService} from "./services/data/data.service";
     AlertComponent,
     TecPipe,
     KeysPipe,
-    SearchPipe,
+    filterTecPipe,
+    DistancePipe,
     LinkyPipe
   ],
   providers: [
@@ -66,6 +70,7 @@ import {DataService} from "./services/data/data.service";
     DataService,
     SingleUserResolver,
     UserAddResolver,
+    SearchResolver,
     JwtHelper,
     provideLazyMapsAPILoaderConfig({apiKey: AppConfig.google_maps_api_key}),
     AuthHttp,

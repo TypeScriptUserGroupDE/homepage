@@ -2,7 +2,6 @@ import {Component, OnInit, Input} from '@angular/core';
 import {Http} from '@angular/http';
 import {Router} from '@angular/router';
 import {UserListItem} from '../../components/UserListItem';
-import {SearchPipe} from './../../pipes/search.pipe';
 import {DataService} from './../../services/data/data.service';
 import * as _ from 'lodash';
 
@@ -14,21 +13,29 @@ import * as _ from 'lodash';
 
 export class ListComponent implements OnInit {
   @Input() search: string = "";
-  term: string = "";
   data: UserListItem[];
   users: UserListItem[]; // all users
   filteredUsers: UserListItem[]; // users which match search term
   paginatedUsers: UserListItem[]; // split user array into multiple pages
   text: string;
   count: number;
+  filterByTec: any;
   itemsPerPage: number = 9;
   pages: number[];
   pageIndex: number = 0;
   skip: number = 0;
-  isSearchDone: boolean = false;
+  isSearchDone: boolean;
   city: string;
   typeAheadData: any;
-  technologies: string[] = ['angularjs', 'angular2', 'nodejs', 'ionic', 'nativescript'];
+  typeAheadDataLoaded: boolean = false;
+  technologies: {} = {
+    'AngularJS': 'angularjs',
+    'Angular2': 'angular2',
+    'Node.js': 'nodejs',
+    'Ionic': 'ionic',
+    'Nativescript': 'nativescript'
+  };
+  technologiesArray: string[];
 
   constructor(public router: Router,
               public http: Http,
@@ -36,7 +43,9 @@ export class ListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.technologiesArray = Object.keys(this.technologies);
     this.isSearchDone = false;
+    this.filterByTec = {};
 
     this.dataService
       .getUserList()
@@ -47,61 +56,59 @@ export class ListComponent implements OnInit {
         },
         error => console.log(error)
       );
+
+    this.dataService
+      .getCityList()
+      .subscribe(
+        data => {
+          this.typeAheadData = data;
+          this.typeAheadDataLoaded = true;
+        },
+        error => console.log(error)
+      )
   }
 
-  prepareData(filterAvailable?:boolean) {
-    this.users = this.flatten(this.data);
+  doSearch(search?: string) {
+    this.dataService.getUsersNearCity(search)
+      .subscribe(
+        data => {
+          this.data = data;
+          this.isSearchDone = true;
+          this.prepareData();
+        },
+        error => console.log(error)
+      );
+  }
 
+  prepareData(filterAvailable?: boolean) {
+    this.users = this.data;
     if (filterAvailable) {
       this.users = this.filterAvailable(this.users);
     }
-    this.typeAheadData = _.uniq(_.map(this.users, 'city'));
-    this.typeAheadData = this.typeAheadData.concat(this.technologies);
     this.paginate();
   }
 
-  filterAvailable(users:UserListItem[]) {
+  filterAvailable(users: UserListItem[]) {
     return _.filter(users, ['forProjects', true]);
   }
 
   paginate(search?: string) {
-    this.term = this.search || "";
-
-    this.filteredUsers = new SearchPipe().transform(this.users, this.term);
-    this.count = this.filteredUsers.length;
+    this.count = this.users.length;
     this.pages = Array(Math.ceil(this.count / this.itemsPerPage));
-    this.paginatedUsers = this.filteredUsers.slice(0, this.itemsPerPage);
+    this.paginatedUsers = this.users.slice(0, this.itemsPerPage);
   }
 
   loadPage(index: number) {
     this.pageIndex = index;
     this.skip = this.pageIndex * this.itemsPerPage;
-    this.paginatedUsers = this.filteredUsers.slice(this.skip + 0, this.skip + this.itemsPerPage)
+    this.paginatedUsers = this.users.slice(this.skip + 0, this.skip + this.itemsPerPage)
   };
 
   inValidateSearch() {
-    this.search = "";
-    this.paginate();
+    this.ngOnInit();
   }
 
   onClick(username: string) {
     this.router.navigate(['/developer', username]);
   }
-
-
-  // flatten data to make it easily filter-able
-  // todo: potenial performance problem
-  flatten(data: UserListItem[]) {
-    return _.forEach(data, function (item: UserListItem, key: string) {
-
-      _.forEach(item.tec, function (obj: string, key: string) {
-        item[key] = obj;
-      });
-
-      _.forEach(item.availability, function (obj: string, key: string) {
-        item[key] = obj;
-      });
-    });
-  }
-
 }

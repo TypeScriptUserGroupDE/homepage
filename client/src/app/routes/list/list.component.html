@@ -24,15 +24,27 @@
               <div class="searchForm input-group">
                 <input class="search-input form-control"
                        name="search"
-                       placeholder="Nach Ort oder Framework suchen"
+                       placeholder="Nach Ort suchen"
                        autocomplete="off"
                        type="search"
                        [(ngModel)]="search"
                        [typeahead]="typeAheadData"
                        [typeaheadMinLength]="2">
                 <span class="input-group-btn">
-                  <button class="btn btn-default search-submit" (click)="paginate()">Suchen</button>
+                  <button class="btn btn-default search-submit" (click)="doSearch(search)" [disabled]="!typeAheadDataLoaded">Suchen</button>
                 </span>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <form id="tec-form" #filterTecForm="ngForm" novalidate>
+              <div class="checkbox" *ngFor="let tec of technologiesArray">
+                <label>
+                  <input type="checkbox" name="{{tec}}" [(ngModel)]="filterByTec[technologies[tec]]">
+                  {{tec}}
+                </label>
               </div>
             </form>
           </div>
@@ -41,13 +53,13 @@
       </div>
     </div>
 
-    <div *ngIf="term" class="jumbotron search-info">
-      <span>Suche nur nach "{{term}}"</span>
+    <div *ngIf="isSearchDone" class="jumbotron search-info">
+      <span>Suche nur nach "{{search}}"</span>
       <a class="float-right" (click)="inValidateSearch()">Alles anzeigen</a>
     </div>
 
     <div class="flex-row content">
-      <div class=" col-lg-4 col-md-6 col-sm-6" *ngFor="let user of paginatedUsers | term: term">
+      <div class=" col-lg-4 col-md-6 col-sm-6" *ngFor="let user of paginatedUsers | filterTec: filterByTec">
         <div class="card border-style white-bg">
           <a (click)="onClick(user.login)">
             <div class="card-content">
@@ -61,6 +73,7 @@
                   <ul class="tec no-list">
                     <li class="inline" [ngClass]="tec.key" *ngFor="let tec of user.tec | tec">{{tec.value}}</li>
                   </ul>
+                  <p *ngIf="isSearchDone">{{user.dis | distance}}</p>
                 </div>
               </div>
             </div>
@@ -87,4 +100,5 @@
     </div>
   </div>
 </section>
-<!--<pre>{{users | json }}</pre>-->
+<!--<pre>{{filterByTec | json }}</pre>-->
+<!--<pre>{{technologiesArray | json }}</pre>-->

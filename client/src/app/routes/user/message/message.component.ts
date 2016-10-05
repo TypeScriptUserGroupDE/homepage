@@ -6,7 +6,7 @@ import {
 }    from '@angular/forms';
 import {Http} from '@angular/http';
 import {User} from '../../../components/User';
-import {Router, ActivatedRoute} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {DataService} from "../../../services/data/data.service";
 
 @Component({

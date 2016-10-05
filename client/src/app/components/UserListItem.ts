@@ -5,6 +5,7 @@ export class UserListItem {
               public avatar_url?: string,
               public city?: any,
               public tec?: any,
-              public availability?: any) {
+              public availability?: any,
+              public dis?: number) {
   }
 }
