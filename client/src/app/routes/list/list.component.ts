@@ -13,6 +13,7 @@ import * as _ from 'lodash';
 
 export class ListComponent implements OnInit {
   @Input() search: string = "";
+  distance: number = 25000;
   data: UserListItem[];
   users: UserListItem[]; // all users
   filteredUsers: UserListItem[]; // users which match search term
@@ -69,12 +70,12 @@ export class ListComponent implements OnInit {
       )
   }
 
-  doSearch(search: string) {
+  doSearch(search: string, distance) {
     if (search === "") {
       this.inValidateSearch();
       return
     }
-    this.dataService.getUsersNearCity(search)
+    this.dataService.getUsersNearCity(search, distance)
       .subscribe(
         data => {
           this.data = data;

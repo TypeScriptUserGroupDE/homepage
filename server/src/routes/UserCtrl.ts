@@ -274,7 +274,7 @@ class UserCtrl {
                             coordinates: coordinates
                         }, {
                             spherical: true,
-                            maxDistance: 15000,
+                            maxDistance: parseInt(req.body.distance),
                         }).then(function (result: UserDistance[]) {
                                 let out: any = [];
                                 _.forEach(result, function (data: UserDistance, key: number) {

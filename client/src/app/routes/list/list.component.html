@@ -13,15 +13,16 @@
                  routerLinkActive="active">Karte</a>
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-3">
             <label class="btn-padding">
               <input type="checkbox" (change)="prepareData($event.target.checked)">
               Für Projekte verfügbar
             </label>
           </div>
-          <div class="col-md-4">
-            <form #searchListForm="ngForm" novalidate>
+          <div class="col-md-5">
+            <form id="search-form" #searchListForm="ngForm" novalidate>
               <div class="searchForm input-group">
+              <span class="input-group-btn">
                 <input class="search-input form-control"
                        name="search"
                        placeholder="Nach Ort suchen"
@@ -30,8 +31,16 @@
                        [(ngModel)]="search"
                        [typeahead]="typeAheadData"
                        [typeaheadMinLength]="2">
-                <span class="input-group-btn">
-                  <button class="btn btn-default search-submit" (click)="doSearch(search)" [disabled]="!typeAheadDataLoaded">Suchen</button>
+                <select class="form-control" name="distance" [(ngModel)]="distance">
+                    <option value="5000">+ 5km</option>
+                    <option value="10000">+ 10km</option>
+                    <option value="25000">+ 25km</option>
+                    <option value="50000">+ 50km</option>
+                    <option value="100000">+ 100km</option>
+                 </select>
+                 <button class="btn btn-default search-submit form-control"
+                         (click)="doSearch(search, distance)"
+                         [disabled]="!typeAheadDataLoaded">Suchen</button>
                 </span>
               </div>
             </form>
@@ -105,5 +114,5 @@
     </div>
   </div>
 </section>
-<!--<pre>{{filterByTec | json }}</pre>-->
+<!--<pre>{{distance | json }}</pre>-->
 <!--<pre>{{technologiesArray | json }}</pre>-->

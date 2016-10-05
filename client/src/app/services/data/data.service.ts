@@ -86,7 +86,7 @@ export class DataService {
   }
 
   getUsersNearCity(city: string, distance?: number): Observable<UserListItem[]> {
-    distance = distance || 25;
+    distance = distance || 25000;
 
     return this.http.post('/api/user/get/near',
       {

@@ -3,6 +3,7 @@
 section#list {
   @media (min-width: 1023px) {
     .searchForm {
+      width: 100%;
       //margin-top: 30px;
 
       .col-md-8 {
@@ -35,12 +36,30 @@ section#list {
     }
   }
 
+  #search-form {
+    width: 100%;
+    input {
+      width: 60%;
+    }
+    .input-group-btn {
+      width: inherit;
+      button {
+        width: 20%;
+      }
+
+      select {
+        font-size: 14px;
+        padding: 4px 6px;
+        width: 20%;
+      }
+    }
+  }
+
   .search-input {
     display: inline;
     float: left;
     border: 1px solid #ccc;
     padding: 6px 12px;
-    height: 32px;
   }
 
   .search-submit {
