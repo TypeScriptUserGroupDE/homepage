@@ -1,14 +1,21 @@
 export interface UserListItem {
+    dis?: number;
     name: string;
     login: string;
     avatar_url: string;
     city: any;
-    dis?: number;
-    greaterDistance: boolean;
     forProjects: boolean;
+    greaterDistance: boolean;
     nodejs: boolean,
     angularjs: boolean,
     angular2: boolean,
     ionic: boolean,
     nativescript: boolean,
+    tec: {
+        nodejs: boolean;
+        angularjs: boolean;
+        angular2: boolean;
+        ionic: boolean;
+        nativescript: boolean;
+    }
 }
