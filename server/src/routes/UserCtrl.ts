@@ -211,8 +211,8 @@ class UserCtrl {
                 let payload = {
                     from: sender.name + ' <' + sender.email + '>',
                     to: result.email,
-                    subject: req.body.subject,
-                    text: req.body.message
+                    subject: 'Nachricht von ' + sender.name + ': "'+ req.body.subject + '" via typescriptusers.de',
+                    text: 'Hallo ' + result.name + ', \n\n' + sender.name + ' hat dir auf typescriptusers.de eine Nachricht gesendet: \n\n -- \n\n' + req.body.message + '\n\n -- \n\n'
                 };
 
                 request.post({

@@ -53,6 +53,7 @@ export class UserMessageComponent implements OnInit {
       .subscribe(
         data => {
           this.alerts.push({msg: 'Nachricht gesendet', type: 'success'});
+          this.model = {};
         },
         error => console.log(error)
       );
