@@ -15,6 +15,7 @@ import {SearchComponent} from "./routes/search/search.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
+  {path: '*', redirectTo: '/home'},
   {path: 'home', component: HomeComponent},
   {path: 'impressum', component: ImprintComponent},
   {path: 'karte', component: MapComponent},
