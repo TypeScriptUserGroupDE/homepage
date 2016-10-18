@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="overview col-md-3">
-        <a class="back" [routerLink]="['/directory']">
+        <a class="back" [routerLink]="['/entwickler']">
           <p>Zurück zum Entwicklerverzeichnis</p>
         </a>
         <ul class="list-group">
@@ -41,7 +41,7 @@
 
           </div>
           <div class="col-md-6">
-            <button class="btn btn-default float-right" *ngIf="authService.getUserName() === user.login" [routerLink]="['/user/add']">
+            <button class="btn btn-default float-right" *ngIf="authService.getUserName() === user.login" [routerLink]="['/entwickler/profil']">
               <i class="fa fa-user" aria-hidden="true"></i>
               Profil bearbeiten
             </button>

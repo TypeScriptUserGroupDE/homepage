@@ -17,13 +17,13 @@ const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: 'home', component: HomeComponent},
   {path: 'impressum', component: ImprintComponent},
-  {path: 'map', component: MapComponent},
-  {path: 'directory', component: ListComponent},
-  {path: 'search/:city', component: SearchComponent, resolve: {search: SearchResolver}},
-  {path: 'developer/:username', component: SingleComponent, resolve: {user: SingleUserResolver}},
+  {path: 'karte', component: MapComponent},
+  {path: 'entwickler/profil', component: UserAddComponent, canActivate: [AuthService], resolve: {user: UserAddResolver}},
+  {path: 'entwickler', component: ListComponent},
+  {path: 'suche/:city', component: SearchComponent, resolve: {search: SearchResolver}},
+  {path: 'entwickler/:username', component: SingleComponent, resolve: {user: SingleUserResolver}},
   {path: 'login', component: LoginComponent},
-  {path: 'user/add', component: UserAddComponent, canActivate: [AuthService], resolve: {user: UserAddResolver}},
-  {path: 'user/message/:username', component: UserMessageComponent, canActivate: [AuthService], resolve: {user: SingleUserResolver}},
+  {path: 'entwickler/message/:username', component: UserMessageComponent, canActivate: [AuthService], resolve: {user: SingleUserResolver}},
   {path: 'accessToken', component: CallbackComponent}
 ];
 

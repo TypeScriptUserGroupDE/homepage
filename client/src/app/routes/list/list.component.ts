@@ -121,6 +121,6 @@ export class ListComponent implements OnInit {
   }
 
   onClick(username: string) {
-    this.router.navigate(['/developer', username]);
+    this.router.navigate(['/entwickler', username]);
   }
 }

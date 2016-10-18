@@ -29,9 +29,9 @@ export class CallbackComponent implements OnInit {
         data => {
           localStorage.setItem('token', data.token);
           if (data.user.active === false) {
-            this.router.navigateByUrl('/user/add');
+            this.router.navigateByUrl('/entwickler/profil');
           } else {
-            this.router.navigateByUrl('/directory');
+            this.router.navigateByUrl('/entwickler');
           }
         },
         error => console.log(error)

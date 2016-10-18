@@ -57,7 +57,7 @@ export class SingleComponent implements OnInit {
 
   sendMessage(username: string) {
     if (this.authService.isLoggedIn()) {
-      this.router.navigate(['/user/message', username]);
+      this.router.navigate(['/entwickler/message', username]);
     } else {
       this.authService.login();
     }

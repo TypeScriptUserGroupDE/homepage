@@ -52,7 +52,7 @@ export class UserAddComponent implements OnInit {
       .updateUser(this.model)
       .subscribe(
         data => {
-          this.router.navigate(['/directory']);
+          this.router.navigate(['/entwickler']);
         },
         error => console.log(error)
       )
