@@ -136,8 +136,8 @@ section#list {
           font-size: 14px;
         }
         .more {
-          border: 1px solid $orange;
-          background-color: $orange;
+          border: 1px solid darken($light-orange, 30);
+          background-color: darken($light-orange, 10);
           border-radius: 12px;
           margin-left: 10px;
           font-size: 14px;
