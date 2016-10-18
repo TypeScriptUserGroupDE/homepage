@@ -41,7 +41,7 @@
 
           </div>
           <div class="col-md-6">
-            <button class="btn btn-default float-right" *ngIf="isLoggedIn()" [routerLink]="['/user/add']">
+            <button class="btn btn-default float-right" *ngIf="authService.getUserName() === user.login" [routerLink]="['/user/add']">
               <i class="fa fa-user" aria-hidden="true"></i>
               Profil bearbeiten
             </button>
