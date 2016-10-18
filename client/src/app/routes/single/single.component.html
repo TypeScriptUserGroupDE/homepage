@@ -63,8 +63,12 @@
                             Auch in größerer Entfernung vom Wohnort</span>
           </div>
         </div>
-        <div class="desc">
+        <div *ngIf="user.desc" class="desc">
           <p class="desc-text border-style" innerHTML="{{user.description | linky}}"></p>
+        </div>
+
+        <div *ngIf="!user.desc" class="desc">
+          <p class="desc-text border-style strong">{{user.name}} hat bisher noch keinen Beschreibungstext hinterlegt</p>
         </div>
 
         <h3 *ngIf="hasTecSelected() === true">
