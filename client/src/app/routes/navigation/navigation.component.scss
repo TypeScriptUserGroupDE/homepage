@@ -15,7 +15,7 @@
       }
 
       .logo {
-        max-height: 50px;
+        max-height: 70px;
       }
     }
   }
@@ -24,7 +24,7 @@
 .navbar-default {
   background-color: $blue;
   color: white;
-  padding: 10px 0;
+  //padding: 0;
 
   .navbar-collapse {
     border: inherit;
@@ -73,6 +73,10 @@
       }
 
     }
+  }
+
+  .navbar-right {
+    padding: 10px 0;
   }
 
 }

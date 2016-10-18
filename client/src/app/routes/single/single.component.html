@@ -21,13 +21,14 @@
           <li class="list-group-item" *ngIf="user.company && !user.company_url">
             {{user.company}}
           </li>
-          <li class="list-group-item" *ngIf="user.html_url">GitHub: <a
-            href="{{user.html_url}}">{{user.login}}</a>
+          <li class="list-group-item" *ngIf="user.html_url">GitHub:
+            <a href="{{user.html_url}}" target="_blank">{{user.login}}</a>
           </li>
-          <li class="list-group-item" *ngIf="user.website">Webseite: <a href="{{user.website}}">{{user.website}}</a>
+          <li class="list-group-item" *ngIf="user.website">Webseite:
+            <a href="{{user.website}}" target="_blank">{{user.website}}</a>
           </li>
-          <li class="list-group-item" *ngIf="user.twitter">Twitter: <a
-            href="https://twitter.com/{{user.twitter}}">@{{user.twitter}}</a>
+          <li class="list-group-item" *ngIf="user.twitter">Twitter:
+            <a href="https://twitter.com/{{user.twitter}}" target="_blank">@{{user.twitter}}</a>
           </li>
         </ul>
       </div>
