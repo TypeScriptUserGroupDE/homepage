@@ -1,3 +1,3 @@
-# TypeScriptUserGroupDE
+# TypeScript UsersDE
 
-TypeScriptUserGroupDE is an directory of german TypeScript developers.
+TypeScript UsersDE is an directory of german-speaking TypeScript developers. Find it online on https://www.typescriptusers.de

@@ -1,29 +1,5 @@
 @import 'variables';
 
-@font-face {
-  font-family: "Open Sans";
-  //src: url('../fonts/Regular/OpenSans-Regular.woff2');
-  font-weight: normal;
-}
-
-@font-face {
-  font-family: "Open Sans";
-  //src: url('../fonts/Bold/OpenSans-Bold.woff2');
-  font-weight: bold;
-}
-
-@font-face {
-  font-family: "Open Sans";
-  //src: url('../fonts/Light/OpenSans-Light.woff2');
-  font-weight: 300;
-}
-
-body {
-  font-family: "Open Sans", sans-serif;
-  height: 100%;
-  background-color: $bg-grey;
-}
-
 // because <a (click)="whatever()"></a> does not show pointer
 a {
   cursor: pointer;
@@ -35,16 +11,6 @@ a {
     text-decoration: none;
     color: $orange;
   }
-}
-
-h1 {
-  //margin-top: 10px;
-  margin-bottom: 20px;
-}
-
-p, span, li, .form-control {
-  font-size: 15px;
-  font-weight: lighter;
 }
 
 .strong {
@@ -103,11 +69,11 @@ p, span, li, .form-control {
 }
 
 .spacer {
-  padding: 50px 0;
+  padding: 30px 0 50px;
 }
 
 .gray-bg-spacer {
-  padding: 50px 0;
+  padding: 30px 0 50px;
   background-color: $lighter-grey;
 }
 
@@ -116,7 +82,7 @@ p, span, li, .form-control {
 }
 
 .white-bg-spacer {
-  padding: 50px 0;
+  padding: 30px 0 50px;
   background-color: #fff;
 }
 
@@ -125,7 +91,7 @@ p, span, li, .form-control {
 }
 
 .blue-bg-spacer {
-  padding: 50px 0;
+  padding: 30px 0 50px;
   background-color: #23527c;
   color: white;
 
@@ -142,7 +108,7 @@ p, span, li, .form-control {
 }
 
 .yellow-bg-spacer {
-  padding: 50px 0;
+  padding: 30px 0 50px;
   background-color: $yellow;
 }
 
@@ -151,7 +117,7 @@ p, span, li, .form-control {
 }
 
 .orange-bg-spacer {
-  padding: 50px 0;
+  padding: 30px 0 50px;
   background-color: $orange;
 }
 

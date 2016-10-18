@@ -67,8 +67,8 @@
           <p class="desc-text border-style" innerHTML="{{user.description | linky}}"></p>
         </div>
 
-        <h2 *ngIf="hasTecSelected() === true">
-          Verwendet TypeScript mit</h2>
+        <h3 *ngIf="hasTecSelected() === true">
+          Verwendet TypeScript mit</h3>
 
         <div class="tec row">
           <div *ngIf="user.tec.angularjs" class="col-md-4"><p class="border-style white-bg">
