@@ -18,7 +18,7 @@ process.on('uncaughtException', function (error:Error) {
 
 db.init();
 var app = express();
-app.listen(3002, function () {
+app.listen(3002, 'localhost', function () {
     logger.log("info", "Server is running at port 3002");
 });
 app.use(cors());
