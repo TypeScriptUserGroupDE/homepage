@@ -17,6 +17,11 @@
       .logo {
         max-height: 70px;
       }
+
+      @media screen and (max-width: 1023px) {
+        .logo {
+          max-height: 50px;        }
+      }
     }
   }
 }
@@ -31,8 +36,8 @@
     box-shadow: inherit;
   }
 
-  .navbar-toggle {
-    background-color: #ddd;
+  button.navbar-toggle.collapsed {
+    background-color: white;
 
     .icon-bar {
       background-color: $orange;
