@@ -43,11 +43,11 @@ export class SingleComponent implements OnInit {
   }
 
   hasTecSelected() {
-    let result = true;
+    let result = false;
 
     for (let i in this.user.tec) {
-      if (this.user.tec[i] === false) {
-        result = false;
+      if (this.user.tec[i] === true) {
+        result = true;
         break;
       }
     }
