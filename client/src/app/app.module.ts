@@ -5,6 +5,7 @@ import {HttpModule} from '@angular/http';
 import {JwtHelper, provideAuth, AuthHttp} from 'angular2-jwt';
 import {provideLazyMapsAPILoaderConfig, AgmCoreModule} from 'angular2-google-maps/core';
 import {AlertComponent, ModalModule, TypeaheadModule} from 'ng2-bootstrap/ng2-bootstrap';
+import {MetaModule, MetaConfig, MetaService} from 'ng2-meta';
 import {LinkyPipe} from 'angular2-linky';
 import {AppConfig} from './config/app.config';
 import {routing} from './app.routes';
@@ -30,6 +31,15 @@ import {DataService} from "./services/data/data.service";
 import {SearchComponent} from "./routes/search/search.component";
 import {DistancePipe} from "./pipes/distance.pipe";
 
+// global meta tag configuration, see https://github.com/vinaygopinath/ng2-meta
+const metaConfig: MetaConfig = {
+  useTitleSuffix: true,
+  defaults: {
+    title: 'TypeScript Entwickler-Verzeichnis',
+    keywords: 'TypeScript Entwickler,TypeScript, Entwickler,JavaScript,AngularJS,Angular2,node.Js,Ionic,NativeScript,Entwicklerverzeichnis,User Group,Deutschland,Schweiz,Österreich',
+    titleSuffix: ' - TypeScript UsersDE',
+  }
+};
 
 @NgModule({
   imports: [
@@ -39,6 +49,7 @@ import {DistancePipe} from "./pipes/distance.pipe";
     ReactiveFormsModule,
     HttpModule,
     AgmCoreModule.forRoot(),
+    MetaModule.forRoot(metaConfig),
     ModalModule,
     TypeaheadModule
   ],
@@ -72,6 +83,7 @@ import {DistancePipe} from "./pipes/distance.pipe";
     UserAddResolver,
     SearchResolver,
     JwtHelper,
+    MetaService,
     provideLazyMapsAPILoaderConfig({apiKey: AppConfig.google_maps_api_key}),
     AuthHttp,
     provideAuth({

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Http} from '@angular/http';
 import {Router, ActivatedRoute} from '@angular/router';
+import {MetaService} from 'ng2-meta';
 import {User} from '../../components/User';
 import {AuthService} from '../../services/auth/auth.service';
 
@@ -17,12 +18,24 @@ export class SingleComponent implements OnInit {
   constructor(public http: Http,
               private router: Router,
               private authService: AuthService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private metaService: MetaService) {
   }
 
   ngOnInit() {
     this.route.data.subscribe(
-      data => this.user = data['user']
+      data => {
+        this.user = data['user'];
+        this.user.tecList = [];
+        this.hasTecSelected();
+
+        // see https://github.com/vinaygopinath/ng2-meta/issues/7
+        setTimeout(() => {
+          this.metaService.setTitle(this.user.name + ' - TypeScript Entwickler in ' + this.user.city);
+          this.metaService.setTag('keywords', this.user.tecList.toString() + ',' + this.user.city);
+          this.metaService.setTag('description', this.user.description || this.user.name + ' verwendet TypeScript mit ' + this.user.tecList.toString());
+        });
+      }
     );
 
     //prevent 'cannot read propery of null' error
@@ -48,11 +61,9 @@ export class SingleComponent implements OnInit {
     for (let i in this.user.tec) {
       if (this.user.tec[i] === true) {
         result = true;
-        break;
+        this.user.tecList.push(i);
       }
     }
-
-    return result
   }
 
   sendMessage(username: string) {

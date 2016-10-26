@@ -66,8 +66,12 @@ gulp.task('clean', function () {
 
 var tsProject = ts.createProject('tsconfig.json');
 
-gulp.task('build:ts', function () {
+gulp.task('copy:ejs', function () {
+    gulp.src('src/views/**/*.*')
+        .pipe(gulp.dest('target/views'));
+});
 
+gulp.task('build:ts', function () {
 
     var tsResult = gulp.src(['src/*.ts', 'src/**/*.ts']);
     tsResult = tsResult.pipe(addsrc('./typings/index.d.ts'));
@@ -84,6 +88,7 @@ gulp.task('build:ts', function () {
 gulp.task('watch', function () {
     developmentMode = true;
     gulp.watch(config.typeScriptFiles, {cwd: "src"}, ["build:ts"]);
+    gulp.watch('views/**/*.*', {cwd: "src"}, ["copy:ejs"]);
 });
 
 gulp.task('dev', function (callback) {
@@ -98,9 +103,6 @@ gulp.task('dev', function (callback) {
         callback);
 });
 
-
-
-
 gulp.task('nodemon', function () {
     nodemon({
         script: './target/server.js',
@@ -114,8 +116,7 @@ gulp.task('nodemon', function () {
 });
 
 
-
-gulp.task('default', ["watch", "build:ts", "nodemon"]);
+gulp.task('default', ["watch", "build:ts", "copy:ejs", "nodemon"]);
 
 
 var onError = function (err) {
@@ -136,4 +137,4 @@ function debug(config) {
 }
 
 
-gulp.task('dist', ["build:ts"]);
+gulp.task('dist', ["build:ts", "copy:ejs"]);

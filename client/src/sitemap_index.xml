@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.google.com/schemas/sitemap/0.84">
+  <sitemap>
+    <loc>https://typescriptusers.de/sitemap.xml</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://typescriptusers.de/api/sitemap</loc>
+  </sitemap>
+</sitemapindex>

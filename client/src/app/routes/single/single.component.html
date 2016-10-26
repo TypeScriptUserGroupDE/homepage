@@ -71,7 +71,7 @@
           <p class="desc-text border-style strong">{{user.name}} hat bisher noch keinen Beschreibungstext hinterlegt</p>
         </div>
 
-        <h3 *ngIf="hasTecSelected() === true">
+        <h3 *ngIf="user.tecList.length > 0">
           Verwendet TypeScript mit</h3>
 
         <div class="tec row">

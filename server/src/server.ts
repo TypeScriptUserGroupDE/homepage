@@ -1,11 +1,11 @@
 "use strict";
-
 import express = require("express");
 import cors = require("cors");
 import bodyParser = require("body-parser");
 import morgan = require("morgan");
 import db = require("./common/db");
 import AuthCtrl  from "./routes/AuthCtrl";
+import SitemapCtrl  from "./routes/SitemapCtrl";
 import TestCtrl  from "./routes/TestCtrl";
 import UserCtrl  from "./routes/UserCtrl";
 import CityCtrl  from "./routes/CityCtrl";
@@ -24,12 +24,15 @@ app.listen(3002, 'localhost', function () {
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+app.set('views' , __dirname + '/views');
+app.set('view engine', 'ejs');
 
 /**
  *  Public Routes:
  * */
 AuthCtrl.routes(app, "/api/login");
 TestCtrl.routes(app, "/api/test");
+SitemapCtrl.routes(app, "/api/sitemap");
 UserCtrl.publicRoutes(app, "/api/user");
 CityCtrl.publicRoutes(app, "/api/city");
 

@@ -7,6 +7,8 @@ export class User {
                 public accessLevel?: number,
                 public twitter?: string,
                 public company_url?: string,
+                public description?: string,
+                public tecList?: string[],
                 public city?: any,
                 public availability?: {
                     [key: string]: boolean;

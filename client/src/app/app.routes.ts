@@ -14,18 +14,57 @@ import {SearchComponent} from "./routes/search/search.component";
 
 
 const routes: Routes = [
-  {path: '', redirectTo: '/home', pathMatch: 'full'},
-  {path: '*', redirectTo: '/home'},
-  {path: 'home', component: HomeComponent},
-  {path: 'impressum', component: ImprintComponent},
-  {path: 'karte', component: MapComponent},
-  {path: 'entwickler/profil', component: UserAddComponent, canActivate: [AuthService], resolve: {user: UserAddResolver}},
-  {path: 'entwickler', component: ListComponent},
-  {path: 'suche/:city', component: SearchComponent, resolve: {search: SearchResolver}},
-  {path: 'entwickler/:username', component: SingleComponent, resolve: {user: SingleUserResolver}},
-  {path: 'login', component: LoginComponent},
-  {path: 'entwickler/message/:username', component: UserMessageComponent, canActivate: [AuthService], resolve: {user: SingleUserResolver}},
-  {path: 'accessToken', component: CallbackComponent}
+  {
+    path: '', redirectTo: '/home', pathMatch: 'full'
+  },
+  {
+    path: '*', redirectTo: '/home'
+  },
+  {
+    path: 'home',
+    component: HomeComponent,
+  },
+  {
+    path: 'impressum',
+    component: ImprintComponent
+  },
+  {
+    path: 'karte',
+    component: MapComponent
+  },
+  {
+    path: 'entwickler/profil',
+    component: UserAddComponent,
+    canActivate: [AuthService],
+    resolve: {user: UserAddResolver}
+  },
+  {
+    path: 'entwickler',
+    component: ListComponent
+  },
+  {
+    path: 'suche/:city',
+    component: SearchComponent,
+    resolve: {search: SearchResolver}
+  },
+  {
+    path: 'entwickler/:username',
+    component: SingleComponent,
+    resolve: {user: SingleUserResolver}
+  },
+  {
+    path: 'login', component: LoginComponent
+  },
+  {
+    path: 'entwickler/message/:username',
+    component: UserMessageComponent,
+    canActivate: [AuthService],
+    resolve: {user: SingleUserResolver}
+  },
+  {
+    path: 'accessToken',
+    component: CallbackComponent
+  }
 ];
 
 export const routing = RouterModule.forRoot(routes);
