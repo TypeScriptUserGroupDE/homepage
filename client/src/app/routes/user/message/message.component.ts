@@ -55,7 +55,10 @@ export class UserMessageComponent implements OnInit {
           this.alerts.push({msg: 'Nachricht gesendet', type: 'success'});
           this.model = {};
         },
-        error => console.log(error)
+        error => {
+          this.alerts.push({msg: 'Bitte fülle erst dein Profil vollständig aus', type: 'danger'});
+          this.model = {};
+        }
       );
   }
 }

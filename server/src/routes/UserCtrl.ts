@@ -180,7 +180,7 @@ class UserCtrl {
 
         UserModel
             .findOne()
-            .where({"github_id": req.decoded.github_id})
+            .where({"github_id": req.decoded.github_id, "active": true})
             .exec(done);
 
         function done(err: any, result: User) {
@@ -188,12 +188,17 @@ class UserCtrl {
                 console.log("err");
                 return
             }
+
             if (result) {
                 sender = result;
 
                 UserModel
                     .findOne({"login": req.body.username})
                     .exec(sendMail);
+            } else {
+                res
+                    .status(403)
+                    .json('sender not active');
             }
 
         }
