@@ -30,7 +30,14 @@ const routes: Routes = [
   },
   {
     path: 'karte',
-    component: MapComponent
+    component: MapComponent,
+    data: {
+      meta: {
+        title: 'Karte von TypeScript-Entwicklern in Deutschland, Österreich und der Schweiz',
+        description: 'Unsere detaillierte Karte zeigt TypeScript-Entwickler in Deutschland, Österreich und der Schweiz',
+      }
+    }
+
   },
   {
     path: 'entwickler/profil',
