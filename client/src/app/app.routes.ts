@@ -15,13 +15,7 @@ import {SearchComponent} from "./routes/search/search.component";
 
 const routes: Routes = [
   {
-    path: '', redirectTo: '/home', pathMatch: 'full'
-  },
-  {
-    path: '*', redirectTo: '/home'
-  },
-  {
-    path: 'home',
+    path: '',
     component: HomeComponent,
   },
   {
@@ -37,7 +31,6 @@ const routes: Routes = [
         description: 'Unsere detaillierte Karte zeigt TypeScript-Entwickler in Deutschland, Österreich und der Schweiz',
       }
     }
-
   },
   {
     path: 'entwickler/profil',
@@ -77,7 +70,10 @@ const routes: Routes = [
   {
     path: 'accessToken',
     component: CallbackComponent
-  }
+  },
+  {
+    path: '**', redirectTo: ''
+  },
 ];
 
 export const routing = RouterModule.forRoot(routes);
