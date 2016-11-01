@@ -37,6 +37,7 @@ const metaConfig: MetaConfig = {
   defaults: {
     title: 'TypeScript Entwickler-Verzeichnis',
     keywords: 'TypeScript Entwickler,TypeScript, Entwickler,JavaScript,AngularJS,Angular2,node.Js,Ionic,NativeScript,Entwicklerverzeichnis,User Group,Deutschland,Schweiz,Österreich',
+    description: 'TypeScript UsersDE ist ein offenes Verzeichnis von TypeScript-Entwicklern in Deutschland. Unser Ziel ist es TypeScript-Entwickler untereinander zu vernetzen',
     titleSuffix: ' - TypeScript UsersDE',
   }
 };

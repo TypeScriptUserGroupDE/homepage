@@ -40,7 +40,13 @@ const routes: Routes = [
   },
   {
     path: 'entwickler',
-    component: ListComponent
+    component: ListComponent,
+    data: {
+      meta: {
+        title: 'TypeScript Entwickler-Verzeichnis',
+        description: 'In unserem Entwickler-Verzeichnis finden sich TypeScript-Entwickler aus Deutschland, Österreich und der Schweiz. Entwickler können kostenlos ein öffentliches Profil erstellen, um mit anderen Entwicklern in Kontakt zu treten',
+      }
+    }
   },
   {
     path: 'suche/:city',
