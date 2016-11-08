@@ -259,56 +259,56 @@ class UserCtrl {
 
     getUsersNearCity(req: express.Request, res: express.Response) {
         let coordinates: number[];
+        let location = req.body.city;
 
-        CityModel
-            .findOne({"name_lowercase": req.body.city.toLowerCase()})
-            .then(function (result: City) {
-                    if (result) {
-                        coordinates = result.loc;
-                    } else {
-                        res
-                            .status(200)
-                            .json([]); // no users in this area
-                        return
-                    }
-
-                    if (coordinates) {
-
-                        UserModel.geoNear({
-                            type: "Point",
-                            coordinates: coordinates
-                        }, {
-                            spherical: true,
-                            maxDistance: parseInt(req.body.distance),
-                        }).then(function (result: UserDistance[]) {
-                                let out: any = [];
-                                _.forEach(result, function (data: UserDistance, key: number) {
-                                    let obj: UserListItem = {
-                                        dis: data.dis,
-                                        name: data.obj.name,
-                                        login: data.obj.login,
-                                        avatar_url: data.obj.avatar_url,
-                                        city: data.obj.city,
-                                        forProjects: data.obj.availability.forProjects,
-                                        greaterDistance: data.obj.availability.greaterDistance,
-                                        nodejs: data.obj.tec.nodejs,
-                                        angularjs: data.obj.tec.angularjs,
-                                        angular2: data.obj.tec.angular2,
-                                        ionic: data.obj.tec.ionic,
-                                        nativescript: data.obj.tec.nativescript,
-                                        tec: data.obj.tec
-                                    };
-                                    out.push(obj);
-                                });
-
-                                res
-                                    .status(200)
-                                    .json(out);
-                            }
-                        );
-                    }
+        UserCtrl.getCoordinates(location).then(function (result: any) {
+                if (result) {
+                    coordinates = [];
+                    coordinates[0] = result.results[0].geometry.location.lng;
+                    coordinates[1] = result.results[0].geometry.location.lat;
+                } else {
+                    res
+                        .status(200)
+                        .json([]); // no users in this area
+                    return
                 }
-            );
+
+                if (coordinates) {
+                    UserModel.geoNear({
+                        type: "Point",
+                        coordinates: coordinates
+                    }, {
+                        spherical: true,
+                        maxDistance: parseInt(req.body.distance),
+                    }).then(function (result: UserDistance[]) {
+                            let out: any = [];
+                            _.forEach(result, function (data: UserDistance) {
+                                let obj: UserListItem = {
+                                    dis: data.dis,
+                                    name: data.obj.name,
+                                    login: data.obj.login,
+                                    avatar_url: data.obj.avatar_url,
+                                    city: data.obj.city,
+                                    forProjects: data.obj.availability.forProjects,
+                                    greaterDistance: data.obj.availability.greaterDistance,
+                                    nodejs: data.obj.tec.nodejs,
+                                    angularjs: data.obj.tec.angularjs,
+                                    angular2: data.obj.tec.angular2,
+                                    ionic: data.obj.tec.ionic,
+                                    nativescript: data.obj.tec.nativescript,
+                                    tec: data.obj.tec
+                                };
+                                out.push(obj);
+                            });
+
+                            res
+                                .status(200)
+                                .json(out);
+                        }
+                    );
+                }
+            }
+        );
     }
 
     updateUser(req: JwtRequest, res: express.Response) {
@@ -318,8 +318,6 @@ class UserCtrl {
             .then(function (result: any) {
                 // save users city (w/o zip to cities collection
                 UserCtrl.saveCityCoordinates(req.body.city);
-
-                result = JSON.parse(result);
 
                 let fieldSum: number = _.size(req.body);
 
@@ -362,6 +360,9 @@ class UserCtrl {
 
     static getCoordinates(location: string): any {
         return request.get('http://maps.googleapis.com/maps/api/geocode/json?language=de&region=de&address=' + encodeURIComponent(location))
+            .then(function (result) {
+                return JSON.parse(result);
+            })
     }
 
     static saveCityCoordinates(city: string) {
