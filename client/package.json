@@ -13,6 +13,7 @@
     "e2e": "protractor",
     "typings": "typings install"
   },
+  "author": "Christoph Strauß <info@typescriptusers.de>",
   "private": true,
   "dependencies": {
     "@angular/common": "~2.0.1",
@@ -45,7 +46,7 @@
   "devDependencies": {
     "@types/jasmine": "^2.2.30",
     "typings": "^1.0.4",
-    "angular-cli": "1.0.0-beta.17",
+    "angular-cli": "1.0.0-beta.19",
     "codelyzer": "~0.0.26",
     "jasmine-core": "2.4.1",
     "jasmine-spec-reporter": "2.5.0",

@@ -8,8 +8,8 @@
     "typings": "typings install",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Can Kattw <ck115@hdm-stuttgart.de>",
-  "license": "ISC",
+  "author": "Christoph Strauß <info@typescriptusers.de>",
+  "license": "MIT",
   "dependencies": {
     "bluebird": "^3.3.5",
     "body-parser": "^1.15.0",
