@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Http} from '@angular/http';
 import {Router, ActivatedRoute} from '@angular/router';
 import {MetaService} from 'ng2-meta';
-import {User} from '../../components/User';
-import {AuthService} from '../../services/auth/auth.service';
+import {User} from '../../../common/User';
+import {AuthService} from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'single',

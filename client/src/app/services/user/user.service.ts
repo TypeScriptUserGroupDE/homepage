@@ -3,14 +3,14 @@ import {Http, Headers, RequestOptions, Response} from '@angular/http';
 import {AuthHttp} from 'angular2-jwt';
 import {Router} from '@angular/router';
 import {Observable}     from 'rxjs/Observable';
-import {User} from './../../components/User';
-import {UserListItem} from './../../components/UserListItem';
-import {Marker} from '../../components/Marker';
-import {UserDistance} from "../../components/UserDistance";
+import {User} from './../../common/User';
+import {UserListItem} from './../../common/UserListItem';
+import {Marker} from '../../common/Marker';
+import {UserDistance} from "../../common/UserDistance";
 
 @Injectable()
 
-export class DataService {
+export class UserService {
   headers = new Headers({'Content-Type': 'application/json'});
   options = new RequestOptions({headers: this.headers});
 
@@ -61,8 +61,7 @@ export class DataService {
   }
 
   gitHubAuth(code: string): Observable<any> {
-    return this.http.post(
-      '/api/login',
+    return this.http.post('/api/login',
       {code: code},
       this.options)
       .map(this.extractData)
@@ -77,7 +76,7 @@ export class DataService {
       .catch(this.handleError);
   }
 
-  getCityList():Observable<[string]> {
+  getCityList(): Observable<[string]> {
     return this.http.get('/api/city/get',
       this.options)
       .map(this.extractData)
@@ -107,6 +106,7 @@ export class DataService {
     let errMsg = (error.message) ? error.message :
       error.status ? `${error.status} - ${error.statusText}` : 'Server error';
     console.error(errMsg); // log to console instead
+    console.log(error);
     return Observable.throw(errMsg);
   }
 

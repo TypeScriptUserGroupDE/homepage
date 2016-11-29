@@ -11,13 +11,13 @@ import {AppConfig} from './config/app.config';
 import {routing} from './app.routes';
 import {AppComponent} from './app.component';
 import {HomeComponent} from './routes/home/home.component';
-import {HeaderComponent} from './routes/header/header.component';
+import {HeaderComponent} from './partials/header/header.component';
 import {ImprintComponent} from './routes/imprint/imprint.component';
-import {ListComponent} from './routes/list/list.component';
+import {ListComponent} from './routes/user/list/list.component';
 import {LoginComponent} from './routes/login/login.component';
-import {MapComponent} from './routes/map/map.component';
-import {NavigationComponent} from './routes/navigation/navigation.component';
-import {SingleComponent} from './routes/single/single.component';
+import {MapComponent} from './routes/user/map/map.component';
+import {NavigationComponent} from './partials/navigation/navigation.component';
+import {SingleComponent} from './routes/user/single/single.component';
 import {UserAddComponent} from './routes/user/add/add.component';
 import {DeleteUserModalComponent} from './routes/user/delete-user-modal/delete-user-modal.component';
 import {UserMessageComponent} from './routes/user/message/message.component';
@@ -27,9 +27,13 @@ import {KeysPipe} from './pipes/keys.pipe';
 import {filterTecPipe} from './pipes/search.pipe';
 import {UserAddResolver, SingleUserResolver, SearchResolver} from "./services/resolver/resolver.service";
 import {AuthService} from "./services/auth/auth.service";
-import {DataService} from "./services/data/data.service";
 import {SearchComponent} from "./routes/search/search.component";
 import {DistancePipe} from "./pipes/distance.pipe";
+import {UserService} from "./services/user/user.service";
+import {TrainingsComponent} from './routes/trainings/trainings.component';
+import {TrainingsAddComponent} from './routes/trainings/add/add.component';
+import {TrainingsService} from "./services/trainings/trainings.service";
+import {TrainingsSingleComponent} from './routes/trainings/single/single.component';
 
 // global meta tag configuration, see https://github.com/vinaygopinath/ng2-meta
 const metaConfig: MetaConfig = {
@@ -75,11 +79,15 @@ const metaConfig: MetaConfig = {
     KeysPipe,
     filterTecPipe,
     DistancePipe,
-    LinkyPipe
+    LinkyPipe,
+    TrainingsComponent,
+    TrainingsAddComponent,
+    TrainingsSingleComponent
   ],
   providers: [
     AuthService,
-    DataService,
+    UserService,
+    TrainingsService,
     SingleUserResolver,
     UserAddResolver,
     SearchResolver,
@@ -91,7 +99,8 @@ const metaConfig: MetaConfig = {
       headerName: 'x-access-token',
       headerPrefix: '',
       noTokenScheme: true,
-      tokenName: 'token'
+      tokenName: 'token',
+      tokenGetter: () => localStorage.getItem('token')
     })
   ],
   bootstrap: [AppComponent]

@@ -1,4 +1,4 @@
-@import './../../styles/variables';
+@import '../../styles/variables';
 
 .navbar {
   margin-bottom: 0;
@@ -58,7 +58,7 @@
         color: white;
         font-weight: normal;
 
-        &:hover, &:focus {
+        &:hover {
           color: $orange;
         }
       }
@@ -71,7 +71,7 @@
         color: $orange;
         font-weight: normal;
 
-        &:hover, &:focus {
+        &:hover {
           background-color: inherit;
           color: $orange;
         }

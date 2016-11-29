@@ -1,4 +1,4 @@
-@import './../../styles/variables';
+@import './../../../styles/variables';
 
 section#list {
   @media (min-width: 1023px) {
@@ -80,6 +80,10 @@ section#list {
         color: $blue;
       }
     }
+  }
+
+  .btn-padding.available {
+    font-weight: normal;
   }
 
   .flex-row {

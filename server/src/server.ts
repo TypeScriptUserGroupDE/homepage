@@ -9,6 +9,7 @@ import SitemapCtrl  from "./routes/SitemapCtrl";
 import TestCtrl  from "./routes/TestCtrl";
 import UserCtrl  from "./routes/UserCtrl";
 import CityCtrl  from "./routes/CityCtrl";
+import TrainingsCtrl  from "./routes/TrainingsCtrl";
 import logger from "./common/logging";
 
 process.on('uncaughtException', function (error:Error) {
@@ -35,9 +36,11 @@ TestCtrl.routes(app, "/api/test");
 SitemapCtrl.routes(app, "/api/sitemap");
 UserCtrl.publicRoutes(app, "/api/user");
 CityCtrl.publicRoutes(app, "/api/city");
+TrainingsCtrl.publicRoutes(app, "/api/training");
 
 /**
  *  Internal Routes
  * */
 app.use(require("./middlewares/validateRequest"));
 UserCtrl.protectedRoutes(app, "/api/user");
+TrainingsCtrl.protectedRoutes(app, "/api/training");

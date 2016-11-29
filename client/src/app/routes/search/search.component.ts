@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {UserDistance} from "../../components/UserDistance";
-import {DataService} from './../../services/data/data.service';
+import {UserDistance} from "../../common/UserDistance";
+import {UserService} from './../../services/user/user.service';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
@@ -11,7 +11,7 @@ import {ActivatedRoute} from '@angular/router';
 export class SearchComponent implements OnInit {
   users: UserDistance[];
 
-  constructor(private dataService: DataService,
+  constructor(private userService: UserService,
               private route: ActivatedRoute) {
   }
 

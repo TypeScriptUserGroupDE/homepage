@@ -52,7 +52,6 @@ class UserCtrl {
 
     // this allows an authenticated user to get his own data, if he is active
     getUserForm(req: JwtRequest, res: express.Response) {
-
         UserModel
             .findOne()
             .where({"github_id": req.decoded.github_id})

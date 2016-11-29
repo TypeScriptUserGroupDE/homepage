@@ -1,7 +1,7 @@
 import {Component, ViewChild} from '@angular/core';
 import {ModalDirective} from 'ng2-bootstrap/ng2-bootstrap';
 import {AuthService} from './../../../services/auth/auth.service';
-import {DataService} from "../../../services/data/data.service";
+import {UserService} from "../../../services/user/user.service";
 
 @Component({
   selector: 'delete-user-modal',
@@ -16,7 +16,7 @@ export class DeleteUserModalComponent {
 
 
   constructor(private authService: AuthService,
-              private dataService: DataService) {
+              private dataService: UserService) {
   }
 
   show() {

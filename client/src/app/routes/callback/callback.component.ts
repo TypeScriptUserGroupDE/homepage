@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
-import {DataService} from "../../services/data/data.service";
+import {UserService} from "../../services/user/user.service";
 
 @Component({
   selector: 'callback',
@@ -13,7 +13,7 @@ export class CallbackComponent implements OnInit {
 
   constructor(private route:ActivatedRoute,
               private router: Router,
-              private dataService: DataService) {
+              private dataService: UserService) {
   }
 
   ngOnInit() {

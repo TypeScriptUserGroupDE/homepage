@@ -1,13 +1,13 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Resolve, ActivatedRouteSnapshot, RouterStateSnapshot} from "@angular/router";
-import {User} from './../../components/User';
-import {DataService} from "./../../services/data/data.service";
-import {UserDistance} from "./../../components/UserDistance";
+import {User} from './../../common/User';
+import {UserService} from "../user/user.service";
+import {UserDistance} from "../../common/UserDistance";
 
 @Injectable()
 export class SingleUserResolver implements Resolve<User> {
-  constructor(private dataService: DataService) {
+  constructor(private dataService: UserService) {
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<User> {
@@ -18,22 +18,22 @@ export class SingleUserResolver implements Resolve<User> {
 @Injectable()
 export class UserAddResolver implements Resolve<User> {
 
-  constructor(private dataService: DataService) {
+  constructor(private userService: UserService) {
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<User> {
-    return this.dataService.getSingleUserWithAuthentication();
+    return this.userService.getSingleUserWithAuthentication();
   }
 }
 
 @Injectable()
 export class SearchResolver implements Resolve<UserDistance[]> {
 
-  constructor(private dataService: DataService) {
+  constructor(private userService: UserService) {
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<UserDistance[]> {
-    return this.dataService.getUsersNearCity(route.params['city']);
+    return this.userService.getUsersNearCity(route.params['city']);
   }
 }
 

@@ -1,5 +1,6 @@
 import mongoose = require("mongoose");
 mongoose.Promise = require("bluebird");
+
 import {PublicUser} from "../common/interfaces/PublicUser";
 var Schema = mongoose.Schema;
 

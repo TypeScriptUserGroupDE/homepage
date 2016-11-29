@@ -1,0 +1,127 @@
+<section id="trainings-add" class="gray-bg-spacer">
+  <!--todo: liste // karte-->
+  <div class="container">
+    <form [formGroup]="form" novalidate>
+      <div class="row">
+        <div class="col-md-6">
+          <h2>Informationen zur Schulung</h2>
+
+          <div class="form-group">
+            <label for="name">Titel der Schulung *</label>
+            <input type="text" name="name" class="form-control" [(ngModel)]="model.title" formControlName="title">
+          </div>
+          <div class="form-group">
+            <label for="name">Schulung zum Thema...</label>
+            <select class="form-control" name="tec" formControlName="tec" >
+              <option *ngFor="let item of technologies ">{{item}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="name">Link zur Buchung/weitere Informationen</label>
+            <input type="text" name="name" class="form-control" formControlName="cta_link" >
+          </div>
+          <div class="form-group">
+            <label for="description">Beschreibung (Links werden automatisch konvertiert)</label>
+            <textarea rows="12" cols="10" type="text" name="description" class="form-control"
+                      formControlName="desc"></textarea>
+          </div>
+          <p>* Diese Felder müssen ausgefüllt werden.</p>
+
+        </div>
+        <div class="col-md-6">
+          <h2>Veranstalter</h2>
+          <div class="form-group">
+            <label for="website">Firma</label>
+            <input type="text" name="company" class="form-control" formControlName="company">
+          </div>
+
+          <div class="form-group">
+            <label for="website">Website</label>
+            <input type="text" name="website" class="form-control" formControlName="website">
+          </div>
+
+          <div class="form-group">
+            <label for="email">E-Mail-Adresse *</label>
+            <p class="info">Deine E-Mail-Adresse wird nicht veröffentlicht.</p>
+            <input type="text" name="email" class="form-control" formControlName="email"
+                   formControlName="email">
+          </div>
+
+          <button type="submit" (click)="onSubmit()" class="btn btn-default"
+                  [disabled]="!form.valid">
+            Speichern
+          </button>
+          <a *ngIf="model.active" class="btn btn-link float-right" (click)="deleteUserModal.show()">Profil
+            löschen</a>
+
+          <delete-user-modal #deleteUserModal="deleteUserModal"></delete-user-modal>
+
+        </div>
+      </div>
+
+      <h2>Schulungsort</h2>
+      <button class="btn btn-default" (click)="addEvent()">Schulungstermin hinzufügen</button>
+
+      <div formArrayName="events">
+        <div *ngFor="let item of form.controls.events.controls; let i = index">
+          <h3>Termin {{i + 1}}</h3>
+          <div class="row" [formGroupName]="i">
+            <div class="col-md-8">
+              <div class="row">
+                <div class="col-md-8">
+                  <div class="form-group">
+                    <label for="address">Straße *</label>
+                    <input type="text" class="form-control" formControlName="address">
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="houseNumber">Hausnummer *</label>
+                    <input type="number" name="houseNumber" class="form-control"
+                           formControlName="houseNumber" >
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="zip">Postleitzahl *</label>
+                    <input type="number" name="zip" class="form-control" formControlName="zip"
+                           formControlName="zip">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="city">Ort *</label>
+                    <input type="text" name="city" class="form-control" formControlName="city" >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="zip">Von *</label>
+                    <input type="date" name="address" class="form-control" formControlName="startDate">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="city">Bis *</label>
+                    <input type="date" name="houseNumber" class="form-control" formControlName="endDate"
+                           >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!--todo: while dev-->
+<pre>{{form.value | json }}</pre>
+<!--<pre>{{form.valid | json }}</pre>-->

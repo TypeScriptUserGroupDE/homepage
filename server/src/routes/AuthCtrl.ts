@@ -42,12 +42,12 @@ class AuthCtrl {
                                         console.log('err');
                                         return;
                                     } else if (!user) {
-                                        var user = AuthCtrl.createUser(req, res, token);
+                                        AuthCtrl.createUser(req, res, token);
+                                    } else if (user) {
+                                        res
+                                            .status(200)
+                                            .json(AuthCtrl.genJWT(user));
                                     }
-
-                                    res
-                                        .status(200)
-                                        .json(AuthCtrl.genJWT(user));
                                 }
 
                             });
@@ -137,7 +137,10 @@ class AuthCtrl {
                 return;
             }
         };
-        return user
+
+        res
+            .status(200)
+            .json(AuthCtrl.genJWT(user));
     };
 
 

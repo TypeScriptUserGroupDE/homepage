@@ -1,5 +1,6 @@
 import {Injectable, Pipe} from '@angular/core';
-import {UserListItem} from "../components/UserListItem";
+import {UserListItem} from "../common/UserListItem";
+import * as _ from "lodash";
 
 @Pipe({
   name: 'filterTec',

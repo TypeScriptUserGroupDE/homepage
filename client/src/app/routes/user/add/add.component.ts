@@ -6,8 +6,8 @@ import {
   AbstractControl,
 } from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {User} from './../../../components/User';
-import {DataService} from "../../../services/data/data.service";
+import {User} from './../../../common/User';
+import {UserService} from "../../../services/user/user.service";
 
 @Component({
   selector: 'user-add',
@@ -20,7 +20,7 @@ export class UserAddComponent implements OnInit {
 
   constructor(private router: Router,
               private route: ActivatedRoute,
-              private dataService: DataService) {
+              private dataService: UserService) {
 
     this.form = new FormGroup({
       email: new FormControl('', Validators.compose([this.emailValidator])),

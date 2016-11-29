@@ -1,8 +1,8 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {Http} from '@angular/http';
 import {Router} from '@angular/router';
-import {UserListItem} from '../../components/UserListItem';
-import {DataService} from './../../services/data/data.service';
+import {UserListItem} from '../../../common/UserListItem';
+import {UserService} from './../../../services/user/user.service';
 import * as _ from 'lodash';
 
 @Component({
@@ -41,7 +41,7 @@ export class ListComponent implements OnInit {
 
   constructor(public router: Router,
               public http: Http,
-              private dataService: DataService) {
+              private userService: UserService) {
   }
 
   ngOnInit() {
@@ -49,7 +49,7 @@ export class ListComponent implements OnInit {
     this.isSearchDone = false;
     this.filterByTec = {};
 
-    this.dataService
+    this.userService
       .getUserList()
       .subscribe(
         data => {
@@ -59,7 +59,7 @@ export class ListComponent implements OnInit {
         error => console.log(error)
       );
 
-    this.dataService
+    this.userService
       .getCityList()
       .subscribe(
         data => {
@@ -75,7 +75,7 @@ export class ListComponent implements OnInit {
       this.inValidateSearch();
       return
     }
-    this.dataService.getUsersNearCity(search, distance)
+    this.userService.getUsersNearCity(search, distance)
       .subscribe(
         data => {
           this.data = data;

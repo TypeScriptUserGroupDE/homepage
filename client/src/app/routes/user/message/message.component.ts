@@ -5,9 +5,9 @@ import {
   Validators
 }    from '@angular/forms';
 import {Http} from '@angular/http';
-import {User} from '../../../components/User';
-import {ActivatedRoute} from '@angular/router';
-import {DataService} from "../../../services/data/data.service";
+import {User} from '../../../common/User';
+import {Router, ActivatedRoute} from '@angular/router';
+import {UserService} from "../../../services/user/user.service";
 
 @Component({
   selector: 'user-message',
@@ -30,7 +30,7 @@ export class UserMessageComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               public http: Http,
-              private dataService: DataService) {
+              private dataService: UserService) {
 
     this.form = new FormGroup({
       required: new FormControl("", Validators.required)

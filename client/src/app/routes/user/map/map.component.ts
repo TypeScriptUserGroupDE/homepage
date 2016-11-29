@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {DataService} from "../../services/data/data.service";
-import {Marker} from '../../components/Marker';
+import {UserService} from "../../../services/user/user.service";
+import {Marker} from '../../../common/Marker';
 
 @Component({
   selector: 'map',
@@ -19,7 +19,7 @@ export class MapComponent implements OnInit {
   markers: Marker[];
 
   constructor(private router: Router,
-              private dataService: DataService) {
+              private dataService: UserService) {
   }
 
   ngOnInit() {
