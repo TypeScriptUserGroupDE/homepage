@@ -17,19 +17,21 @@ export class TrainingsService {
 
   }
 
-  public getTraining():Observable<Training> {
-    return this.http.get('/api/training/get')
+  public getTraining(title): Observable<Training> {
+    return this.http.post('/api/training/get',
+      {title: title},
+      this.options)
       .map(this.extractData)
       .catch(this.handleError);
   }
 
-  public getTrainingsList():Observable<Training[]> {
+  public getTrainingsList(): Observable <Training[]> {
     return this.http.get('/api/training/get/all')
       .map(this.extractData)
       .catch(this.handleError);
   }
 
-  public createTraining(training: Training): Observable<Training> {
+  public createTraining(training: Training): Observable <Training> {
     return this.authHttp.post('/api/training/create',
       training,
       this.options)
@@ -37,7 +39,7 @@ export class TrainingsService {
       .catch(this.handleError);
   }
 
-  public updateTraining(training: Training): Observable<Training> {
+  public updateTraining(training: Training): Observable <Training> {
     return this.authHttp.put('/api/training/update',
       training,
       this.options)

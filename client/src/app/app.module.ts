@@ -25,12 +25,15 @@ import {CallbackComponent} from './routes/callback/callback.component';
 import {TecPipe} from './pipes/tec.pipe';
 import {KeysPipe} from './pipes/keys.pipe';
 import {filterTecPipe} from './pipes/search.pipe';
-import {UserAddResolver, SingleUserResolver, SearchResolver} from "./services/resolver/resolver.service";
+import {
+  UserAddResolver, SingleUserResolver, SearchResolver,
+  SingleTrainingResolver, TrainingAddResolver
+} from "./services/resolver/resolver.service";
 import {AuthService} from "./services/auth/auth.service";
 import {SearchComponent} from "./routes/search/search.component";
 import {DistancePipe} from "./pipes/distance.pipe";
 import {UserService} from "./services/user/user.service";
-import {TrainingsComponent} from './routes/trainings/trainings.component';
+import {TrainingsListComponent} from './routes/trainings/list/list.trainings.component';
 import {TrainingsAddComponent} from './routes/trainings/add/add.component';
 import {TrainingsService} from "./services/trainings/trainings.service";
 import {TrainingsSingleComponent} from './routes/trainings/single/single.component';
@@ -80,7 +83,7 @@ const metaConfig: MetaConfig = {
     filterTecPipe,
     DistancePipe,
     LinkyPipe,
-    TrainingsComponent,
+    TrainingsListComponent,
     TrainingsAddComponent,
     TrainingsSingleComponent
   ],
@@ -90,6 +93,8 @@ const metaConfig: MetaConfig = {
     TrainingsService,
     SingleUserResolver,
     UserAddResolver,
+    SingleTrainingResolver,
+    TrainingAddResolver,
     SearchResolver,
     JwtHelper,
     MetaService,

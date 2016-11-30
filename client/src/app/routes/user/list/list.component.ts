@@ -120,7 +120,7 @@ export class ListComponent implements OnInit {
     this.ngOnInit();
   }
 
-  onClick(username: string) {
+  goToSingle(username: string) {
     this.router.navigate(['/entwickler', username]);
   }
 }

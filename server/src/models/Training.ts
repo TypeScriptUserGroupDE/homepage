@@ -30,7 +30,7 @@ export interface Training extends mongoose.Document {
 export var TrainingSchema = new Schema(
     {
         owner: {type: Schema.Types.ObjectId, ref: 'User'},
-        title: String,
+        title: {type: String, unique: true},
         tec: String,
         desc: String,
         company: String,

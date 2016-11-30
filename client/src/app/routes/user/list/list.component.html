@@ -75,7 +75,7 @@
     <div class="flex-row content">
       <div class=" col-lg-4 col-md-6 col-sm-6" *ngFor="let user of paginatedUsers | filterTec: filterByTec">
         <div class="card border-style white-bg">
-          <a (click)="onClick(user.login)">
+          <a (click)="goToSingle(user.login)">
             <div class="card-content">
               <div class="row">
                 <div class="col-md-4 col-xs-4 img">

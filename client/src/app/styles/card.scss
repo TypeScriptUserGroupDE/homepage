@@ -1,0 +1,65 @@
+@import 'variables';
+
+.flex-row {
+  margin-left: -15px;
+  margin-right: -15px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: stretch;
+  align-items: stretch;
+}
+
+.flex-item {
+  display: flex;
+  order: 0;
+
+  align-self: auto;
+  box-sizing: border-box;
+}
+
+.card {
+  display: block;
+  background-color: white;
+  margin-bottom: 30px;
+
+  &:hover, &:focus {
+    background-color: darken(white, 5);
+  }
+
+  a {
+    color: black;
+    &:hover, &:focus {
+      color: black;
+    }
+  }
+
+  .card-content {
+    padding: 0;
+    .img {
+      padding-right: 10px;
+      padding-left: 10px;
+    }
+
+    .text {
+      padding-right: 10px;
+      padding-left: 10px;
+    }
+
+    .tec {
+      > li {
+        font-size: 14px;
+      }
+      .more {
+        border: 1px solid darken($light-orange, 30);
+        background-color: darken($light-orange, 10);
+        border-radius: 12px;
+        margin-left: 10px;
+        font-size: 14px;
+        font-weight: bold;
+        padding: 0 5px;
+      }
+    }
+  }
+}

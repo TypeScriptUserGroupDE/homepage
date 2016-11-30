@@ -21,10 +21,9 @@ class TrainingsCtrl {
     }
 
     createTraining(req: JwtRequest, res: express.Response) {
-        console.log(req.body);
+        req.body.owner = req.decoded.userid;
         let training = new TrainingModel(req.body);
-        training.save(
-            function (err) {
+        training.save(function (err) {
                 if (err) {
                     console.log('err');
                     res.status(500);
@@ -43,7 +42,7 @@ class TrainingsCtrl {
         let data: Training = req.body;
 
         TrainingModel.findOneAndUpdate({
-            "_id": req.body._id
+            "title": req.body.title
         }, data, {
             "new": true
         }, done);
@@ -61,9 +60,8 @@ class TrainingsCtrl {
     }
 
     getSingleTraining(req: JwtRequest, res: express.Response) {
-
         TrainingModel
-            .findOne({'_id': req.params.id})
+            .findOne({'title': req.body.title})
             .populate('owner', 'name login') // populate corresponding user using field owner, only select name and login fields
             .exec(done);
 
@@ -72,7 +70,6 @@ class TrainingsCtrl {
                 console.log('err');
                 return
             }
-
             res
                 .status(200)
                 .json(result);

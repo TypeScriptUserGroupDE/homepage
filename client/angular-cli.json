@@ -20,7 +20,8 @@
         "./../node_modules/bootstrap/dist/css/bootstrap.min.css",
         "app/styles/variables.scss",
         "app/styles/typography.scss",
-        "app/styles/main.scss"
+        "app/styles/main.scss",
+        "app/styles/card.scss"
       ],
       "scripts": [
         "./../node_modules/jquery/dist/jquery.min.js",

@@ -1,0 +1,98 @@
+<section id="trainings-list" class="gray-bg-spacer">
+
+  <div class="container">
+    <div class="row head">
+      <div class="col-md-6">
+        <h1>Schulungen</h1>
+      </div>
+      <div class="col-md-6">
+        <button *ngIf="isLoggedIn()" class="btn btn-default float-right" [routerLink]="['/schulung/neu']">
+          <!--<i class="fa fa-user" aria-hidden="true"></i>-->
+          {{createTrainingMessage}}
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+
+      </div>
+      <div class="col-md-3">
+
+      </div>
+      <div class="col-md-5">
+        <form id="search-form" #searchListForm="ngForm" novalidate>
+          <div class="searchForm input-group">
+              <span class="input-group-btn">
+                <input class="search-input form-control"
+                       name="search"
+                       placeholder="Nach Ort suchen"
+                       autocomplete="off"
+                       type="search"
+                       [(ngModel)]="search"
+                       [typeahead]="typeAheadData"
+                       [typeaheadMinLength]="2">
+                <select class="form-control" name="distance" [(ngModel)]="distance">
+                    <option value="5000">+ 5km</option>
+                    <option value="10000">+ 10km</option>
+                    <option value="25000">+ 25km</option>
+                    <option value="50000">+ 50km</option>
+                    <option value="100000">+ 100km</option>
+                 </select>
+                 <button class="btn btn-default search-submit form-control"
+                         (click)="doSearch(search, distance)"
+                         [disabled]="!typeAheadDataLoaded">Suchen</button>
+                </span>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <!--<form id="tec-form" #filterTecForm="ngForm" novalidate>-->
+        <!--<div class="checkbox" *ngFor="let tec of technologiesArray">-->
+        <!--<label>-->
+        <!--<input type="checkbox" name="{{tec}}" [(ngModel)]="filterByTec[technologies[tec]]">-->
+        <!--{{tec}}-->
+        <!--</label>-->
+        <!--</div>-->
+        <!--</form>-->
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="overview col-md-3">
+        <ul class="no-list">
+          <li>Frameworsks</li>
+          <li>Ort</li>
+          <li>Anbieter</li>
+        </ul>
+      </div>
+
+      <div class="info col-md-9">
+
+        <!--<div class="card border-style white-bg">-->
+        <!--<h4>TypeScript intensiv</h4>-->
+        <!--<p><strong>TypeScript</strong></p>-->
+        <!--<p>lorem impsum..</p>-->
+        <!--<span>Ort</span>-->
+        <!--<span>Datum</span>-->
+        <!--<span>Veranstalter</span>-->
+        <!--</div>-->
+        <!--</div>-->
+
+        <div *ngFor="let training of trainings">
+          <div class="card border-style white-bg">
+            <a [routerLink]="['/schulung', training.title]">
+              <h2>{{training.title}}</h2>
+              <p><strong>Schulungsthema: {{training.tec}}</strong></p>
+              <p>Beschreibung: {{training.desc}}</p>
+              <span *ngIf="training.events.length >= 2">An {{training.events.length}} Orte(n)</span>
+              <span>Anbieter: {{training.company}}</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<pre>{{trainings | json }}</pre>

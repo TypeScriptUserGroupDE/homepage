@@ -4,6 +4,8 @@ import {Resolve, ActivatedRouteSnapshot, RouterStateSnapshot} from "@angular/rou
 import {User} from './../../common/User';
 import {UserService} from "../user/user.service";
 import {UserDistance} from "../../common/UserDistance";
+import {TrainingsService} from "../trainings/trainings.service";
+import {Training} from "../../common/Training";
 
 @Injectable()
 export class SingleUserResolver implements Resolve<User> {
@@ -37,4 +39,24 @@ export class SearchResolver implements Resolve<UserDistance[]> {
   }
 }
 
+@Injectable()
+export class SingleTrainingResolver implements Resolve<Training> {
+  constructor(private trainingsService: TrainingsService) {
+    console.log('check');
+  }
 
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Training> {
+    return this.trainingsService.getTraining(route.params['title']);
+  }
+}
+
+@Injectable()
+export class TrainingAddResolver implements Resolve<Training> {
+
+  constructor(private trainingsService: TrainingsService) {
+  }
+
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Training> {
+    return this.trainingsService.getTraining(route.params['title']);
+  }
+}

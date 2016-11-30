@@ -1,6 +1,6 @@
 @import './../../../styles/variables';
 
-section#list {
+section#trainings-list {
   @media (min-width: 1023px) {
     .searchForm {
       width: 100%;
@@ -86,9 +86,5 @@ section#list {
         color: $blue;
       }
     }
-  }
-
-  .btn-padding.available {
-    font-weight: normal;
   }
 }

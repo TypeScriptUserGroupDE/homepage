@@ -9,10 +9,14 @@ import {ImprintComponent} from './routes/imprint/imprint.component';
 import {CallbackComponent} from './routes/callback/callback.component';
 import {UserAddComponent} from './routes/user/add/add.component';
 import {UserMessageComponent} from './routes/user/message/message.component';
-import {TrainingsComponent} from "./routes/trainings/trainings.component";
-import {SingleUserResolver, SearchResolver, UserAddResolver} from './services/resolver/resolver.service';
+import {TrainingsListComponent} from "./routes/trainings/list/list.trainings.component";
+import {
+  SingleUserResolver, SearchResolver, UserAddResolver,
+  SingleTrainingResolver, TrainingAddResolver
+} from './services/resolver/resolver.service';
 import {SearchComponent} from "./routes/search/search.component";
 import {TrainingsAddComponent} from "./routes/trainings/add/add.component";
+import {TrainingsSingleComponent} from "./routes/trainings/single/single.component";
 
 
 const routes: Routes = [
@@ -73,8 +77,27 @@ const routes: Routes = [
     path: 'accessToken',
     component: CallbackComponent
   },
-  {path: 'schulungen', component: TrainingsComponent},
-  {path: 'schulungen/neu', component: TrainingsAddComponent},
+  {
+    path: 'schulungen',
+    component: TrainingsListComponent
+  },
+  {
+    path: 'schulung/neu',
+    canActivate: [AuthService],
+    component: TrainingsAddComponent
+  },
+  {
+    path: 'schulung/neu/:title',
+    canActivate: [AuthService],
+    component: TrainingsAddComponent,
+    resolve: {training: TrainingAddResolver}
+  },
+  {
+    path: 'schulung/:title',
+    component: TrainingsSingleComponent,
+    resolve: {training: SingleTrainingResolver},
+    canActivate: [AuthService] // todo: only load if user is owner?
+  },
   {
     path: '**', redirectTo: ''
   },

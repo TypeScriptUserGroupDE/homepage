@@ -1,3 +1,57 @@
-<p>
-  single works!
-</p>
+<section id="trainings-single" class="gray-bg-spacer">
+  <div class="container">
+    <div class="row">
+      <div class="overview col-md-3">
+        <a class="back" [routerLink]="['/schulungen']">
+          <p>Zurück zu den Schulungen</p>
+        </a>
+        <ul class="list-group">
+          <li class="list-group-item">
+            <!--<img class="user-img img-responsive center-block" src="{{ training.avatar_url }}"/>-->
+            <a class="btn btn-default center-block user-mail"
+               href="{{training.cta_link}}">Zum Anbieter
+            </a>
+          </li>
+          <li class="list-group-item" *ngIf="training.company && training.company_url">
+            <a href="{{training.company_url}}">{{training.company}}</a>
+          </li>
+          <li class="list-group-item" *ngIf="training.company && !training.company_url">
+            {{training.company}}
+          </li>
+          <li class="list-group-item" *ngIf="training.website">Webseite des Anbieters:
+            <a href="{{training.website}}" target="_blank">{{training.website}}</a>
+          </li>
+          <li class="list-group-item" *ngIf="training.twitter">Twitter:
+            <a href="https://twitter.com/{{training.twitter}}" target="_blank">@{{training.twitter}}</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="info col-md-9">
+        <div class="row">
+          <div class="col-md-6">
+            <h2 class="name">{{training.title}}</h2>
+
+          </div>
+          <div class="col-md-6">
+            <button class="btn btn-default float-right" *ngIf="authService.getUserName() === training.owner.login"
+                    [routerLink]="['/schulung/neu/' + training.title]">
+              <i class="fa fa-user" aria-hidden="true"></i>
+              Schulung bearbeiten
+            </button>
+          </div>
+        </div>
+
+        <div *ngIf="training.desc" class="desc">
+          <p class="desc-text border-style" innerHTML="{{training.desc | linky}}"></p>
+        </div>
+
+        <div *ngIf="!training.desc" class="desc">
+          <p class="desc-text border-style strong">{{training.company}} hat bisher noch keinen Beschreibungstext hinterlegt</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+<pre>{{training | json }}</pre>
