@@ -33,6 +33,12 @@ section#list {
     margin-bottom: 0;
     .checkbox {
       display: inline;
+      margin-left: 2px;
+      margin-right: 2px;
+
+      input[type="checkbox"] {
+        top: -5px;
+      }
     }
   }
 
