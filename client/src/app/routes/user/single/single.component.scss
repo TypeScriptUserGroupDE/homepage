@@ -5,7 +5,9 @@ section#single {
   .overview {
     .back {
       > p {
-        margin-top: 20px;
+        margin-left: 5px;
+        margin-top: 10px;
+        margin-bottom: 10px;
       }
     }
 
@@ -50,7 +52,7 @@ section#single {
   .avail {
     padding: 10px 0;
     .avail-info {
-      font-size: 14px;
+      font-size: 15px;
       background-color: $light-orange;
       padding: 5px 15px;
       margin: 5px 0;
