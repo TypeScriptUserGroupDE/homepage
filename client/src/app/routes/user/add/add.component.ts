@@ -23,7 +23,7 @@ export class UserAddComponent implements OnInit {
               private dataService: UserService) {
 
     this.form = new FormGroup({
-      email: new FormControl('', Validators.compose([this.emailValidator])),
+      email: new FormControl('', Validators.compose([Validators.required, this.emailValidator])),
       zip: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[0-9]{5}')])),
       required: new FormControl('', Validators.required)
     });

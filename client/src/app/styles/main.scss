@@ -39,6 +39,16 @@
   }
 }
 
+
+.btn-default[disabled] {
+  opacity: .65;
+  &:hover, &:focus, &:active, &:active:hover, &:active:focus {
+    background-color: $blue;
+    opacity: .65;
+  }
+}
+
+
 .button-muted {
   background-color: $light-grey;
   color: black;

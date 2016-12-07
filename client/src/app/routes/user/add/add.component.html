@@ -160,7 +160,7 @@
 
           <div class="controls">
             <button type="submit" (click)="onSubmit()" class="btn btn-default"
-                    [disabled]="!userAddForm.form.valid">
+                    [disabled]="!form.valid">
               Speichern
             </button>
             <a *ngIf="model.active" class="btn btn-link float-right" (click)="deleteUserModal.show()">Profil
