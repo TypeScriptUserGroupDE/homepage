@@ -44,18 +44,21 @@ section#list {
 
   #search-form {
     width: 100%;
+
     input {
+      padding: 6px 12px;
       width: 60%;
     }
     .input-group-btn {
       width: inherit;
       button {
         width: 20%;
+        padding: 4px 12px;
       }
 
       select {
-        font-size: 14px;
-        padding: 4px 6px;
+        font-size: 15px;
+        padding: 6px 6px;
         width: 20%;
       }
     }
