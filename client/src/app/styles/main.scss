@@ -1,18 +1,5 @@
 @import 'variables';
 
-// because <a (click)="whatever()"></a> does not show pointer
-a {
-  cursor: pointer;
-  font-size: 15px;
-  color: $light-blue;
-  font-weight: normal;
-
-  &:hover, &:focus {
-    text-decoration: none;
-    color: $orange;
-  }
-}
-
 .strong {
   font-weight: normal;
 }
@@ -29,6 +16,7 @@ a {
 }
 
 .btn, .btn.active {
+  font-size: 17px;
   box-shadow: none;
   border-radius: 0;
 }
@@ -38,15 +26,16 @@ a {
 }
 
 .btn-default {
-  font-weight: normal;
-  border-radius: 0;
+  font-weight: bold;
+  border-radius: 4px;
   border: 0;
-  background-color: $orange;
-  color: black;
+  padding: 10px 14px;
+  background-color: $blue;
+  color: white;
 
-  &:hover, &:focus {
-    color:black;
-    background-color: lighten($orange, 10%);
+  &:hover, &:focus, &:active, &:active:hover, &:active:focus {
+    background-color: lighten($blue, 10%);
+    color: white;
   }
 }
 
@@ -54,7 +43,7 @@ a {
   background-color: $light-grey;
   color: black;
 
-  &:hover, &:focus {
+  &:hover, &:focus, &:active {
     color: black;
     background-color: $orange;
   }
@@ -109,11 +98,11 @@ a {
 
 .yellow-bg-spacer {
   padding: 30px 0 50px;
-  background-color: $yellow;
+  background-color: $orange;
 }
 
 .yellow-bg {
-  background-color: $yellow;
+  background-color: $orange;
 }
 
 .orange-bg-spacer {
@@ -159,7 +148,7 @@ typeahead-container {
     right: 15px;
   }
 
-  .dropdown-menu>.active>a, .dropdown-menu>.active>a:focus, .dropdown-menu>.active>a:hover {
+  .dropdown-menu > .active > a, .dropdown-menu > .active > a:focus, .dropdown-menu > .active > a:hover {
     color: black;
     text-decoration: none;
     background-color: $orange;

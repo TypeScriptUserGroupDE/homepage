@@ -158,14 +158,16 @@
             </div>
           </div>
 
-          <button type="submit" (click)="onSubmit()" class="btn btn-default"
-                  [disabled]="!userAddForm.form.valid">
-            Speichern
-          </button>
-          <a *ngIf="model.active" class="btn btn-link float-right" (click)="deleteUserModal.show()">Profil
-            löschen</a>
+          <div class="controls">
+            <button type="submit" (click)="onSubmit()" class="btn btn-default"
+                    [disabled]="!userAddForm.form.valid">
+              Speichern
+            </button>
+            <a *ngIf="model.active" class="btn btn-link float-right" (click)="deleteUserModal.show()">Profil
+              löschen</a>
 
-          <delete-user-modal #deleteUserModal="deleteUserModal"></delete-user-modal>
+            <delete-user-modal #deleteUserModal="deleteUserModal"></delete-user-modal>
+          </div>
 
         </div>
       </div>

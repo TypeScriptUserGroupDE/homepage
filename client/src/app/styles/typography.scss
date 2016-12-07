@@ -1,27 +1,53 @@
 @import 'variables';
 
+@font-face {
+  font-family: "Source Sans Pro";
+  //src: url("../../assets/fonts/exo2/Exo2-Regular.ttf");
+  src: url("../../assets/fonts/source_sans_pro/SourceSansPro-Regular.ttf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url("../../assets/fonts/source_sans_pro/SourceSansPro-Semibold.ttf");
+  font-weight: bold;
+}
+
+
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url("../../assets/fonts/source_sans_pro/SourceSansPro-Bold.ttf");
+  font-weight: 800;
+}
+
 body {
-  font-family: "Lato", sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: normal;
   height: 100%;
+  font-size: 17px;
   background-color: $bg-grey;
 }
 
 h1 {
-  font-size: 28px;
+  font-size: 30px;
   margin-top: 10px;
   margin-bottom: 25px;
+  font-weight: bold;
 }
 
 h2 {
-  font-size: 24px;
+  font-size: 26px;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 30px;
 }
 
 h3 {
-  font-size: 20px;
+  font-size: 22px;
 }
 
 h4 {
-  font-size: 16px
+  font-size: 18px
 }
 
 h5 {
@@ -33,7 +59,91 @@ h6 {
 }
 
 p, span, li, .form-control {
-  font-size: 15px;
+  font-size: 17px;
   //font-weight: lighter;
 }
 
+// because <a (click)="whatever()"></a> does not show pointer
+a {
+  cursor: pointer;
+  font-size: 17px;
+  color: $light-blue;
+  font-weight: bold;
+
+  &:hover, &:focus {
+    text-decoration: none;
+    color: $orange;
+  }
+}
+
+.underline {
+  position: relative;
+  margin-bottom: 30px;
+
+  &:after {
+    position: absolute;
+    content: '';
+    bottom: -15px;
+    left: 0;
+    height: 1px;
+    width: 60px;
+    border-bottom: 3px solid $orange;
+  }
+}
+
+.underline.text-center {
+  position: relative;
+  margin-bottom: 30px;
+
+  &:after {
+    position: absolute;
+    content: '';
+    bottom: -15px;
+    left: 47%;
+    height: 1px;
+    width: 70px;
+    border-bottom: 3px solid black;
+  }
+}
+
+.orange {
+  background-color: $orange;
+}
+
+.text-orange {
+  color: $orange;
+}
+
+.blue {
+  background-color: $blue;
+}
+
+.text-black {
+  color: black;
+}
+
+.text-white {
+  color: white;
+}
+
+btn.blue {
+  color: white;
+  font-weight: bold;
+}
+
+btn.orange {
+  color: white;
+  font-weight: bold;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.bolder {
+  font-weight: 800;
+}
+
+.normal {
+  font-weight: normal;
+}

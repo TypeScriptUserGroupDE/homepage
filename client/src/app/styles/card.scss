@@ -49,14 +49,15 @@
 
     .tec {
       > li {
-        font-size: 14px;
+        font-size: 15px;
+        font-weight: normal;
       }
       .more {
         border: 1px solid darken($light-orange, 30);
         background-color: darken($light-orange, 10);
         border-radius: 12px;
         margin-left: 10px;
-        font-size: 14px;
+        font-size: 15px;
         font-weight: bold;
         padding: 0 5px;
       }

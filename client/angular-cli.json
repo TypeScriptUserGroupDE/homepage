@@ -1,6 +1,6 @@
 {
   "project": {
-    "version": "1.0.0-beta.15",
+    "version": "1.0.0-beta.21",
     "name": "cli"
   },
   "apps": [
@@ -16,7 +16,6 @@
       "mobile": false,
       "styles": [
         "./../node_modules/font-awesome/css/font-awesome.min.css",
-        "./../node_modules/lato-font/css/lato-font.css",
         "./../node_modules/bootstrap/dist/css/bootstrap.min.css",
         "app/styles/variables.scss",
         "app/styles/typography.scss",

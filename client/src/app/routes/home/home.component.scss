@@ -7,8 +7,9 @@
   text-align: center;
 
   h1 {
-    color: white;
+    margin-top: 40px;
     margin-bottom: 30px;
+    color: white;
   }
 
   .banner-content {
@@ -20,10 +21,14 @@
   }
 
   p {
-    margin-top: 5px;
-    font-weight: normal;
+    margin-bottom: 5px;
+    font-size: 19px;
   }
 
+  button {
+    margin: 15px;
+    //font-size: 17px;
+  }
 }
 
 section#about {
@@ -38,4 +43,12 @@ section#contact {
     margin: 4px;
     height: 40px;
   }
+}
+
+section#intro {
+  min-height: 300px;
+  padding: 40px 0;
+  background-image: url('assets/header-bg.png');
+  background-position: 50% 50%;
+  background-size: cover;
 }
