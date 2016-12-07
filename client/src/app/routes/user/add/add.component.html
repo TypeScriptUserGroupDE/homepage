@@ -47,9 +47,9 @@
               </div>
             </div>
           </div>
-          <div class="form-group">
+          <div class="form-group" [formGroup]="form">
             <label for="html_url">GitHub URL</label>
-            <input type="text" name="html_url" class="form-control" [(ngModel)]="model.html_url" required>
+            <input type="text" name="html_url" class="form-control" [(ngModel)]="model.html_url" formControlName="html_url" required>
           </div>
           <div class="form-group">
             <label for="twitter">Twitter Username</label>
@@ -58,9 +58,9 @@
               <input type="text" name="twitter" class="form-control" [(ngModel)]="model.twitter">
             </div>
           </div>
-          <div class="form-group">
+          <div class="form-group" [formGroup]="form">
             <label for="website">Website</label>
-            <input type="text" name="website" class="form-control" [(ngModel)]="model.website">
+            <input type="text" name="website" class="form-control" [(ngModel)]="model.website" formControlName="website">
           </div>
           <div class="row">
             <div class="col-md-6">
