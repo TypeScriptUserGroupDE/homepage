@@ -48,7 +48,7 @@
           </div>
         </div>
 
-        <div class="avail row">
+        <div class="avail row" *ngIf="user.availability.forProjects">
           <div class="col-md-6">
                         <span *ngIf="user.availability.forProjects" class="border-style white-bg avail-info">
                             <i class="fa fa-check-square green-text"
