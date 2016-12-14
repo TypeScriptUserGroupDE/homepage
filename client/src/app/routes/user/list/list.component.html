@@ -87,7 +87,7 @@
                   <ul class="tec no-list">
                     <li class="inline" [ngClass]="tec.key" *ngFor="let tec of user.tec | tec">{{tec.value}}</li>
                   </ul>
-                  <p *ngIf="isSearchDone">{{user.dis | distance}}</p>
+                  <p class="distance" *ngIf="isSearchDone">{{user.dis | distance}}</p>
                 </div>
               </div>
             </div>
