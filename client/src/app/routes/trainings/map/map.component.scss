@@ -1,7 +1,20 @@
 @import './../../../styles/variables';
 
-section#map {
+section#trainings-map {
   .sebm-google-map-container {
     height: 80%;
+    font-weight: normal;
+    a {
+      font-weight: normal;
+    }
+    .title {
+      margin-bottom: 5px;
+      font-size: 16px;
+    }
+    .company {
+      margin-bottom: 10px;
+    }
+
+
   }
 }
