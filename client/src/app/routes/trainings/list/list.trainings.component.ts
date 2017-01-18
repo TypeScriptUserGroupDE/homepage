@@ -25,7 +25,7 @@ export class TrainingsListComponent implements OnInit {
   technologiesArray: string[];
   technologies: {};
   technologiesRevMap: {};
-  filterByTec: string;
+  filterByTec: string = "";
   createTrainingMessage: string = "Eigene Schulung erstellen";
 
   constructor(private router: Router,
