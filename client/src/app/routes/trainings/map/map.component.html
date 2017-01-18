@@ -1,11 +1,12 @@
-<section id="map" class="gray-bg-spacer">
+<section id="trainings-map" class="gray-bg-spacer">
   <div class="container">
     <div class="row head">
       <div class="col-md-12">
         <h1>TypeScript Schulungen</h1>
         <div class="btn-group" role="group" aria-label="...">
           <a type="button" class="btn button-muted" [routerLink]="['/schulungen']">Liste</a>
-          <a type="button" class="btn button-muted" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/schulungen/karte']">Karte</a>
+          <a type="button" class="btn button-muted" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+             [routerLink]="['/schulungen/karte']">Karte</a>
         </div>
       </div>
     </div>
@@ -22,10 +23,16 @@
           [latitude]="marker.lat"
           [longitude]="marker.lng"
         >
+          <sebm-google-map-info-window [disableAutoPan]="true">
+            <p class="title"><strong>{{marker.title}}</strong></p>
+            <p class="company">von <b>{{marker.company}}</b></p>
+            <p>{{technologiesRevMap[marker.tec]}}-Schulung in {{marker.city}}</p>
+            <a target="_blank" [routerLink]="['/schulung/', marker.title_link]"><p>Mehr Informationen</p></a>
+          </sebm-google-map-info-window>
         </sebm-google-map-marker>
       </sebm-google-map>
     </div>
   </div>
 </section>
 
-<!--<pre> {{markers | json }} </pre>-->
+<pre> {{markers | json }} </pre>

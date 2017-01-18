@@ -158,12 +158,16 @@ class TrainingsCtrl {
             _.forEach(result, (item: Training, id: string) => {
                 _.forEach(item.events, (event) => {
                     trainingsMap.push({
+                        'title': item.title,
+                        'title_link': item.title_link,
+                        'company': item.company,
+                        'tec': item.tec,
                         'lat': event.loc[1],
-                        'lng': event.loc[0]
-                    })
+                        'lng': event.loc[0],
+                        'city': event.city
+                    });
                 });
             });
-
             res
             .status(200)
             .json(trainingsMap);

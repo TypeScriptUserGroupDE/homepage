@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {UserService} from "../../../services/user/user.service";
 import {Marker} from '../../../common/Marker';
 import {TrainingsService} from "../../../services/trainings/trainings.service";
+import {Technologies} from "../../../common/Technologies";
 
 @Component({
   selector: 'map',
@@ -15,6 +15,7 @@ export class TrainingsMapComponent implements OnInit {
   zoom: number = 6;
   lat: number = 50.589095;
   lng: number = 11.600845;
+  technologiesRevMap: {};
 
   markers: Marker[];
 
@@ -24,13 +25,14 @@ export class TrainingsMapComponent implements OnInit {
 
   ngOnInit() {
     this.trainingsService
-      .getMapMarkers()
-      .subscribe(
-        data => {
-          this.markers = data;
-        },
-        error => console.log(error)
-      );
+    .getMapMarkers()
+    .subscribe(
+      data => {
+        this.markers = data;
+        this.technologiesRevMap = Technologies.revMap;
+      },
+      error => console.log(error)
+    );
   }
 
 

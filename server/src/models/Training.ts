@@ -9,6 +9,7 @@ export interface Training extends mongoose.Document {
     _id: typeof mongoose.Schema.Types.ObjectId;
     owner: typeof Schema.Types.ObjectId;
     title: string;
+    title_link: string;
     tec: string;
     desc: string;
     company: string;
