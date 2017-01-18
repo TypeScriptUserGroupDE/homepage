@@ -17,7 +17,7 @@ export class ListComponent implements OnInit {
   users: UserListItem[]; // all users
   searchTerm: string;
   count: number;
-  filterByTec: any;
+  filterByTec: any = {};
   isSearchDone: boolean;
   noResults: boolean;
   city: string;
@@ -37,10 +37,9 @@ export class ListComponent implements OnInit {
               private userService: UserService) {
   }
 
-  ngOnInit() {
+  ngOnInit(filterAvailable?) {
     this.technologiesArray = Object.keys(this.technologies);
     this.isSearchDone = false;
-    this.filterByTec = {};
 
     this.userService
       .getUserList()
@@ -50,6 +49,10 @@ export class ListComponent implements OnInit {
           this.noResults = false;
           if (this.users.length === 0) {
             this.noResults = true;
+          }
+
+          if (filterAvailable) {
+            this.users = this.filterAvailable(data);
           }
         },
         error => console.log(error)
