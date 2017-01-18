@@ -48,11 +48,15 @@
 
         </div>
         <div class="col-md-7">
-
           <div class="form-group">
             <label for="description">Beschreibung (Links werden automatisch konvertiert)</label>
             <textarea rows="12" cols="10" type="text" name="description" class="form-control"
                       formControlName="desc"></textarea>
+          </div>
+
+          <div class="form-group">
+            <input type="file" (change)="fileChange(input)" #input/>
+            <!--<img src="" [image]="item?._file" class="media-object" />-->
           </div>
 
           <h3>Schulungsorte</h3>
@@ -93,7 +97,8 @@
             <a *ngIf="!isNew" class="btn btn-link float-right" (click)="deleteTrainingModal.show()">Schulung
               löschen</a>
 
-            <delete-training-modal [training]="model" #deleteTrainingModal="deleteTrainingModal"></delete-training-modal>
+            <delete-training-modal [training]="model"
+                                   #deleteTrainingModal="deleteTrainingModal"></delete-training-modal>
           </div>
         </div>
       </div>

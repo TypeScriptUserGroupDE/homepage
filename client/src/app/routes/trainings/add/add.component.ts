@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, ElementRef} from '@angular/core';
 import {
   FormGroup,
   FormBuilder,
@@ -25,6 +25,8 @@ import * as _ from 'lodash';
 export class TrainingsAddComponent implements OnInit {
   @Input() form: FormGroup;
   @Input() event: FormGroup;
+  @Input() input: ElementRef;
+  // @Input() image: ElementRef;
   addressGroup: FormGroup;
   alerts = [];
   model: Training;
@@ -36,7 +38,8 @@ export class TrainingsAddComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private trainingsService: TrainingsService,
               private router: Router,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              private elementRef: ElementRef) {
   }
 
   // todo: if title is not unique...
@@ -51,6 +54,20 @@ export class TrainingsAddComponent implements OnInit {
           this.buildForm();
         }
       });
+  }
+
+  fileChange(input) {
+    console.log(input.files);
+
+    let reader = new FileReader();
+
+    let img = document.createElement("img");
+    reader.readAsDataURL(input.files[0]);
+
+    reader.onload = (result) => {
+      img.src = reader.result;
+      console.log(img.width);
+    };
   }
 
   emailValidator(control: AbstractControl) {
