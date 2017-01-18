@@ -24,6 +24,7 @@ export interface Training extends mongoose.Document {
         latitude: number,
         startDate: Date,
         endDate: Date,
+        loc: number[],
     }],
 }
 
@@ -31,6 +32,7 @@ export var TrainingSchema = new Schema(
     {
         owner: {type: Schema.Types.ObjectId, ref: 'User'},
         title: {type: String, unique: true},
+        title_link: {type: String, unique: true},
         tec: String,
         desc: String,
         company: String,
@@ -45,6 +47,10 @@ export var TrainingSchema = new Schema(
             latitude: Number,
             startDate: Date,
             endDate: Date,
+            loc: {
+                type: [Number], // [0]: longitude, [1]: latitude
+                index: '2dsphere'
+            },
         }],
     },
     {

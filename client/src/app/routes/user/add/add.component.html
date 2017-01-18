@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <h1>Profil</h1>
+        <h1 class="text-orange underline">Profil</h1>
       </div>
     </div>
 
@@ -49,7 +49,9 @@
           </div>
           <div class="form-group" [formGroup]="form">
             <label for="html_url">GitHub URL</label>
-            <input type="text" name="html_url" class="form-control" [(ngModel)]="model.html_url" formControlName="html_url" required>
+            <input type="text" name="html_url" class="form-control" [(ngModel)]="model.html_url"
+                   formControlName="html_url" required>
+            <p class="small">Links müssen mit http:// oder https:// beginnen</p>
           </div>
           <div class="form-group">
             <label for="twitter">Twitter Username</label>
@@ -60,8 +62,9 @@
           </div>
           <div class="form-group" [formGroup]="form">
             <label for="website">Website</label>
-            <input type="text" name="website" class="form-control" [(ngModel)]="model.website" formControlName="website">
-            <p class="info">Muss mit http:// oder https:// beginnen</p>
+            <input type="text" name="website" class="form-control" [(ngModel)]="model.website"
+                   formControlName="website">
+            <p class="small">Links müssen mit http:// oder https:// beginnen</p>
           </div>
           <div class="row">
             <div class="col-md-6">

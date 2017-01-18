@@ -1,10 +1,103 @@
 @import './../../../styles/variables';
 
+// .card styles are in styles/card.scss
+
 section#list {
+  .list-control-row {
+    padding-left: 13px;
+    padding-right: 13px;
+
+    .list-control {
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .list-control.nav {
+      z-index: 3;
+    }
+
+    .list-control.color {
+      border-left: 1px solid $lighter-grey;
+      border-right: 1px solid $lighter-grey;
+      background-color: $light-grey;
+      padding-bottom: 1px;
+      height: 35px;
+    }
+
+    .btn-padding {
+      padding: 6px 8px;
+    }
+
+    .btn-padding > label {
+      font-weight: normal;
+      margin-bottom: 0;
+      margin-left: 2px;
+      margin-right: 2px;
+      > input {
+        margin-top: 0;
+      }
+    }
+
+    .search {
+      float: right;
+
+      #search-form {
+        width: 100%;
+        .searchForm {
+          width: 100%;
+
+          .form-control {
+            font-size: 14px;
+            border-radius: 0;
+            padding: 2px 4px;
+            margin-top: 4px;
+            margin-bottom: 4px;
+          }
+          input {
+            width: 55%;
+            margin-left: 4px;
+            height: inherit;
+          }
+          select {
+            width: 20%;
+            margin-left: 4px;
+            height: inherit;
+          }
+          button {
+            padding: 4px 4px;
+            width: 21%;
+            margin-right: 4px;
+            height: 26px;
+          }
+        }
+      }
+    }
+
+    form {
+      margin-bottom: 0;
+    }
+  }
+
+  @media (max-width: 1199px) {
+    #search-form {
+      .searchForm {
+        margin-top: 0;
+      }
+    }
+
+    .list-control-row {
+      .list-control.color {
+        background-color: inherit;
+        border-left: none;
+        border-right: none;
+      }
+    }
+  }
+
   @media (min-width: 1023px) {
     .searchForm {
       width: 100%;
-      //margin-top: 30px;
+      margin-bottom: 0;
 
       .col-md-8 {
         padding-right: 10px;
@@ -16,6 +109,9 @@ section#list {
   }
 
   @media (max-width: 768px) {
+    .search {
+      float: left;
+    }
     .searchForm {
       margin-top: 30px;
 
@@ -24,6 +120,20 @@ section#list {
       .col-md-4 {
         .search-submit {
           margin-top: 10px;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 767px) {
+    .search {
+      float: left;
+      padding: 15px;
+      margin-bottom: 15px;
+
+      #search-form {
+        .searchForm {
+          margin: 0;
         }
       }
     }
@@ -94,4 +204,5 @@ section#list {
   .btn-padding.available {
     font-weight: normal;
   }
+
 }

@@ -4,5 +4,7 @@
 // The build system defaults to the dev environment.
 
 export const environment = {
-  production: false
+  production: true,
+  hmr: false
 };
+

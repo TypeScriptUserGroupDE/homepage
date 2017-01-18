@@ -1,79 +1,99 @@
 <section id="trainings-add" class="gray-bg-spacer">
   <!--todo: liste // karte-->
   <div class="container">
+    <alert *ngFor="let alert of alerts" [type]="alert.type">
+      {{ alert?.msg }}
+    </alert>
+
     <form [formGroup]="form" novalidate>
       <div class="row">
-        <div class="col-md-6">
-          <h2>Informationen zur Schulung</h2>
-
+        <div class="col-md-12">
+          <h2 class="text-orange underline">Informationen zur Schulung</h2>
+        </div>
+        <div class="col-md-5">
           <div class="form-group">
             <label for="name">Titel der Schulung *</label>
             <input type="text" name="name" class="form-control" formControlName="title">
+            <p class="small">Erlaubte Zeichen sind A-Z, 0-9 und Leerzeichen</p>
           </div>
           <div class="form-group">
             <label for="name">Schulung zum Thema...</label>
             <!--todo-->
             <select class="form-control" name="tec" formControlName="tec">
               <option></option>
-              <option *ngFor="let item of technologies ">{{item}}</option>
+              <option *ngFor="let item of technologiesArray" [selected]="item === form.value.tec" value="{{item}}">
+                {{technologies[item]}}
+              </option>
             </select>
           </div>
           <div class="form-group">
-            <label for="name">Link zur Buchung/weitere Informationen</label>
+            <label for="name">Link zur Schulung/weitere Informationen</label>
             <input type="text" name="name" class="form-control" formControlName="cta_link">
+            <p class="small">Links müssen mit http:// oder https:// beginnen</p>
           </div>
-          <div class="form-group">
-            <label for="description">Beschreibung (Links werden automatisch konvertiert)</label>
-            <textarea rows="12" cols="10" type="text" name="description" class="form-control"
-                      formControlName="desc"></textarea>
-          </div>
-          <p>* Diese Felder müssen ausgefüllt werden.</p>
 
-        </div>
-        <div class="col-md-6">
-          <h2>Veranstalter</h2>
+          <h3>Veranstalter</h3>
           <div class="form-group">
-            <label for="website">Firma</label>
+            <label for="website">Name der Firma / des Veranstalters</label>
             <input type="text" name="company" class="form-control" formControlName="company">
           </div>
 
           <div class="form-group">
             <label for="website">Website</label>
             <input type="text" name="website" class="form-control" formControlName="website">
+            <p class="small">Links müssen mit http:// oder https:// beginnen</p>
           </div>
 
-          <!--<div class="form-group">-->
-          <!--<label for="email">E-Mail-Adresse *</label>-->
-          <!--<p class="info">Deine E-Mail-Adresse wird nicht veröffentlicht.</p>-->
-          <!--<input type="text" name="email" class="form-control" formControlName="email"-->
-          <!--formControlName="email">-->
-          <!--</div>-->
-
-          <button type="submit" (click)="onSubmit()" class="btn btn-default"
-                  [disabled]="!form.valid">
-            Speichern
-          </button>
-          <!--<a *ngIf="model.active" class="btn btn-link float-right" (click)="deleteUserModal.show()">Profil-->
-          <!--löschen</a>-->
-
-          <delete-user-modal #deleteUserModal="deleteUserModal"></delete-user-modal>
+          <p>* Diese Felder müssen ausgefüllt werden.</p>
 
         </div>
-      </div>
+        <div class="col-md-7">
 
-      <h2>Schulungsort</h2>
-      <button class="btn btn-default" (click)="addEvent()">Schulungsort hinzufügen</button>
+          <div class="form-group">
+            <label for="description">Beschreibung (Links werden automatisch konvertiert)</label>
+            <textarea rows="12" cols="10" type="text" name="description" class="form-control"
+                      formControlName="desc"></textarea>
+          </div>
 
-      <div formArrayName="events">
-        <div *ngFor="let item of form.controls.events.controls; let i = index">
-          <!--<h3>Termin {{i + 1}}</h3>-->
-          <div class="row" [formGroupName]="i">
-            <div class="col-md-12">
-              <div class="form-group">
-                <label for="city">Ort *</label>
-                <input type="text" name="city" class="form-control" formControlName="city">
+          <h3>Schulungsorte</h3>
+          <div *ngFor="let item of form.controls.events.controls; let i = index">
+            <div class="row">
+              <div class="col-md-6">
+                {{item.value.city}}
+              </div>
+              <div class="col-md-6">
+                <button class="btn button-muted btn-small" (click)="deleteEvent(i)">Löschen</button>
               </div>
             </div>
+          </div>
+
+          <div [formGroup]="event">
+            <div class="row save-event">
+              <div class="col-md-12">
+                <label for="city">Neuer Schulungsort *</label>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <input type="text" name="city" class="form-control" formControlName="city">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <button class="btn btn-secondary btn-small" (click)="saveEvent()">Hinzufügen
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="controls">
+            <button type="button" (click)="onSubmit()" class="btn btn-default"
+                    [disabled]="!form.valid">
+              Speichern
+            </button>
+
+            <a *ngIf="!isNew" class="btn btn-link float-right" (click)="deleteTrainingModal.show()">Schulung
+              löschen</a>
+
+            <delete-training-modal [training]="model" #deleteTrainingModal="deleteTrainingModal"></delete-training-modal>
           </div>
         </div>
       </div>
@@ -82,5 +102,5 @@
 </section>
 
 <!--todo: while dev-->
-<pre>{{form.value | json }}</pre>
-<pre>{{model | json }}</pre>
+<!--<pre>{{form.value | json }}</pre>-->
+<!--<pre>{{model | json }}</pre>-->

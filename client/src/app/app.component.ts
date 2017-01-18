@@ -1,6 +1,6 @@
 import {Component, ViewContainerRef} from '@angular/core';
 import {Router, Event, NavigationEnd} from '@angular/router';
-import { MetaService } from 'ng2-meta';
+// import { MetaService } from 'ng2-meta';
 import './rxjs-extensions';
 
 @Component({
@@ -15,7 +15,8 @@ export class AppComponent {
 
   constructor(public router: Router,
               viewContainerRef: ViewContainerRef,
-              private metaService: MetaService) {
+              // private metaService: MetaService
+  ) {
 
     // ng2-bootstrap: You need this small hack in order to catch application root view container ref
     this.viewContainerRef = viewContainerRef;

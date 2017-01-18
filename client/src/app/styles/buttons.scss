@@ -1,0 +1,56 @@
+@import 'variables';
+
+.btn, .btn.active {
+  font-size: 15px;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.btn-padding {
+  padding: 6px 12px;
+}
+
+.btn-default {
+  font-weight: bold;
+  border-radius: 4px;
+  border: 0;
+  padding: 10px 14px;
+  background-color: $blue;
+  color: white;
+
+  &:hover, &:focus, &:active, &:active:hover, &:active:focus {
+    background-color: lighten($blue, 10%);
+    color: white;
+  }
+}
+
+.btn-small {
+  padding: 6px 6px;
+  font-size: 15px;
+}
+
+.btn-default[disabled] {
+  opacity: .65;
+  &:hover, &:focus, &:active, &:active:hover, &:active:focus {
+    background-color: $blue;
+    opacity: .65;
+  }
+}
+
+.button-muted {
+  background-color: $light-grey;
+  color: #333;
+
+  &:hover, &:focus, &:active {
+    color: black;
+    background-color: $orange;
+  }
+}
+
+.button-muted.active {
+  background-color: $orange;
+}
+
+.btn-secondary {
+  color: black;
+}

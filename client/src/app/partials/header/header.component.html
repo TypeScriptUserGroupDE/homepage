@@ -1,7 +1,7 @@
-<div *ngIf="!isLoggedIn() && !(getCurrentRoute() === '/' || getCurrentRoute() === '/home')" class="banner orange-bg">
+<div *ngIf="!isLoggedIn() && !(getCurrentRoute() === '/' || getCurrentRoute() === '/home')" class="header orange-bg">
   <div class="container">
     <div class="col-md-9">
-      <p class="text-white bold">TypeScript UsersDE ist ein offenes Verzeichnis von TypeScript-Entwicklern in Deutschland.</p>
+      <p class="bold">TypeScript UsersDE ist ein offenes Verzeichnis von TypeScript-Entwicklern in Deutschland.</p>
     </div>
     <div class="col-md-3 banner-actions">
       <button class="btn btn-default" (click)="login()">Mit GitHub anmelden</button>

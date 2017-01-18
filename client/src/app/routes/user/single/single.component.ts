@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Http} from '@angular/http';
 import {Router, ActivatedRoute} from '@angular/router';
-import {MetaService} from 'ng2-meta';
 import {User} from '../../../common/User';
 import {AuthService} from '../../../services/auth/auth.service';
+import {SeoService} from "../../../services/seo/seo.service";
 
 @Component({
   selector: 'single',
@@ -19,7 +19,7 @@ export class SingleComponent implements OnInit {
               private router: Router,
               private authService: AuthService,
               private route: ActivatedRoute,
-              private metaService: MetaService) {
+              private seoService: SeoService) {
   }
 
   ngOnInit() {
@@ -29,12 +29,16 @@ export class SingleComponent implements OnInit {
         this.user.tecList = [];
         this.hasTecSelected();
 
+        this.seoService.setTitle(this.user.name + ' - TypeScript Entwickler in ' + this.user.city);
+        this.seoService.setMetaDescription(this.user.description || this.user.name + ' verwendet TypeScript mit ' + this.user.tecList.toString());
+        this.seoService.setKeywords(this.user.tecList.toString() + ',' + this.user.city);
+
         // see https://github.com/vinaygopinath/ng2-meta/issues/7
-        setTimeout(() => {
-          this.metaService.setTitle(this.user.name + ' - TypeScript Entwickler in ' + this.user.city);
-          this.metaService.setTag('keywords', this.user.tecList.toString() + ',' + this.user.city);
-          this.metaService.setTag('description', this.user.description || this.user.name + ' verwendet TypeScript mit ' + this.user.tecList.toString());
-        });
+        // setTimeout(() => {
+        //   this.metaService.setTitle();
+        //   this.metaService.setTag('keywords', this.user.tecList.toString() + ',' + this.user.city);
+        //   this.metaService.setTag('description', );
+        // });
       }
     );
 

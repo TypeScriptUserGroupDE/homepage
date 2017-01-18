@@ -1,0 +1,29 @@
+<div id="deleteTrainingModal" bsModal #deleteTrainingModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="deleteTraining"
+     aria-hidden="true">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="col-md-12">
+          <h4 class="modal-title">Profil löschen</h4>
+          <button type="button" class="close" aria-label="Close" (click)="hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="col-md-12">
+          <p>Soll diese Schulung wirklich gelöscht werden?</p>
+          <p>Dieser Vorgang lässt sich nicht rückgängig machen.</p>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <a class="btn btn-link" (click)="deleteUser(modal)">Schulung löschen</a>
+          </div>
+          <div class="col-md-6">
+            <a class="btn btn-default float-right" (click)="hide()">Zurück</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

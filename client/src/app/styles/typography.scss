@@ -24,7 +24,8 @@ body {
   font-family: "Source Sans Pro", sans-serif;
   font-weight: normal;
   height: 100%;
-  font-size: 17px;
+  color: $text-color;
+  font-size: 15px;
   background-color: $bg-grey;
 }
 
@@ -59,20 +60,25 @@ h6 {
 }
 
 p, span, li, .form-control {
-  font-size: 16px;
+  font-size: 15px;
   //font-weight: lighter;
 }
 
 // because <a (click)="whatever()"></a> does not show pointer
 a {
   cursor: pointer;
-  font-size: 17px;
+  font-size: 15px;
   color: $light-blue;
   font-weight: bold;
 
-  &:hover, &:focus {
+  &:hover {
     text-decoration: none;
     color: $orange;
+  }
+
+  &:focus {
+    text-decoration: none;
+    color: $light-blue;
   }
 }
 

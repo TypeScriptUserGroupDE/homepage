@@ -23,9 +23,15 @@
   display: block;
   background-color: white;
   margin-bottom: 30px;
+  min-height: 132px;
 
   &:hover, &:focus {
     background-color: darken(white, 5);
+  }
+
+  h4 {
+    margin-top: 0;
+    margin-bottom: 5px;
   }
 
   a {
@@ -38,8 +44,8 @@
   .card-content {
     padding: 0;
     .img {
-      padding-right: 10px;
       padding-left: 10px;
+      padding-right: 0;
     }
 
     .text {
@@ -61,8 +67,14 @@
     }
 
     .tec {
+      margin-top: 5px;
+      margin-bottom: 0;
       > li {
-        font-size: 15px;
+        display: inline-block;
+        font-size: 14px;
+        margin: 2px;
+        background-color: $orange;
+        padding: 2px 4px;
         font-weight: normal;
       }
       .more {

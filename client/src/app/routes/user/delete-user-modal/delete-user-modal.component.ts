@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {ModalDirective} from 'ng2-bootstrap/ng2-bootstrap';
+import {ModalDirective} from 'ng2-bootstrap';
 import {AuthService} from './../../../services/auth/auth.service';
 import {UserService} from "../../../services/user/user.service";
 

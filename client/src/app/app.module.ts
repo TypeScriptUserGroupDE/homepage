@@ -1,11 +1,11 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpModule} from '@angular/http';
-import {JwtHelper, provideAuth, AuthHttp} from 'angular2-jwt';
-import {provideLazyMapsAPILoaderConfig, AgmCoreModule} from 'angular2-google-maps/core';
-import {AlertComponent, ModalModule, TypeaheadModule} from 'ng2-bootstrap/ng2-bootstrap';
-import {MetaModule, MetaConfig, MetaService} from 'ng2-meta';
+import {HttpModule, Http, RequestOptions} from '@angular/http';
+import {JwtHelper, AuthHttp, AuthConfig} from 'angular2-jwt';
+import {AgmCoreModule} from 'angular2-google-maps/core';
+import {AlertModule, ModalModule, TypeaheadModule} from 'ng2-bootstrap';
+import {Ng2PaginationModule} from 'ng2-pagination';
 import {LinkyPipe} from 'angular2-linky';
 import {AppConfig} from './config/app.config';
 import {routing} from './app.routes';
@@ -37,17 +37,21 @@ import {TrainingsListComponent} from './routes/trainings/list/list.trainings.com
 import {TrainingsAddComponent} from './routes/trainings/add/add.component';
 import {TrainingsService} from "./services/trainings/trainings.service";
 import {TrainingsSingleComponent} from './routes/trainings/single/single.component';
+import {filterTrainingsByTec} from "./pipes/filterTraining.pipe";
+import {TrainingsMapComponent} from "./routes/trainings/map/map.component";
+import {DeleteTrainingModalComponent} from "./routes/trainings/delete-trainings-modal/delete-training-modal.component";
+import {SeoService} from "./services/seo/seo.service";
 
-// global meta tag configuration, see https://github.com/vinaygopinath/ng2-meta
-const metaConfig: MetaConfig = {
-  useTitleSuffix: true,
-  defaults: {
-    title: 'TypeScript Entwickler-Verzeichnis',
-    keywords: 'TypeScript Entwickler,TypeScript, Entwickler,JavaScript,AngularJS,Angular2,node.Js,Ionic,NativeScript,Entwicklerverzeichnis,User Group,Deutschland,Schweiz,Österreich',
-    description: 'TypeScript UsersDE ist ein offenes Verzeichnis von TypeScript-Entwicklern in Deutschland. Unser Ziel ist es TypeScript-Entwickler untereinander zu vernetzen',
-    titleSuffix: ' - TypeScript UsersDE',
-  }
-};
+export function authHttpServiceFactory(http: Http, options: RequestOptions) {
+  return new AuthHttp(new AuthConfig({
+    tokenName: 'token',
+    headerName: 'x-access-token',
+    headerPrefix: '',
+    noTokenScheme: true,
+    tokenGetter: (() => localStorage.getItem('token')),
+    globalHeaders: [{'Content-Type': 'application/json'}],
+  }), http, options);
+}
 
 @NgModule({
   imports: [
@@ -56,9 +60,11 @@ const metaConfig: MetaConfig = {
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    AgmCoreModule.forRoot(),
-    MetaModule.forRoot(metaConfig),
+    AlertModule.forRoot(),
+    AgmCoreModule.forRoot({apiKey: AppConfig.google_maps_api_key}),
     ModalModule,
+    Ng2PaginationModule,
+    ModalModule.forRoot(),
     TypeaheadModule
   ],
   declarations: [
@@ -74,39 +80,36 @@ const metaConfig: MetaConfig = {
     SingleComponent,
     UserAddComponent,
     DeleteUserModalComponent,
+    DeleteTrainingModalComponent,
     UserMessageComponent,
     CallbackComponent,
-    DeleteUserModalComponent,
-    AlertComponent,
     TecPipe,
     KeysPipe,
     filterTecPipe,
+    filterTrainingsByTec,
     DistancePipe,
     LinkyPipe,
     TrainingsListComponent,
     TrainingsAddComponent,
+    TrainingsMapComponent,
     TrainingsSingleComponent
   ],
   providers: [
     AuthService,
     UserService,
     TrainingsService,
+    SeoService,
     SingleUserResolver,
     UserAddResolver,
     SingleTrainingResolver,
     TrainingAddResolver,
     SearchResolver,
     JwtHelper,
-    MetaService,
-    provideLazyMapsAPILoaderConfig({apiKey: AppConfig.google_maps_api_key}),
-    AuthHttp,
-    provideAuth({
-      headerName: 'x-access-token',
-      headerPrefix: '',
-      noTokenScheme: true,
-      tokenName: 'token',
-      tokenGetter: () => localStorage.getItem('token')
-    })
+    {
+      provide: AuthHttp,
+      useFactory: authHttpServiceFactory,
+      deps: [Http, RequestOptions]
+    },
   ],
   bootstrap: [AppComponent]
 })

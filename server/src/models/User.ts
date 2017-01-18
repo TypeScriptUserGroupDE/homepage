@@ -62,8 +62,6 @@ export var UserSchema = new Schema(
             type: [Number], // [0]: longitude, [1]: latitude
             index: '2dsphere'
         },
-        // latitude: Number,
-        // longitude: Number,
         fieldSum: Number,
         availability: {
             forProjects: {type: Boolean, default: false},

@@ -13,18 +13,11 @@ import * as _ from 'lodash';
 
 export class ListComponent implements OnInit {
   @Input() search: string = "";
-  distance: number = 25000;
-  data: UserListItem[];
+  distance: number = 25000; // default search distance
   users: UserListItem[]; // all users
-  filteredUsers: UserListItem[]; // users which match search term
-  paginatedUsers: UserListItem[]; // split user array into multiple pages
   searchTerm: string;
   count: number;
   filterByTec: any;
-  itemsPerPage: number = 9;
-  pages: number[];
-  pageIndex: number = 0;
-  skip: number = 0;
   isSearchDone: boolean;
   noResults: boolean;
   city: string;
@@ -53,8 +46,11 @@ export class ListComponent implements OnInit {
       .getUserList()
       .subscribe(
         data => {
-          this.data = data;
-          this.prepareData();
+          this.users = data;
+          this.noResults = false;
+          if (this.users.length === 0) {
+            this.noResults = true;
+          }
         },
         error => console.log(error)
       );
@@ -78,43 +74,21 @@ export class ListComponent implements OnInit {
     this.userService.getUsersNearCity(search, distance)
       .subscribe(
         data => {
-          this.data = data;
+          this.users = data;
           this.isSearchDone = true;
           this.searchTerm = search;
-          this.prepareData();
+          this.noResults = false;
+          if (this.users.length === 0) {
+            this.noResults = true;
+          }
         },
         error => console.log(error)
       );
   }
 
-  prepareData(filterAvailable?: boolean) {
-    this.noResults = false;
-    if (this.data.length === 0) {
-      this.noResults = true;
-    }
-
-    this.users = this.data;
-    if (filterAvailable) {
-      this.users = this.filterAvailable(this.users);
-    }
-    this.paginate();
-  }
-
   filterAvailable(users: UserListItem[]) {
     return _.filter(users, ['forProjects', true]);
   }
-
-  paginate(search?: string) {
-    this.count = this.users.length;
-    this.pages = Array(Math.ceil(this.count / this.itemsPerPage));
-    this.paginatedUsers = this.users.slice(0, this.itemsPerPage);
-  }
-
-  loadPage(index: number) {
-    this.pageIndex = index;
-    this.skip = this.pageIndex * this.itemsPerPage;
-    this.paginatedUsers = this.users.slice(this.skip + 0, this.skip + this.itemsPerPage)
-  };
 
   inValidateSearch() {
     this.ngOnInit();

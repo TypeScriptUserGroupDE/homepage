@@ -17,6 +17,7 @@ import {
 import {SearchComponent} from "./routes/search/search.component";
 import {TrainingsAddComponent} from "./routes/trainings/add/add.component";
 import {TrainingsSingleComponent} from "./routes/trainings/single/single.component";
+import {TrainingsMapComponent} from "./routes/trainings/map/map.component";
 
 
 const routes: Routes = [
@@ -87,16 +88,20 @@ const routes: Routes = [
     component: TrainingsAddComponent
   },
   {
-    path: 'schulung/neu/:title',
-    canActivate: [AuthService],
-    component: TrainingsAddComponent,
-    resolve: {training: TrainingAddResolver}
+    path: 'schulungen/karte',
+    component: TrainingsMapComponent
   },
   {
-    path: 'schulung/:title',
+    path: 'schulung/neu/:title_link',
+    canActivate: [AuthService],
+    component: TrainingsAddComponent,
+    resolve: {training: TrainingAddResolver},
+    // canActivate: [AuthService] // todo: only load if user is owner?
+  },
+  {
+    path: 'schulung/:title_link',
     component: TrainingsSingleComponent,
-    resolve: {training: SingleTrainingResolver},
-    canActivate: [AuthService] // todo: only load if user is owner?
+    resolve: {training: SingleTrainingResolver}
   },
   {
     path: '**', redirectTo: ''

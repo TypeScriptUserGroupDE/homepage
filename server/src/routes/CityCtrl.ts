@@ -14,13 +14,13 @@ class CityCtrl {
             .find({}, {'_id': 0, "name": 1})
             .exec(done);
 
-        function done(error:any, result:City[]) {
+        function done(error: any, result: City[]) {
             if (error) {
                 console.log("err");
                 return
             }
 
-            let out:string[] = [];
+            let out: string[] = [];
             _.forEach(result, function (item) {
                 out.push(item.name);
             });
@@ -31,11 +31,10 @@ class CityCtrl {
         }
     }
 
-    createCity(data: any) {
-        data = JSON.parse(data);
+    createCity(data: any, city: string) {
         let obj = {
-            name: data.results[0].address_components[1].long_name,
-            name_lowercase: data.results[0].address_components[1].long_name.toLowerCase(),
+            name: city,
+            name_lowercase: city.toLowerCase(),
             country: data.results[0].address_components[data.results[0].address_components.length - 1].long_name,
             loc: [
                 data.results[0].geometry.location.lng,
@@ -43,8 +42,8 @@ class CityCtrl {
             ]
         };
 
-        let city = new CityModel(obj);
-        city.save(done);
+        let cityObj = new CityModel(obj);
+        cityObj.save(done);
 
         var done = (err: any) => {
             if (err) {
@@ -54,6 +53,30 @@ class CityCtrl {
         };
         return city
     }
+
+    createCityCache(coordinates: number[], country: string, city: string) {
+        let obj = {
+            name: city,
+            name_lowercase: city.toLowerCase(),
+            country: country,
+            loc: [
+                coordinates[0],
+                coordinates[1]
+            ]
+        };
+
+        let cityObj = new CityModel(obj);
+        cityObj.save(done);
+
+        var done = (err: any) => {
+            if (err) {
+                console.log('err');
+                return;
+            }
+        };
+        return city
+    }
+
 
 }
 

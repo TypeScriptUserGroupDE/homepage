@@ -3,23 +3,19 @@
   <div class="container">
     <div class="row head">
       <div class="col-md-12">
-        <h1>TypeScript Entwickler</h1>
-        <div class="row">
-          <div class="col-md-4">
+        <h1 class="text-orange underline">TypeScript Entwickler</h1>
+        <div class="row list-control-row">
+
+          <div class="col-lg-1 col-md-6 col-sm-5 col-xs-12 list-control nav">
             <div class="btn-group" role="group" aria-label="...">
-              <a type="button" class="btn button-muted" [routerLink]="['/entwickler']"
+              <a type="button" class="btn button-muted btn-small" [routerLink]="['/entwickler']"
                  routerLinkActive="active">Liste</a>
-              <a type="button" class="btn button-muted" [routerLink]="['/karte']"
+              <a type="button" class="btn button-muted btn-small" [routerLink]="['/karte']"
                  routerLinkActive="active">Karte</a>
             </div>
           </div>
-          <div class="col-md-3">
-            <label class="btn-padding">
-              <input type="checkbox" (change)="prepareData($event.target.checked)">
-              Für Projekte verfügbar
-            </label>
-          </div>
-          <div class="col-md-5">
+
+          <div class="col-lg-4 col-md-6 col-sm-7 col-xs-12 list-control color search">
             <form id="search-form" #searchListForm="ngForm" novalidate>
               <div class="searchForm input-group">
               <span class="input-group-btn">
@@ -38,17 +34,25 @@
                     <option value="50000">+ 50km</option>
                     <option value="100000">+ 100km</option>
                  </select>
-                 <button class="btn button-muted search-submit form-control"
+                 <button class="btn btn-default btn-small search-submit form-control"
                          (click)="doSearch(search, distance)"
                          [disabled]="!typeAheadDataLoaded">Suchen</button>
                 </span>
               </div>
             </form>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-            <form id="tec-form" #filterTecForm="ngForm" novalidate>
+
+          <div class="col-lg-2 col-md-6 col-sm-5 col-xs-12 list-control color">
+            <div class="btn-padding">
+              <label class="">
+                <input type="checkbox" (change)="prepareData($event.target.checked)">
+                Für Projekte verfügbar
+              </label>
+            </div>
+          </div>
+
+          <div class="col-lg-5 col-md-6 col-sm-7 col-xs-12 list-control color">
+            <form id="tec-form" class="btn-padding" #filterTecForm="ngForm" novalidate>
               <div class="checkbox" *ngFor="let tec of technologiesArray">
                 <label>
                   <input type="checkbox" name="{{tec}}" [(ngModel)]="filterByTec[technologies[tec]]">
@@ -57,8 +61,8 @@
               </div>
             </form>
           </div>
-        </div>
 
+        </div>
       </div>
     </div>
 
@@ -73,7 +77,8 @@
     </div>
 
     <div class="flex-row content">
-      <div class=" col-lg-4 col-md-6 col-sm-6" *ngFor="let user of paginatedUsers | filterTec: filterByTec">
+      <div class=" col-lg-4 col-md-6 col-sm-6"
+           *ngFor="let user of users | filterTec: filterByTec | paginate: { itemsPerPage: 9, currentPage: p }">
         <div class="card border-style white-bg">
           <a (click)="goToSingle(user.login)">
             <div class="card-content">
@@ -101,17 +106,7 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-md-12">
-        <div class="btn-group" role="group" aria-label="...">
-          <button *ngFor="let page of pages; let i = index" [class.active]="(i === pageIndex)"
-                  class="btn button-muted"
-                  (click)="loadPage(i)">
-            {{i + 1}}
-          </button>
-        </div>
-      </div>
-    </div>
+    <pagination-controls directionLinks="false" (pageChange)="p = $event"></pagination-controls>
   </div>
 </section>
 <!--<pre>{{distance | json }}</pre>-->

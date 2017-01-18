@@ -3,7 +3,7 @@
   <div class="container">
     <div class="row head">
       <div class="col-md-6">
-        <h1>Schulungen</h1>
+        <h1 class="text-orange underline">Schulungen</h1>
       </div>
       <div class="col-md-6">
         <button *ngIf="isLoggedIn()" class="btn btn-default float-right" [routerLink]="['/schulung/neu']">
@@ -13,11 +13,13 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-4">
-
-      </div>
       <div class="col-md-3">
-
+        <a type="button" class="btn button-muted" [routerLink]="['/schulungen']"
+           routerLinkActive="active">Liste</a>
+        <a type="button" class="btn button-muted" [routerLink]="['/schulungen/karte']"
+           routerLinkActive="active">Karte</a>
+      </div>
+      <div class="col-md-4">
       </div>
       <div class="col-md-5">
         <form id="search-form" #searchListForm="ngForm" novalidate>
@@ -38,7 +40,7 @@
                     <option value="50000">+ 50km</option>
                     <option value="100000">+ 100km</option>
                  </select>
-                 <button class="btn btn-default search-submit form-control"
+                 <button class="btn button-muted search-submit form-control"
                          (click)="doSearch(search, distance)"
                          [disabled]="!typeAheadDataLoaded">Suchen</button>
                 </span>
@@ -48,51 +50,63 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <!--<form id="tec-form" #filterTecForm="ngForm" novalidate>-->
-        <!--<div class="checkbox" *ngFor="let tec of technologiesArray">-->
-        <!--<label>-->
-        <!--<input type="checkbox" name="{{tec}}" [(ngModel)]="filterByTec[technologies[tec]]">-->
-        <!--{{tec}}-->
-        <!--</label>-->
-        <!--</div>-->
-        <!--</form>-->
+
       </div>
     </div>
 
     <div class="row">
-      <div class="overview col-md-3">
-        <ul class="no-list">
-          <li>Frameworsks</li>
-          <li>Ort</li>
-          <li>Anbieter</li>
-        </ul>
-      </div>
-
-      <div class="info col-md-9">
-
-        <!--<div class="card border-style white-bg">-->
-        <!--<h4>TypeScript intensiv</h4>-->
-        <!--<p><strong>TypeScript</strong></p>-->
-        <!--<p>lorem impsum..</p>-->
-        <!--<span>Ort</span>-->
-        <!--<span>Datum</span>-->
-        <!--<span>Veranstalter</span>-->
-        <!--</div>-->
-        <!--</div>-->
-
-        <div *ngFor="let training of trainings">
-          <div class="card border-style white-bg">
-            <a [routerLink]="['/schulung', training.title]">
-              <h2>{{training.title}}</h2>
-              <p><strong>Schulungsthema: {{training.tec}}</strong></p>
-              <p>Beschreibung: {{training.desc}}</p>
-              <span *ngIf="training.events.length >= 2">An {{training.events.length}} Orte(n)</span>
-              <span>Anbieter: {{training.company}}</span>
-            </a>
+      <div class="sidebar col-md-3">
+        <form id="tec-form" #filterTecForm="ngForm" novalidate>
+          <div class="radio">
+            <label>
+              <input type="radio" name="filter" value="" [(ngModel)]="filterByTec" (change)="resetPagination()">
+              Alle Themen
+            </label>
           </div>
+          <div class="radio" *ngFor="let tec of technologiesArray">
+            <label>
+              <input type="radio" name="filter" value="{{technologies[tec]}}" [(ngModel)]="filterByTec"
+                     (change)="resetPagination()">
+              {{tec}}
+            </label>
+          </div>
+        </form>
+      </div>
+      <div class="info col-md-9">
+        <div *ngIf="noResults || !trainings | filterTrainingsByTec: filterByTec | paginate: { itemsPerPage: 5, currentPage: p }" class="jumbotron search-info">
+          <span>Keine Schulungen gefunden</span>
+          <a *ngIf="filterByTec" class="float-right" (click)="inValidateSearch()">Alle Schulungen anzeigen</a>
         </div>
+
+        <div *ngIf="isSearchDone && !noResults" class="jumbotron search-info">
+          <span>Suche nur nach "{{searchTerm}}"</span>
+          <a class="float-right" (click)="inValidateSearch()">Alle Schulungen anzeigen</a>
+        </div>
+
+        <div
+          *ngFor="let training of trainings | filterTrainingsByTec: filterByTec | paginate: { itemsPerPage: 5, currentPage: p }">
+
+          <a [routerLink]="['/schulung', training.title_link]">
+            <div class="card border-style white-bg">
+              <div class="row">
+                <div class="col-md-9">
+                  <h2 class="title">{{training.title}}</h2>
+                </div>
+                <div class="col-md-3 text-right">
+                  <p class="tec"><strong>{{technologiesRevMap[training.tec]}}</strong></p>
+                </div>
+              </div>
+              <p class="provider">von {{training.company}}</p>
+              <p class="desc">{{training.desc | slice:0:200}} ...</p>
+              <span class="locations-number">{{training.events.length}} Schulungsorte</span>
+            </div>
+          </a>
+        </div>
+
+        <pagination-controls directionLinks="false" (pageChange)="p = $event"></pagination-controls>
+
       </div>
     </div>
   </div>
 </section>
-<pre>{{trainings | json }}</pre>
+<!--<pre>{{filterByTec | json }}</pre>-->

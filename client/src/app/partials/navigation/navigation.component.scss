@@ -7,8 +7,19 @@
 
     .navbar-brand {
       color: white;
-      padding: 0 15px;
       margin-left: 0;
+      padding: 25px 15px;
+
+      .typescript {
+        font-weight: bold;
+        font-size: 24px;
+      }
+
+      .usersde {
+        color: $orange;
+        font-weight: normal;
+        font-size: 24px;
+      }
 
       &:hover, &:focus {
         color: $orange;
@@ -17,10 +28,11 @@
       .logo {
         max-height: 70px;
       }
+    }
 
-      @media screen and (max-width: 1023px) {
-        .logo {
-          max-height: 50px;        }
+    @media screen and (max-width: 1023px) {
+      .navbar-brand {
+        padding: 15px;
       }
     }
   }

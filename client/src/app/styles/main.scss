@@ -15,54 +15,6 @@
   margin-bottom: 30px;
 }
 
-.btn, .btn.active {
-  font-size: 17px;
-  box-shadow: none;
-  border-radius: 0;
-}
-
-.btn-padding {
-  padding: 6px 12px;
-}
-
-.btn-default {
-  font-weight: bold;
-  border-radius: 4px;
-  border: 0;
-  padding: 10px 14px;
-  background-color: $blue;
-  color: white;
-
-  &:hover, &:focus, &:active, &:active:hover, &:active:focus {
-    background-color: lighten($blue, 10%);
-    color: white;
-  }
-}
-
-
-.btn-default[disabled] {
-  opacity: .65;
-  &:hover, &:focus, &:active, &:active:hover, &:active:focus {
-    background-color: $blue;
-    opacity: .65;
-  }
-}
-
-
-.button-muted {
-  background-color: $light-grey;
-  color: black;
-
-  &:hover, &:focus, &:active {
-    color: black;
-    background-color: $orange;
-  }
-}
-
-.button-muted.active {
-  background-color: $orange;
-}
-
 .ng-invalid {
   border-color: red;
 }
@@ -153,7 +105,9 @@
   color: #1fa67a;
 }
 
-typeahead-container {
+typeahead-container.dropdown {
+  position: initial;
+
   ul {
     right: 15px;
   }
@@ -163,5 +117,60 @@ typeahead-container {
     text-decoration: none;
     background-color: $orange;
     outline: 0;
+  }
+
+}
+
+pagination-controls {
+  pagination-template {
+    ul.ng2-pagination {
+      padding-left: 0;
+      display: flex;
+
+      li {
+        margin-right: 5px;
+        margin-left: 5px;
+        background: $grey !important;
+
+        &:first-child {
+          margin-left: 0;
+        }
+
+        &:last-child {
+          margin-right: 0;
+        }
+
+        a {
+          &:hover, &:focus {
+            background: $orange !important;
+          }
+        }
+
+        span {
+          color: black;
+          display: inline-block;
+          padding: 2px 6px;
+          margin-bottom: 0;
+          font-size: 15px;
+          font-weight: normal;
+          line-height: 1.42857143;
+          text-align: center;
+          white-space: nowrap;
+          vertical-align: middle;
+          -ms-touch-action: manipulation;
+          touch-action: manipulation;
+          cursor: pointer;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+          background-image: none;
+        }
+      }
+
+      li.current {
+        background-color: $orange !important;
+      }
+    }
   }
 }

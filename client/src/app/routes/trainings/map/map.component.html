@@ -2,10 +2,10 @@
   <div class="container">
     <div class="row head">
       <div class="col-md-12">
-        <h1>TypeScript Entwickler</h1>
+        <h1>TypeScript Schulungen</h1>
         <div class="btn-group" role="group" aria-label="...">
-          <a type="button" class="btn button-muted btn-small" routerLinkActive="active" [routerLink]="['/entwickler']">Liste</a>
-          <a type="button" class="btn button-muted btn-small" routerLinkActive="active" [routerLink]="['/karte']">Karte</a>
+          <a type="button" class="btn button-muted" [routerLink]="['/schulungen']">Liste</a>
+          <a type="button" class="btn button-muted" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/schulungen/karte']">Karte</a>
         </div>
       </div>
     </div>
@@ -16,16 +16,13 @@
         [zoom]="zoom"
         [styles]='styles'
         [streetViewControl]="false"
-        (zoomChange)="onZoomChange($event)"
       >
-        <sebm-google-map-circle
+        <sebm-google-map-marker
           *ngFor="let marker of markers"
           [latitude]="marker.lat"
           [longitude]="marker.lng"
-          [radius]="radius * (100000 / (100000 - (marker.count * 4000)))"
-          [fillColor]="'red'"
         >
-        </sebm-google-map-circle>
+        </sebm-google-map-marker>
       </sebm-google-map>
     </div>
   </div>

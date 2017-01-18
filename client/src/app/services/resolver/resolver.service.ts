@@ -19,7 +19,6 @@ export class SingleUserResolver implements Resolve<User> {
 
 @Injectable()
 export class UserAddResolver implements Resolve<User> {
-
   constructor(private userService: UserService) {
   }
 
@@ -30,7 +29,6 @@ export class UserAddResolver implements Resolve<User> {
 
 @Injectable()
 export class SearchResolver implements Resolve<UserDistance[]> {
-
   constructor(private userService: UserService) {
   }
 
@@ -42,21 +40,19 @@ export class SearchResolver implements Resolve<UserDistance[]> {
 @Injectable()
 export class SingleTrainingResolver implements Resolve<Training> {
   constructor(private trainingsService: TrainingsService) {
-    console.log('check');
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Training> {
-    return this.trainingsService.getTraining(route.params['title']);
+    return this.trainingsService.getTraining(route.params['title_link']);
   }
 }
 
 @Injectable()
 export class TrainingAddResolver implements Resolve<Training> {
-
   constructor(private trainingsService: TrainingsService) {
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Training> {
-    return this.trainingsService.getTraining(route.params['title']);
+    return this.trainingsService.getTraining(route.params['title_link']);
   }
 }

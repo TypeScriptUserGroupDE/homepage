@@ -31,13 +31,15 @@ section#trainings-list {
 
   #tec-form {
     margin-bottom: 0;
-    .checkbox {
-      display: inline;
+    .radio {
+      display: block;
       margin-left: 2px;
       margin-right: 2px;
+      padding-bottom: 2px;
+      padding-top: 2px;
 
-      input[type="checkbox"] {
-        top: -5px;
+      input[type="radio"] {
+        //top: -5px;
       }
     }
   }
@@ -85,6 +87,20 @@ section#trainings-list {
       &:hover, &:focus {
         color: $blue;
       }
+    }
+  }
+
+  a > .card {
+    color: $text-color;
+    font-weight: normal;
+
+    .title {
+      margin-top: 0px;
+      margin-bottom: 5px;
+    }
+
+    .desc {
+      white-space: pre-wrap;
     }
   }
 }
