@@ -107,7 +107,7 @@ export class UserService {
 
   public getCoordinates(location: string): Observable <any> {
     return this.http.get(
-      'http://maps.googleapis.com/maps/api/geocode/json?language=de&region=de&address=' + encodeURIComponent(location))
+      'https://maps.googleapis.com/maps/api/geocode/json?language=de&region=de&address=' + encodeURIComponent(location))
     .map(this.extractData)
     .catch(this.handleError);
   }
