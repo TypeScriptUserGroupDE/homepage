@@ -4,29 +4,46 @@
   margin-bottom: 0;
 
   .container {
+    .navbar-header {
 
-    .navbar-brand {
-      color: white;
-      margin-left: 0;
-      padding: 25px 15px;
+      a.navbar-brand {
+        color: white;
+        margin-left: 0;
+        padding: 25px 15px;
 
-      .typescript {
-        font-weight: bold;
-        font-size: 24px;
-      }
+        .typescript {
+          font-weight: bold;
+          font-size: 24px;
+        }
 
-      .usersde {
-        color: $orange;
-        font-weight: normal;
-        font-size: 24px;
-      }
+        .usersde {
+          color: $orange;
+          font-weight: normal;
+          font-size: 24px;
+        }
 
-      &:hover, &:focus {
-        color: $orange;
-      }
+        &:hover, &:focus {
+          color: $orange;
+        }
 
-      .logo {
-        max-height: 70px;
+        .logo {
+          max-height: 70px;
+        }
+
+        &:hover {
+
+          .typescript {
+            font-weight: bold;
+            font-size: 24px;
+            color: white;
+          }
+
+          .usersde {
+            color: white;
+            font-weight: normal;
+            font-size: 24px;
+          }
+        }
       }
     }
 
