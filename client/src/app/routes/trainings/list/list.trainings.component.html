@@ -73,7 +73,7 @@
         </form>
       </div>
       <div class="info col-md-9">
-        <div *ngIf="noResults || !trainings | filterTrainingsByTec: filterByTec | paginate: { itemsPerPage: 5, currentPage: p }" class="jumbotron search-info">
+        <div *ngIf="noResults" class="jumbotron search-info">
           <span>Keine Schulungen gefunden</span>
           <a *ngIf="filterByTec" class="float-right" (click)="inValidateSearch()">Alle Schulungen anzeigen</a>
         </div>
