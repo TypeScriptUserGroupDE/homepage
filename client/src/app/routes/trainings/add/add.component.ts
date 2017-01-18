@@ -26,7 +26,10 @@ export class TrainingsAddComponent implements OnInit {
   @Input() form: FormGroup;
   @Input() event: FormGroup;
   @Input() input: ElementRef;
-  // @Input() image: ElementRef;
+  // @Input() public image: ElementRef;
+  image: any;
+
+  item: any = '';
   addressGroup: FormGroup;
   alerts = [];
   model: Training;
@@ -61,10 +64,12 @@ export class TrainingsAddComponent implements OnInit {
 
     let reader = new FileReader();
 
+
     let img = document.createElement("img");
     reader.readAsDataURL(input.files[0]);
 
     reader.onload = (result) => {
+      this.image = reader.result;
       img.src = reader.result;
       console.log(img.width);
     };
