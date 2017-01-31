@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, ElementRef} from '@angular/core';
+import {Component, OnInit, Input, ElementRef, ViewChild} from '@angular/core';
 import {
   FormGroup,
   FormBuilder,
@@ -25,9 +25,10 @@ import * as _ from 'lodash';
 export class TrainingsAddComponent implements OnInit {
   @Input() form: FormGroup;
   @Input() event: FormGroup;
-  @Input() input: ElementRef;
-  // @Input() public image: ElementRef;
+  @Input('input') input: ElementRef;
   image: any;
+  imageWidth: number  = 1920; // todo while dev
+  imageHeight: number = 1088;
 
   item: any = '';
   addressGroup: FormGroup;
@@ -63,22 +64,27 @@ export class TrainingsAddComponent implements OnInit {
   fileChange(input) {
     let fileSize = (input.files[0].size / 1024).toFixed(2);
     let reader = new FileReader();
-    // let img = document.createElement("img");
-    // get image handle
-    console.log(input);
 
     reader.readAsDataURL(input.files[0]);
 
     reader.onload = (result) => {
-      this.image = reader.result;
-      // img.src = reader.result;
-      console.log(this.image.width);
-      console.log(this.image.height);
+      this.image = new Image;
+
+      this.image.src = reader.result;
+
+      this.image.onload = () => {
+        // nothing to do
+        console.log(this.imageUploadValidator());
+      };
     };
   }
 
-  imageUploadValidator(control: AbstractControl) {
-
+  imageUploadValidator() {
+    if (this.image.height === this.imageHeight && this.image.width === this.imageWidth) {
+      return {'image': true};
+    } else {
+      return null
+    }
   }
 
   emailValidator(control: AbstractControl) {
@@ -96,9 +102,9 @@ export class TrainingsAddComponent implements OnInit {
     arrayControl.removeAt(index);
   }
 
-  // google maps api does not allow bulk geocoding of addresses.
-  // Therefore it seems better to gecode each location "manually"
-  // todo: caching of already requested entries
+// google maps api does not allow bulk geocoding of addresses.
+// Therefore it seems better to gecode each location "manually"
+// todo: caching of already requested entries
   saveEvent() {
     //get hold of all relevant input fields
     const cityControl = <FormGroup>this.event.controls['city'];
@@ -120,8 +126,8 @@ export class TrainingsAddComponent implements OnInit {
     })
   }
 
-  // todo: delete city
-  // todo: and delete empty city objects before submit
+// todo: delete city
+// todo: and delete empty city objects before submit
   onSubmit() {
     let data = this.form.value;
     _.forEach(data.events, (event, key) => {
@@ -160,8 +166,8 @@ export class TrainingsAddComponent implements OnInit {
     console.log(error)
   }
 
-  // load existing data into main form
-  buildForm(model?) {
+// load existing data into main form
+  buildForm(model ?) {
     let input = (model) ? model : {};
     let title = input.title || '';
     let tec = input.tec || '';
