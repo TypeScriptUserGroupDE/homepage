@@ -59,20 +59,26 @@ export class TrainingsAddComponent implements OnInit {
       });
   }
 
+  // also see http://raydaq.com/articles/resize-images-angular2
   fileChange(input) {
-    console.log(input.files);
-
+    let fileSize = (input.files[0].size / 1024).toFixed(2);
     let reader = new FileReader();
+    // let img = document.createElement("img");
+    // get image handle
+    console.log(input);
 
-
-    let img = document.createElement("img");
     reader.readAsDataURL(input.files[0]);
 
     reader.onload = (result) => {
       this.image = reader.result;
-      img.src = reader.result;
-      console.log(img.width);
+      // img.src = reader.result;
+      console.log(this.image.width);
+      console.log(this.image.height);
     };
+  }
+
+  imageUploadValidator(control: AbstractControl) {
+
   }
 
   emailValidator(control: AbstractControl) {
