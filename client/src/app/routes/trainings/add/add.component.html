@@ -56,7 +56,7 @@
 
           <div class="form-group">
             <input id="image-upload" type="file" (change)="fileChange(input)" #input/>
-            <img src="{{image}}" class="img-responsive media-object" />
+            <img src="{{image?.src}}" class="img-responsive media-object" #imageObj/>
           </div>
 
           <h3>Schulungsorte</h3>
