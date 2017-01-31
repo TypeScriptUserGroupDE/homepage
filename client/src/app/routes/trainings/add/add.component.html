@@ -55,7 +55,7 @@
           </div>
 
           <div class="form-group">
-            <input id="image-upload" type="file" (change)="fileChange(input)" #input/>
+            <input id="image-upload" type="file" (change)="fileChange(input)" #input formControlName="image"/>
             <img src="{{image?.src}}" class="img-responsive media-object" #imageObj/>
           </div>
 
@@ -107,5 +107,5 @@
 </section>
 
 <!--todo: while dev-->
-<!--<pre>{{form.value | json }}</pre>-->
-<!--<pre>{{model | json }}</pre>-->
+<pre>{{form.value | json }}</pre>
+<pre>{{model | json }}</pre>
