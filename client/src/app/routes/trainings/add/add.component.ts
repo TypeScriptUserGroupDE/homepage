@@ -25,10 +25,12 @@ import * as _ from 'lodash';
 export class TrainingsAddComponent implements OnInit {
   @Input() form: FormGroup;
   @Input() event: FormGroup;
-  @Input('input') input: ElementRef;
-  image: any;
-  imageWidth: number  = 1920; // todo while dev
+  @ViewChild('input') input: ElementRef;
+  image: any = new Image;
+  imageFileSize: number;
+  imageWidth: number = 1920; // todo while dev
   imageHeight: number = 1088;
+  maxImageFileSize: number = 5000000;
 
   item: any = '';
   addressGroup: FormGroup;
@@ -62,28 +64,35 @@ export class TrainingsAddComponent implements OnInit {
 
   // also see http://raydaq.com/articles/resize-images-angular2
   fileChange(input) {
-    let fileSize = (input.files[0].size / 1024).toFixed(2);
+    this.imageFileSize = parseInt((input.files[0].size / 1024).toFixed(2));
     let reader = new FileReader();
 
     reader.readAsDataURL(input.files[0]);
 
     reader.onload = (result) => {
-      this.image = new Image;
 
       this.image.src = reader.result;
 
       this.image.onload = () => {
         // nothing to do
-        console.log(this.imageUploadValidator());
       };
     };
   }
 
-  imageUploadValidator() {
-    if (this.image.height === this.imageHeight && this.image.width === this.imageWidth) {
-      return {'image': true};
-    } else {
-      return null
+  imageUploadValidator(control: AbstractControl) {
+    console.log(control);
+    // if (this.input.nativeElement.files[0]) {
+    //   console.log(this.input.nativeElement.files[0].size);
+    //
+    if (this.input.nativeElement.files[0]) {
+
+      if (this.input.nativeElement.files[0].size <= this.maxImageFileSize && this.image.height === this.imageHeight && this.image.width === this.imageWidth) {
+        console.log("valid");
+        return {'image': true};
+      } else {
+        console.log("invalid");
+        return null;
+      }
     }
   }
 
@@ -167,7 +176,7 @@ export class TrainingsAddComponent implements OnInit {
   }
 
 // load existing data into main form
-  buildForm(model ?) {
+  buildForm(model?) {
     let input = (model) ? model : {};
     let title = input.title || '';
     let tec = input.tec || '';
@@ -175,6 +184,7 @@ export class TrainingsAddComponent implements OnInit {
     let company = input.company || '';
     let website = input.website || '';
     let cta_link = input.cta_link || '';
+    let image = input.image || '';
     let obj: any = [];
 
     if (model) {
@@ -204,7 +214,8 @@ export class TrainingsAddComponent implements OnInit {
       website: [website, Validators.compose([Validators.required, this.linkValidator])],
       cta_link: [cta_link, Validators.compose([Validators.required, this.linkValidator])],
       // email: ['', Validators.compose([this.emailValidator])],
-      events: this.formBuilder.array(obj)
+      events: this.formBuilder.array(obj),
+      image: [image, Validators.compose([this.imageUploadValidator.bind(this)])]
     });
 
     // helper form, will hold location data while we get the coordinates
