@@ -4,6 +4,7 @@ import {
   FormBuilder,
   Validators,
   FormArray,
+  FormControl,
   AbstractControl,
 } from '@angular/forms';
 import {Router} from '@angular/router';
@@ -66,6 +67,11 @@ export class TrainingsAddComponent implements OnInit {
   fileChange(input) {
     this.imageFileSize = parseInt((input.files[0].size / 1024).toFixed(2));
     let reader = new FileReader();
+    // console.log("input");
+    // console.log(input);
+    // console.log("this.input");
+    // console.log(this.input);
+    // console.log(this.form);
 
     reader.readAsDataURL(input.files[0]);
 
@@ -73,25 +79,35 @@ export class TrainingsAddComponent implements OnInit {
 
       this.image.src = reader.result;
 
+      const imageControl = <FormControl>this.form.controls['image'];
+      imageControl.updateValueAndValidity();
+
       this.image.onload = () => {
         // nothing to do
+        console.log("onload image");
+        this.imageUploadValidator();
+
       };
     };
   }
 
-  imageUploadValidator(control: AbstractControl) {
-    console.log(control);
+  imageUploadValidator(control?: AbstractControl) {
+    // console.log(control);
     // if (this.input.nativeElement.files[0]) {
     //   console.log(this.input.nativeElement.files[0].size);
     //
+    console.log("this.input.nativeElement");
+    console.log(this.input.nativeElement);
     if (this.input.nativeElement.files[0]) {
 
       if (this.input.nativeElement.files[0].size <= this.maxImageFileSize && this.image.height === this.imageHeight && this.image.width === this.imageWidth) {
         console.log("valid");
         return {'image': true};
+
       } else {
         console.log("invalid");
         return null;
+
       }
     }
   }
@@ -103,6 +119,7 @@ export class TrainingsAddComponent implements OnInit {
 
   linkValidator(control: AbstractControl) {
     let LINK_REGEXP = /^(https?):\/\/.*$/i;
+    console.log("lnk vali run");
     return (control.value.length === 0 || LINK_REGEXP.test(control.value)) ? null : {'link': true}
   }
 
@@ -215,7 +232,7 @@ export class TrainingsAddComponent implements OnInit {
       cta_link: [cta_link, Validators.compose([Validators.required, this.linkValidator])],
       // email: ['', Validators.compose([this.emailValidator])],
       events: this.formBuilder.array(obj),
-      image: [image, Validators.compose([this.imageUploadValidator.bind(this)])]
+      image: ['', Validators.compose([this.imageUploadValidator.bind(this)])]
     });
 
     // helper form, will hold location data while we get the coordinates
