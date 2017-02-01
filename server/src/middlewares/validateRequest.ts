@@ -6,7 +6,7 @@ import {JwtRequest} from "./../common/interfaces/JwtRequest";
 export = function (req: JwtRequest, res: express.Response, next: Function) {
 
     var token = req.headers["x-access-token"];
-    console.log(token + ' token');
+    // console.log(token + ' token');
 
     if (token) {
         // verify jwt
