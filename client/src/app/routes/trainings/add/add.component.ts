@@ -4,11 +4,11 @@ import {
   FormBuilder,
   Validators,
   FormArray,
-  FormControl,
   AbstractControl,
 } from '@angular/forms';
 import {Router} from '@angular/router';
 import {ActivatedRoute} from '@angular/router';
+import {FileUploader} from 'ng2-file-upload';
 import {Training} from "../../../common/Training";
 import {Technologies} from "../../../common/Technologies";
 import {TrainingsService} from "../../../services/trainings/trainings.service";
@@ -24,6 +24,11 @@ import * as _ from 'lodash';
 // todo: line breaks for desc
 
 export class TrainingsAddComponent implements OnInit {
+  uploader: FileUploader = new FileUploader({
+    url: '/api/training/get/near',
+    maxFileSize: 2 * 1024 * 1024 // 5 MB
+  });
+
   @Input() form: FormGroup;
   @Input() event: FormGroup;
   @ViewChild('input') input: ElementRef;
@@ -67,49 +72,27 @@ export class TrainingsAddComponent implements OnInit {
   fileChange(input) {
     this.imageFileSize = parseInt((input.files[0].size / 1024).toFixed(2));
     let reader = new FileReader();
-    // console.log("input");
-    // console.log(input);
-    // console.log("this.input");
-    // console.log(this.input);
-    // console.log(this.form);
 
     reader.readAsDataURL(input.files[0]);
-
     reader.onload = (result) => {
 
       this.image.src = reader.result;
-
-      const imageControl = <FormControl>this.form.controls['image'];
-      imageControl.updateValueAndValidity();
-
       this.image.onload = () => {
-        // nothing to do
-        console.log("onload image");
-        this.imageUploadValidator();
+        if (this.input.nativeElement.files[0]) {
 
+          if (this.input.nativeElement.files[0].size <= this.maxImageFileSize &&
+            this.image.height === this.imageHeight &&
+            this.image.width === this.imageWidth) {
+
+            this.form.controls['hasImage'].setValue(true);
+          }
+        }
       };
     };
   }
 
-  imageUploadValidator(control?: AbstractControl) {
-    // console.log(control);
-    // if (this.input.nativeElement.files[0]) {
-    //   console.log(this.input.nativeElement.files[0].size);
-    //
-    console.log("this.input.nativeElement");
-    console.log(this.input.nativeElement);
-    if (this.input.nativeElement.files[0]) {
-
-      if (this.input.nativeElement.files[0].size <= this.maxImageFileSize && this.image.height === this.imageHeight && this.image.width === this.imageWidth) {
-        console.log("valid");
-        return {'image': true};
-
-      } else {
-        console.log("invalid");
-        return null;
-
-      }
-    }
+  hasImageValidator(control?: AbstractControl) {
+    return (control.value === true) ? null : {hasImage: true};
   }
 
   emailValidator(control: AbstractControl) {
@@ -193,7 +176,7 @@ export class TrainingsAddComponent implements OnInit {
   }
 
 // load existing data into main form
-  buildForm(model?) {
+  buildForm(model ?) {
     let input = (model) ? model : {};
     let title = input.title || '';
     let tec = input.tec || '';
@@ -201,7 +184,7 @@ export class TrainingsAddComponent implements OnInit {
     let company = input.company || '';
     let website = input.website || '';
     let cta_link = input.cta_link || '';
-    let image = input.image || '';
+    let image = input.image || 'false';
     let obj: any = [];
 
     if (model) {
@@ -232,7 +215,7 @@ export class TrainingsAddComponent implements OnInit {
       cta_link: [cta_link, Validators.compose([Validators.required, this.linkValidator])],
       // email: ['', Validators.compose([this.emailValidator])],
       events: this.formBuilder.array(obj),
-      image: ['', Validators.compose([this.imageUploadValidator.bind(this)])]
+      hasImage: [image, Validators.compose([Validators.required, this.hasImageValidator.bind(this)])]
     });
 
     // helper form, will hold location data while we get the coordinates
