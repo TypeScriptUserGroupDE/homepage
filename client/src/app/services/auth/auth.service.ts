@@ -17,6 +17,12 @@ export class AuthService implements CanActivate {
     return this.isLoggedIn();
   }
 
+  getToken(): string {
+    if (window.localStorage.getItem('token')) {
+      return window.localStorage.getItem('token');
+    }
+  }
+
   getUserName(): string {
     if (window.localStorage.getItem('token')) {
       let token = window.localStorage.getItem('token');
@@ -27,7 +33,7 @@ export class AuthService implements CanActivate {
     }
   }
 
-  isLoggedIn():boolean {
+  isLoggedIn(): boolean {
     if (window.localStorage.getItem('token')) {
       if (tokenNotExpired('token') === true) {
         return true

@@ -3,13 +3,14 @@ import express = require("express");
 import Config from "../config/config";
 import {JwtRequest} from "./../common/interfaces/JwtRequest";
 
-export = function (req:JwtRequest, res:express.Response, next:Function) {
+export = function (req: JwtRequest, res: express.Response, next: Function) {
 
     var token = req.headers["x-access-token"];
+    console.log(token + ' token');
 
     if (token) {
         // verify jwt
-        jwt.verify(token, Config.jwt_secret, function (err:any, decoded:any) {
+        jwt.verify(token, Config.jwt_secret, function (err: any, decoded: any) {
             if (err) {
                 return res.status(403).send({
                     success: false,
