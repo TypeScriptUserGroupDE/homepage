@@ -13,6 +13,10 @@ import CityCtrl from "./CityCtrl";
 import logger from "../common/logging";
 import {Mongoose} from "mongoose";
 import {DeleteWriteOpResultObject} from "mongodb";
+let multer = require('multer');
+let fs = require('fs');
+
+var upload = multer({dest: "./user_upload/"});
 
 class TrainingsCtrl {
     publicRoutes(app: express.Application, baseRoute: string) {
@@ -24,7 +28,7 @@ class TrainingsCtrl {
 
     protectedRoutes(app: express.Application, baseRoute: string) {
         app.post(baseRoute + '/create', this.createTraining);
-        app.put(baseRoute + '/update', this.updateTraining);
+        app.put(baseRoute + '/update', upload.single('training_image'), this.updateTraining);
         app.delete(baseRoute + "/delete", this.deleteTraining);
     }
 
@@ -81,6 +85,10 @@ class TrainingsCtrl {
     }
 
     updateTraining(req: JwtRequest, res: express.Response) {
+        console.log(req.file);
+        console.log(req.files);
+        console.log(req.body);
+
         req.body.title_link = req.body.title.replace(/[^A-Z0-9]/ig, "-").toLowerCase();
         let data: Training = req.body;
 

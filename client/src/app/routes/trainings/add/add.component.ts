@@ -13,6 +13,7 @@ import {Training} from "../../../common/Training";
 import {Technologies} from "../../../common/Technologies";
 import {TrainingsService} from "../../../services/trainings/trainings.service";
 import * as _ from 'lodash';
+import {AuthService} from "../../../services/auth/auth.service";
 
 @Component({
   selector: 'app-add',
@@ -25,8 +26,13 @@ import * as _ from 'lodash';
 
 export class TrainingsAddComponent implements OnInit {
   uploader: FileUploader = new FileUploader({
-    url: '/api/training/get/near',
-    maxFileSize: 2 * 1024 * 1024 // 5 MB
+    url: '/api/training/update',
+    method: 'PUT',
+    itemAlias: 'training_image',
+    maxFileSize: 5 * 1024 * 1024, // 5 MB // todo: connect to filesize check in fileChange()
+    authToken: this.authService.getToken(),
+    authTokenHeader: 'x-access-token'
+    // headers: [{Authorization: 'Bearer '}]
   });
 
   @Input() form: FormGroup;
@@ -51,7 +57,8 @@ export class TrainingsAddComponent implements OnInit {
               private trainingsService: TrainingsService,
               private router: Router,
               private formBuilder: FormBuilder,
-              private elementRef: ElementRef) {
+              private elementRef: ElementRef,
+              private authService: AuthService) {
   }
 
   // todo: if title is not unique...
@@ -70,6 +77,7 @@ export class TrainingsAddComponent implements OnInit {
 
   // also see http://raydaq.com/articles/resize-images-angular2
   fileChange(input) {
+
     this.form.controls['imageIsValid'].reset();
     this.imageFileSize = parseInt((input.files[0].size / 1024).toFixed(2));
     let reader = new FileReader();
@@ -81,9 +89,9 @@ export class TrainingsAddComponent implements OnInit {
       this.image.onload = () => {
         if (this.input.nativeElement.files[0]) {
 
-          if (this.input.nativeElement.files[0].size <= this.maxImageFileSize &&
-            this.image.height === this.imageHeight &&
-            this.image.width === this.imageWidth) {
+          if (this.input.nativeElement.files[0].size <= this.maxImageFileSize && //todo: useful values
+            this.image.height <= this.imageHeight &&
+            this.image.width <= this.imageWidth) {
 
             this.form.controls['imageIsValid'].setValue(true);
           }
@@ -139,35 +147,41 @@ export class TrainingsAddComponent implements OnInit {
 // todo: delete city
 // todo: and delete empty city objects before submit
   onSubmit() {
-    let data = this.form.value;
-    _.forEach(data.events, (event, key) => {
-      data.events[key].loc = [];
-      data.events[key].loc[0] = event.lng;
-      data.events[key].loc[1] = event.lat;
-    });
+    console.log("submit");
+    // this.uploader.setOptions({
+    //   headers: [{xaccesstoken: 'Bearer', x: 'dd'}]
+    // })
+    this.uploader.uploadAll();
 
-    if (this.isNew) {
-      this.trainingsService
-      .createTraining(this.form.value)
-      .subscribe(
-        data => {
-          this.router.navigate(['/schulung', data.title_link]);
-        },
-        error => this.onError(error)
-      );
-    } else {
-      let obj = this.form.value;
-      obj._id = this.model._id;
-
-      this.trainingsService
-      .updateTraining(obj)
-      .subscribe(
-        data => {
-          this.router.navigate(['/schulung', data.title_link]);
-        },
-        error => this.onError(error)
-      );
-    }
+    // let data = this.form.value;
+    // _.forEach(data.events, (event, key) => {
+    //   data.events[key].loc = [];
+    //   data.events[key].loc[0] = event.lng;
+    //   data.events[key].loc[1] = event.lat;
+    // });
+    //
+    // if (this.isNew) {
+    //   this.trainingsService
+    //   .createTraining(this.form.value)
+    //   .subscribe(
+    //     data => {
+    //       this.router.navigate(['/schulung', data.title_link]);
+    //     },
+    //     error => this.onError(error)
+    //   );
+    // } else {
+    //   let obj = this.form.value;
+    //   obj._id = this.model._id;
+    //
+    //   this.trainingsService
+    //   .updateTraining(obj)
+    //   .subscribe(
+    //     data => {
+    //       this.router.navigate(['/schulung', data.title_link]);
+    //     },
+    //     error => this.onError(error)
+    //   );
+    // }
   }
 
   onError(error) {
