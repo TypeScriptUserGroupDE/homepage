@@ -147,18 +147,26 @@ export class TrainingsAddComponent implements OnInit {
 // todo: delete city
 // todo: and delete empty city objects before submit
   onSubmit() {
-    console.log("submit");
-    // this.uploader.setOptions({
-    //   headers: [{xaccesstoken: 'Bearer', x: 'dd'}]
-    // })
+    let data = this.form.value;
+    _.forEach(data.events, (event, key) => {
+      data.events[key].loc = [];
+      data.events[key].loc[0] = event.lng;
+      data.events[key].loc[1] = event.lat;
+    });
+    data = JSON.stringify(data);
+
+    this.uploader.setOptions({
+      url: '/api/training/update',
+      method: 'PUT',
+      itemAlias: 'training_image',
+      maxFileSize: 5 * 1024 * 1024, // 5 MB // todo: connect to filesize check in fileChange()
+      authToken: this.authService.getToken(),
+      authTokenHeader: 'x-access-token',
+      additionalParameter: data
+    });
     this.uploader.uploadAll();
 
-    // let data = this.form.value;
-    // _.forEach(data.events, (event, key) => {
-    //   data.events[key].loc = [];
-    //   data.events[key].loc[0] = event.lng;
-    //   data.events[key].loc[1] = event.lat;
-    // });
+
     //
     // if (this.isNew) {
     //   this.trainingsService

@@ -88,6 +88,7 @@ class TrainingsCtrl {
         console.log(req.file);
         console.log(req.files);
         console.log(req.body);
+        console.log(req.body.title);
 
         req.body.title_link = req.body.title.replace(/[^A-Z0-9]/ig, "-").toLowerCase();
         let data: Training = req.body;
