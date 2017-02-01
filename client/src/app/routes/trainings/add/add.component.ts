@@ -70,6 +70,7 @@ export class TrainingsAddComponent implements OnInit {
 
   // also see http://raydaq.com/articles/resize-images-angular2
   fileChange(input) {
+    this.form.controls['imageIsValid'].reset();
     this.imageFileSize = parseInt((input.files[0].size / 1024).toFixed(2));
     let reader = new FileReader();
 
@@ -84,15 +85,15 @@ export class TrainingsAddComponent implements OnInit {
             this.image.height === this.imageHeight &&
             this.image.width === this.imageWidth) {
 
-            this.form.controls['hasImage'].setValue(true);
+            this.form.controls['imageIsValid'].setValue(true);
           }
         }
       };
     };
   }
 
-  hasImageValidator(control?: AbstractControl) {
-    return (control.value === true) ? null : {hasImage: true};
+  imageIsValidValidator(control?: AbstractControl) {
+    return (control.value === true) ? null : {imageIsValid: true};
   }
 
   emailValidator(control: AbstractControl) {
@@ -184,7 +185,7 @@ export class TrainingsAddComponent implements OnInit {
     let company = input.company || '';
     let website = input.website || '';
     let cta_link = input.cta_link || '';
-    let image = input.image || 'false';
+    let image = input.image || null;
     let obj: any = [];
 
     if (model) {
@@ -215,7 +216,7 @@ export class TrainingsAddComponent implements OnInit {
       cta_link: [cta_link, Validators.compose([Validators.required, this.linkValidator])],
       // email: ['', Validators.compose([this.emailValidator])],
       events: this.formBuilder.array(obj),
-      hasImage: [image, Validators.compose([Validators.required, this.hasImageValidator.bind(this)])]
+      imageIsValid: [image, Validators.compose([Validators.required, this.imageIsValidValidator.bind(this)])]
     });
 
     // helper form, will hold location data while we get the coordinates
