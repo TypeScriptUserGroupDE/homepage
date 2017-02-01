@@ -5,6 +5,7 @@ import {HttpModule, Http, RequestOptions} from '@angular/http';
 import {JwtHelper, AuthHttp, AuthConfig} from 'angular2-jwt';
 import {AgmCoreModule} from 'angular2-google-maps/core';
 import {AlertModule, ModalModule, TypeaheadModule} from 'ng2-bootstrap';
+import {FileUploadModule} from 'ng2-file-upload';
 import {Ng2PaginationModule} from 'ng2-pagination';
 import {LinkyPipe} from 'angular2-linky';
 import {AppConfig} from './config/app.config';
@@ -63,6 +64,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     AlertModule.forRoot(),
     AgmCoreModule.forRoot({apiKey: AppConfig.google_maps_api_key}),
     ModalModule,
+    FileUploadModule,
     Ng2PaginationModule,
     ModalModule.forRoot(),
     TypeaheadModule
