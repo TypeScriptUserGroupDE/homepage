@@ -11,12 +11,12 @@ import {UserDistance} from "../common/interfaces/UserDistance";
 import {model as CityModel, City} from "../models/City";
 import CityCtrl from "./CityCtrl";
 import logger from "../common/logging";
-import {Mongoose} from "mongoose";
 import {DeleteWriteOpResultObject} from "mongodb";
 let multer = require('multer');
 let fs = require('fs');
 
-var upload = multer({dest: "./user_upload/"});
+var upload = multer({dest: "./user_upload/tmp"});
+var destPath = "./user_upload/";
 
 class TrainingsCtrl {
     publicRoutes(app: express.Application, baseRoute: string) {
@@ -27,40 +27,9 @@ class TrainingsCtrl {
     }
 
     protectedRoutes(app: express.Application, baseRoute: string) {
-        app.post(baseRoute + '/create', this.createTraining);
+        app.put(baseRoute + '/create', upload.single('training_image'), this.createTraining);
         app.put(baseRoute + '/update', upload.single('training_image'), this.updateTraining);
         app.delete(baseRoute + "/delete", this.deleteTraining);
-    }
-
-    createTraining(req: JwtRequest, res: express.Response) {
-        req.body.owner = req.decoded.userid;
-        req.body.title_link = req.body.title.replace(/[^A-Z0-9]/ig, "-").toLowerCase();
-
-        let training = new TrainingModel(req.body);
-
-        _.forEach(training.events, (item) => {
-            TrainingsCtrl.saveCityCoordinates(item.city);
-        });
-
-        training.save(function (err) {
-                if (err) {
-                    if (err.code = 11000) {
-                        res.status(409);
-                        res.send('409 - Conflict');
-                        throw err;
-                    } else {
-                        res.status(500);
-                        res.send('500 - Internal Error');
-                        throw err;
-                    }
-
-                }
-
-                res
-                .status(200)
-                .json(training);
-            }
-        );
     }
 
     deleteTraining(req: JwtRequest, res: express.Response) {
@@ -84,16 +53,46 @@ class TrainingsCtrl {
         }
     }
 
-    updateTraining(req: JwtRequest, res: express.Response) {
-        console.log(req.file);
-        console.log(req.files);
-        console.log(req.body);
-        console.log(req.body.title);
-
+    createTraining(req: JwtRequest, res: express.Response) {
+        req.body.events = JSON.parse(req.body.events);
+        req.body.owner = req.decoded.userid;
         req.body.title_link = req.body.title.replace(/[^A-Z0-9]/ig, "-").toLowerCase();
-        let data: Training = req.body;
 
-        _.forEach(data.events, (item) => {
+        let training = new TrainingModel(req.body);
+
+        _.forEach(training.events, (item) => {
+            TrainingsCtrl.saveCityCoordinates(item.city);
+        });
+
+        training.save(function (err) {
+                if (err) {
+                    if (err.code = 11000) {
+                        res.status(409);
+                        res.send('409 - Conflict');
+                        throw err;
+                    } else {
+                        res.status(500);
+                        res.send('500 - Internal Error');
+                        throw err;
+                    }
+
+                }
+
+                let fileExtension = req.file.originalname.substr((~-req.file.originalname.lastIndexOf(".") >>> 0) + 2);
+                fs.renameSync(req.file.path, destPath + '/' + training.title_link + '.' + fileExtension);
+
+                res
+                .status(200)
+                .json(training);
+            }
+        );
+    }
+
+    updateTraining(req: JwtRequest, res: express.Response) {
+        let data: Training = req.body;
+        let events = JSON.parse(req.body.events);
+
+        _.forEach(events, (item) => {
             TrainingsCtrl.saveCityCoordinates(item.city);
         });
 
@@ -108,6 +107,9 @@ class TrainingsCtrl {
                 console.log('err');
                 return;
             }
+
+            let fileExtension = req.file.originalname.substr((~-req.file.originalname.lastIndexOf(".") >>> 0) + 2);
+            fs.renameSync(req.file.path, destPath + '/' + result.title_link + '.' + fileExtension);
 
             res
             .status(200)

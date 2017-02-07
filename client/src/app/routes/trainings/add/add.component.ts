@@ -26,12 +26,12 @@ import {AuthService} from "../../../services/auth/auth.service";
 
 export class TrainingsAddComponent implements OnInit {
   uploader: FileUploader = new FileUploader({
-    url: '/api/training/update',
+    // url: '/api/training/update',
     method: 'PUT',
     itemAlias: 'training_image',
     maxFileSize: 5 * 1024 * 1024, // 5 MB // todo: connect to filesize check in fileChange()
     authToken: this.authService.getToken(),
-    authTokenHeader: 'x-access-token'
+    authTokenHeader: 'x-access-token',
     // headers: [{Authorization: 'Bearer '}]
   });
 
@@ -100,6 +100,10 @@ export class TrainingsAddComponent implements OnInit {
     };
   }
 
+  asyncTrainingsTitleValidator(control: AbstractControl) {
+    // todo
+  }
+
   imageIsValidValidator(control?: AbstractControl) {
     return (control.value === true) ? null : {imageIsValid: true};
   }
@@ -148,23 +152,42 @@ export class TrainingsAddComponent implements OnInit {
 // todo: and delete empty city objects before submit
   onSubmit() {
     let data = this.form.value;
+
     _.forEach(data.events, (event, key) => {
       data.events[key].loc = [];
       data.events[key].loc[0] = event.lng;
       data.events[key].loc[1] = event.lat;
     });
-    data = JSON.stringify(data);
+    data.events = JSON.stringify(data.events);
 
-    this.uploader.setOptions({
-      url: '/api/training/update',
-      method: 'PUT',
-      itemAlias: 'training_image',
-      maxFileSize: 5 * 1024 * 1024, // 5 MB // todo: connect to filesize check in fileChange()
-      authToken: this.authService.getToken(),
-      authTokenHeader: 'x-access-token',
-      additionalParameter: data
-    });
+    if (this.isNew) {
+      this.uploader.setOptions({
+        url: '/api/training/create',
+        method: 'PUT',
+        itemAlias: 'training_image',
+        maxFileSize: 5 * 1024 * 1024, // 5 MB // todo: connect to filesize check in fileChange()
+        authToken: this.authService.getToken(),
+        authTokenHeader: 'x-access-token',
+        additionalParameter: data
+      });
+    } else {
+      data._id = this.model._id;
+      this.uploader.setOptions({
+        url: '/api/training/update',
+        method: 'PUT',
+        itemAlias: 'training_image',
+        maxFileSize: 5 * 1024 * 1024, // 5 MB // todo: connect to filesize check in fileChange()
+        authToken: this.authService.getToken(),
+        authTokenHeader: 'x-access-token',
+        additionalParameter: data
+      })
+    }
+
     this.uploader.uploadAll();
+
+    this.uploader.onCompleteAll = () => {
+// upload done
+    };
 
 
     //
@@ -178,17 +201,17 @@ export class TrainingsAddComponent implements OnInit {
     //     error => this.onError(error)
     //   );
     // } else {
-    //   let obj = this.form.value;
-    //   obj._id = this.model._id;
+    // let obj = this.form.value;
+    // obj._id = this.model._id;
     //
-    //   this.trainingsService
-    //   .updateTraining(obj)
-    //   .subscribe(
-    //     data => {
-    //       this.router.navigate(['/schulung', data.title_link]);
-    //     },
-    //     error => this.onError(error)
-    //   );
+    // this.trainingsService
+    // .updateTraining(obj)
+    // .subscribe(
+    //   data => {
+    //     this.router.navigate(['/schulung', data.title_link]);
+    //   },
+    //   error => this.onError(error)
+    // );
     // }
   }
 
@@ -207,7 +230,7 @@ export class TrainingsAddComponent implements OnInit {
     let company = input.company || '';
     let website = input.website || '';
     let cta_link = input.cta_link || '';
-    let image = input.image || null;
+    let image = input.imageIsValid || null;
     let obj: any = [];
 
     if (model) {
@@ -238,7 +261,7 @@ export class TrainingsAddComponent implements OnInit {
       cta_link: [cta_link, Validators.compose([Validators.required, this.linkValidator])],
       // email: ['', Validators.compose([this.emailValidator])],
       events: this.formBuilder.array(obj),
-      imageIsValid: [image, Validators.compose([Validators.required, this.imageIsValidValidator.bind(this)])]
+      imageIsValid: [image, Validators.compose([this.imageIsValidValidator.bind(this)])] // todo required
     });
 
     // helper form, will hold location data while we get the coordinates
