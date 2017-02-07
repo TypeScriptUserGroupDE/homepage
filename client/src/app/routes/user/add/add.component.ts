@@ -51,7 +51,7 @@ export class UserAddComponent implements OnInit {
 
   linkValidator(control: AbstractControl) {
     let LINK_REGEXP = /^(https?):\/\/.*$/i;
-    return (control.value.length === 0 || LINK_REGEXP.test(control.value)) ? null : {'link': true}
+    return (control.value === undefined || control.value.length === 0 || LINK_REGEXP.test(control.value)) ? null : {'link': true}
   }
 
   onSubmit() {
