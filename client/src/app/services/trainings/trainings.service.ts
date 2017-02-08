@@ -19,6 +19,7 @@ export class TrainingsService {
   }
 
   public getTraining(title_link): Observable<Training> {
+    console.log("getTraining");
     return this.http.post('/api/training/get',
       {title_link: title_link},
       this.options)

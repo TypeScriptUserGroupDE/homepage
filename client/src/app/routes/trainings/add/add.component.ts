@@ -14,6 +14,7 @@ import {Technologies} from "../../../common/Technologies";
 import {TrainingsService} from "../../../services/trainings/trainings.service";
 import * as _ from 'lodash';
 import {AuthService} from "../../../services/auth/auth.service";
+import {Observable} from 'rxjs/Rx';
 
 @Component({
   selector: 'app-add',
@@ -101,7 +102,26 @@ export class TrainingsAddComponent implements OnInit {
   }
 
   asyncTrainingsTitleValidator(control: AbstractControl) {
-    // todo
+    console.log("vali run");
+
+    return new Promise((resolve: any) => {
+        this.trainingsService
+        .getTraining(control.value.replace(/[^A-Z0-9]/ig, "-").toLowerCase())
+        .subscribe(
+          data => {
+            console.log("data");
+            console.log(data);
+            if (data.title) {
+              console.log("true");
+              resolve({'title': true});
+            } else {
+              console.log("false");
+              resolve(null);
+            }
+          }
+        )
+      }
+    )
   }
 
   imageIsValidValidator(control?: AbstractControl) {
@@ -186,33 +206,8 @@ export class TrainingsAddComponent implements OnInit {
     this.uploader.uploadAll();
 
     this.uploader.onCompleteAll = () => {
-// upload done
+      // upload done
     };
-
-
-    //
-    // if (this.isNew) {
-    //   this.trainingsService
-    //   .createTraining(this.form.value)
-    //   .subscribe(
-    //     data => {
-    //       this.router.navigate(['/schulung', data.title_link]);
-    //     },
-    //     error => this.onError(error)
-    //   );
-    // } else {
-    // let obj = this.form.value;
-    // obj._id = this.model._id;
-    //
-    // this.trainingsService
-    // .updateTraining(obj)
-    // .subscribe(
-    //   data => {
-    //     this.router.navigate(['/schulung', data.title_link]);
-    //   },
-    //   error => this.onError(error)
-    // );
-    // }
   }
 
   onError(error) {
@@ -257,7 +252,7 @@ export class TrainingsAddComponent implements OnInit {
 
     // main form
     this.form = this.formBuilder.group({
-      title: [title, Validators.compose([Validators.required, Validators.pattern('[aA-zZäöüß0-9 ]*')])],
+      title: [title, Validators.compose([Validators.required, Validators.pattern('[aA-zZäöüß0-9 ]*')]), this.asyncTrainingsTitleValidator.bind(this)],
       tec: [tec, Validators.compose([Validators.required])],
       desc: [desc, Validators.compose([Validators.required])],
       company: [company, Validators.compose([Validators.required])],
