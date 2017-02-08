@@ -57,9 +57,12 @@ class TrainingsCtrl {
         req.body.events = JSON.parse(req.body.events);
         req.body.owner = req.decoded.userid;
         req.body.title_link = req.body.title.replace(/[^A-Z0-9]/ig, "-").toLowerCase();
-        let fileExtension = req.file.originalname.substr((~-req.file.originalname.lastIndexOf(".") >>> 0) + 2);
 
-        req.body.imageFileName = req.body.title_link + '.' + fileExtension;
+        let fileExtension;
+        if (req.file) {
+            fileExtension = req.file.originalname.substr((~-req.file.originalname.lastIndexOf(".") >>> 0) + 2);
+            req.body.imageFileName = req.body.title_link + '.' + fileExtension;
+        }
 
         let training = new TrainingModel(req.body);
 
@@ -80,8 +83,9 @@ class TrainingsCtrl {
                     }
                 }
 
-                fs.renameSync(req.file.path, destPath + '/' + training.title_link + '.' + fileExtension);
-
+                if (req.file) {
+                    fs.renameSync(req.file.path, destPath + '/' + training.title_link + '.' + fileExtension);
+                }
                 res
                 .status(200)
                 .json(training);
@@ -94,9 +98,12 @@ class TrainingsCtrl {
         let data: Training = req.body;
         data.events = JSON.parse(req.body.events);
         req.body.title_link = req.body.title.replace(/[^A-Z0-9]/ig, "-").toLowerCase();
-        let fileExtension = req.file.originalname.substr((~-req.file.originalname.lastIndexOf(".") >>> 0) + 2);
 
-        req.body.imageFileName = req.body.title_link + '.' + fileExtension;
+        let fileExtension;
+        if (req.file) {
+            fileExtension = req.file.originalname.substr((~-req.file.originalname.lastIndexOf(".") >>> 0) + 2);
+            req.body.imageFileName = req.body.title_link + '.' + fileExtension;
+        }
 
         _.forEach(data.events, (item) => {
             TrainingsCtrl.saveCityCoordinates(item.city);
@@ -114,7 +121,9 @@ class TrainingsCtrl {
                 return;
             }
 
-            fs.renameSync(req.file.path, destPath + '/' + result.title_link + '.' + fileExtension);
+            if (req.file) {
+                fs.renameSync(req.file.path, destPath + '/' + result.title_link + '.' + fileExtension);
+            }
 
             res
             .status(200)

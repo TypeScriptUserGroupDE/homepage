@@ -42,6 +42,7 @@ export class TrainingsService {
   }
 
   public updateTraining(training: Training): Observable <Training> {
+    console.log("send");
     return this.authHttp.put('/api/training/update',
       training,
       this.options)
