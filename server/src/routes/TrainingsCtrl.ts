@@ -12,11 +12,12 @@ import {model as CityModel, City} from "../models/City";
 import CityCtrl from "./CityCtrl";
 import logger from "../common/logging";
 import {DeleteWriteOpResultObject} from "mongodb";
+import Config from "../config/config";
 let multer = require('multer');
 let fs = require('fs');
 
-var upload = multer({dest: "./../client/src/assets/user_upload/tmp"});
-var destPath = "./../client/src/assets/user_upload";
+var upload = multer({dest: Config.upload_tmp_dir});
+var destPath = Config.upload_dir;
 
 class TrainingsCtrl {
     publicRoutes(app: express.Application, baseRoute: string) {
