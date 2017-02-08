@@ -90,6 +90,7 @@ class TrainingsCtrl {
     }
 
     updateTraining(req: JwtRequest, res: express.Response) {
+        console.log(req.body);
         let data: Training = req.body;
         data.events = JSON.parse(req.body.events);
         req.body.title_link = req.body.title.replace(/[^A-Z0-9]/ig, "-").toLowerCase();

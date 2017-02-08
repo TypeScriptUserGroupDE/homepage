@@ -34,7 +34,7 @@ export class TrainingsService {
   }
 
   public createTraining(training: Training): Observable <Training> {
-    return this.authHttp.post('/api/training/create',
+    return this.authHttp.put('/api/training/create',
       training,
       this.options)
     .map(this.extractData)

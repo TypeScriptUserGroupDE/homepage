@@ -5,7 +5,7 @@
       {{ alert?.msg }}
     </alert>
 
-    <form [formGroup]="form" novalidate>
+    <form [formGroup]="form" enctype="multipart/form-data" novalidate>
       <div class="row">
         <div class="col-md-12">
           <h2 class="text-orange underline">Informationen zur Schulung</h2>
@@ -55,8 +55,6 @@
           </div>
 
           <div class="form-group">
-            <!--<input #input id="image-upload" name="image" type="file" (change)="fileChange(input)" formControlName="image"/>-->
-
             <input type="file" ng2FileSelect [uploader]="uploader" (change)="fileChange(input)" #input/>
             <p>{{image.width}} x {{image.height}}, {{imageFileSize}} KB</p>
             <img src="{{image?.src}}" class="img-responsive media-object" #imageObj/>
