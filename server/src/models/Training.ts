@@ -53,6 +53,8 @@ export var TrainingSchema = new Schema(
                 index: '2dsphere'
             },
         }],
+        imageIsValid: Boolean,
+        imageFileName: String
     },
     {
         timestamps: true

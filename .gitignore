@@ -5,3 +5,4 @@ client/dist
 env_keys.sh
 npm-debug.log
 server/user_upload
+client/src/assets/user_upload

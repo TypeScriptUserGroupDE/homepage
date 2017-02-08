@@ -15,8 +15,8 @@ import {DeleteWriteOpResultObject} from "mongodb";
 let multer = require('multer');
 let fs = require('fs');
 
-var upload = multer({dest: "./user_upload/tmp"});
-var destPath = "./user_upload/";
+var upload = multer({dest: "./../client/src/assets/user_upload/tmp"});
+var destPath = "./../client/src/assets/user_upload";
 
 class TrainingsCtrl {
     publicRoutes(app: express.Application, baseRoute: string) {
@@ -57,6 +57,9 @@ class TrainingsCtrl {
         req.body.events = JSON.parse(req.body.events);
         req.body.owner = req.decoded.userid;
         req.body.title_link = req.body.title.replace(/[^A-Z0-9]/ig, "-").toLowerCase();
+        let fileExtension = req.file.originalname.substr((~-req.file.originalname.lastIndexOf(".") >>> 0) + 2);
+
+        req.body.imageFileName = req.body.title_link + '.' + fileExtension;
 
         let training = new TrainingModel(req.body);
 
@@ -75,10 +78,8 @@ class TrainingsCtrl {
                         res.send('500 - Internal Error');
                         throw err;
                     }
-
                 }
 
-                let fileExtension = req.file.originalname.substr((~-req.file.originalname.lastIndexOf(".") >>> 0) + 2);
                 fs.renameSync(req.file.path, destPath + '/' + training.title_link + '.' + fileExtension);
 
                 res
@@ -90,9 +91,13 @@ class TrainingsCtrl {
 
     updateTraining(req: JwtRequest, res: express.Response) {
         let data: Training = req.body;
-        let events = JSON.parse(req.body.events);
+        data.events = JSON.parse(req.body.events);
+        req.body.title_link = req.body.title.replace(/[^A-Z0-9]/ig, "-").toLowerCase();
+        let fileExtension = req.file.originalname.substr((~-req.file.originalname.lastIndexOf(".") >>> 0) + 2);
 
-        _.forEach(events, (item) => {
+        req.body.imageFileName = req.body.title_link + '.' + fileExtension;
+
+        _.forEach(data.events, (item) => {
             TrainingsCtrl.saveCityCoordinates(item.city);
         });
 
@@ -108,7 +113,6 @@ class TrainingsCtrl {
                 return;
             }
 
-            let fileExtension = req.file.originalname.substr((~-req.file.originalname.lastIndexOf(".") >>> 0) + 2);
             fs.renameSync(req.file.path, destPath + '/' + result.title_link + '.' + fileExtension);
 
             res

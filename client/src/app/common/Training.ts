@@ -18,6 +18,8 @@ export class Training {
     startDate: Date;
     endDate: Date;
   }];
+  imageFileName: string;
+  imageIsValid: boolean;
   _id?: string;
 
   constructor(owner: string,
