@@ -102,21 +102,16 @@ export class TrainingsAddComponent implements OnInit {
   }
 
   asyncTrainingsTitleValidator(control: AbstractControl) {
-    console.log("vali run");
 
     return new Promise((resolve: any) => {
         this.trainingsService
         .getTraining(control.value.replace(/[^A-Z0-9]/ig, "-").toLowerCase())
         .subscribe(
           data => {
-            console.log("data");
-            console.log(data);
-            if (data.title) {
-              console.log("true");
-              resolve({'title': true});
+            if (!data.title || data._id === this.model._id) {
+              resolve(null); // null is for invalid
             } else {
-              console.log("false");
-              resolve(null);
+              resolve({'title': true});
             }
           }
         )
@@ -135,7 +130,6 @@ export class TrainingsAddComponent implements OnInit {
 
   linkValidator(control: AbstractControl) {
     let LINK_REGEXP = /^(https?):\/\/.*$/i;
-    console.log("lnk vali run");
     return (control.value.length === 0 || LINK_REGEXP.test(control.value)) ? null : {'link': true}
   }
 
@@ -213,7 +207,6 @@ export class TrainingsAddComponent implements OnInit {
   onError(error) {
     this.alerts = [];
     this.alerts.push({msg: 'Es existiert bereits eine Schulung mit diesem Namen', type: 'danger'});
-    console.log(error)
   }
 
 // load existing data into main form

@@ -1,5 +1,9 @@
 export class Training {
-  owner: string;
+  owner: {
+    login: string,
+    name: string,
+    id: string
+  };
   title: string;
   title_link: string;
   tec: string;
