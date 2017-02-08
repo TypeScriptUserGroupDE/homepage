@@ -202,10 +202,15 @@ export class TrainingsAddComponent implements OnInit {
     if (!this.input.nativeElement.files[0] && this.isNew) {
       this.trainingsService
       .createTraining(data)
-    } else if (!this.input.nativeElement.files[0] && !this.isNew) {
+    } else if (!this.input.nativeElement.files[0] && this.isNew === false) {
+      console.log("hit");
       data._id = this.model._id;
       this.trainingsService
       .updateTraining(data)
+      .subscribe(
+        data => console.log(data),
+        error => console.log(error)
+      )
     } else {
       this.uploader.uploadAll();
     }
