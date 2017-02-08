@@ -9,4 +9,6 @@ export default class Config {
     public static log_directory = process.env.TYPESCRIPTUSERS_LOG_DIRECTORY || "/var/log/typescriptusers/log";
     public static log_level = process.env.TYPESCRIPTUSERS_LOG_LEVEL || "error";
     public static production_mode = process.env.TYPESCRIPTUSERS_PRODUCTION_MODE || "true";
+    public static upload_tmp_dir = process.env.TYPESCRIPTUSERS_UPLOAD_TMP_DIR || "./../assets/user_upload/tmp";
+    public static upload_dir = process.env.TYPESCRIPTUSERS_UPLOAD_DIR || "./../assets/user_upload";
 }
