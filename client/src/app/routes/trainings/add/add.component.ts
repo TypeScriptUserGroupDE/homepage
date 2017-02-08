@@ -6,6 +6,7 @@ import {
   FormArray,
   AbstractControl,
 } from '@angular/forms';
+import {Headers} from '@angular/http';
 import {Router} from '@angular/router';
 import {ActivatedRoute} from '@angular/router';
 import {FileUploader} from 'ng2-file-upload';
@@ -78,7 +79,6 @@ export class TrainingsAddComponent implements OnInit {
 
   // also see http://raydaq.com/articles/resize-images-angular2
   fileChange(input) {
-
     this.form.controls['imageIsValid'].reset();
     this.imageFileSize = parseInt((input.files[0].size / 1024).toFixed(2));
     let reader = new FileReader();
@@ -94,6 +94,7 @@ export class TrainingsAddComponent implements OnInit {
             this.image.height <= this.imageHeight &&
             this.image.width <= this.imageWidth) {
 
+            // image is valid, set imageIsValid = true
             this.form.controls['imageIsValid'].setValue(true);
           }
         }
@@ -102,7 +103,6 @@ export class TrainingsAddComponent implements OnInit {
   }
 
   asyncTrainingsTitleValidator(control: AbstractControl) {
-
     return new Promise((resolve: any) => {
         this.trainingsService
         .getTraining(control.value.replace(/[^A-Z0-9]/ig, "-").toLowerCase())
@@ -165,7 +165,7 @@ export class TrainingsAddComponent implements OnInit {
 // todo: delete city
 // todo: and delete empty city objects before submit
   onSubmit() {
-    let data = this.form.value;
+    let data = Object.assign({}, this.form.value);
 
     _.forEach(data.events, (event, key) => {
       data.events[key].loc = [];
@@ -173,6 +173,8 @@ export class TrainingsAddComponent implements OnInit {
       data.events[key].loc[1] = event.lat;
     });
     data.events = JSON.stringify(data.events);
+
+    console.log(data);
 
     if (this.isNew) {
       this.uploader.setOptions({
@@ -197,10 +199,20 @@ export class TrainingsAddComponent implements OnInit {
       })
     }
 
-    this.uploader.uploadAll();
+    if (!this.input.nativeElement.files[0] && this.isNew) {
+      this.trainingsService
+      .createTraining(data)
+    } else if (!this.input.nativeElement.files[0] && !this.isNew) {
+      data._id = this.model._id;
+      this.trainingsService
+      .updateTraining(data)
+    } else {
+      this.uploader.uploadAll();
+    }
 
     this.uploader.onCompleteAll = () => {
       // upload done
+      console.log("upload done");
     };
   }
 
