@@ -1,5 +1,8 @@
 <section id="user-add" class="gray-bg-spacer">
   <div class="container">
+    <alert *ngFor="let alert of alerts" [type]="alert.type">
+      {{ alert?.msg }}
+    </alert>
     <div class="row">
       <div class="col-md-12">
         <h1 class="text-orange underline">Profil</h1>

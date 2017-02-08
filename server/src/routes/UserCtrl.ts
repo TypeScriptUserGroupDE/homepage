@@ -266,7 +266,11 @@ class UserCtrl {
         let location = req.body.zip + ' ' + req.body.city;
 
         UserCtrl.getCoordinates(location)
-        .then(function (result: any) {
+        .then((result: any) => {
+            if (result.status === 'ZERO_RESULTS') {
+                UserCtrl.cancel(res, 'location_not_found');
+                return;
+            }
             // save users city (w/o zip to cities collection
             UserCtrl.saveCityCoordinates(req.body.city);
 
@@ -347,12 +351,12 @@ class UserCtrl {
         return data
     }
 
-    static cancel(res: express.Response) {
+    static cancel(res: express.Response, message) {
         res
         .status(401)
         .json({
             "status": 401,
-            "message": "Something went wrong."
+            "message": message
         });
         return;
     };

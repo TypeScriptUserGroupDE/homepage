@@ -17,6 +17,7 @@ import {UserService} from "../../../services/user/user.service";
 
 export class UserAddComponent implements OnInit {
   form: FormGroup;
+  alerts = [];
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -56,13 +57,15 @@ export class UserAddComponent implements OnInit {
 
   onSubmit() {
     this.dataService
-      .updateUser(this.model)
-      .subscribe(
-        data => {
-          this.router.navigate(['/entwickler']);
-        },
-        error => console.log(error)
-      )
+    .updateUser(this.model)
+    .subscribe(
+      data => {
+        this.router.navigate(['/entwickler']);
+      },
+      error => {
+        this.alerts.push({msg: 'Der angegebene Ort wurde nicht gefunden', type: 'danger'});
+      }
+    )
     ;
   }
 }
