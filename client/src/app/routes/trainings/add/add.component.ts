@@ -233,6 +233,10 @@ export class TrainingsAddComponent implements OnInit {
     let image = input.imageIsValid || null;
     let obj: any = [];
 
+    if (image) {
+      this.image.src = '/assets/user_upload/' + this.model.imageFileName;
+    }
+
     if (model) {
       _.forEach(model.events, (e) => {
         obj.push(this.formBuilder.group({
