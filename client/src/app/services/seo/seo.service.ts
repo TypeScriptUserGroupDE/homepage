@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Title} from '@angular/platform-browser';
-import {getDOM} from '@angular/platform-browser/src/dom/dom_adapter';
 import {defaultMetaTags} from '../../common/defaultMetaTags';
+import {getDOM} from "@angular/platform-browser-dynamic/src/private_import_platform-browser";
 
 @Injectable()
 
